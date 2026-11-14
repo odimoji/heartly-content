@@ -93,3 +93,64 @@ function bubble(x,y,msg,k,size=50){
   text(msg,0,2,size,1,'Caveat',600);cx.restore();
 }
 window.render=function(t){window.SCENE.render(t)};
+
+// ---- shared helpers added for story batches ----
+// word-wrap a string to lines that fit maxW at the given font
+function wrapLines(str, maxW, size, weight = 500, font = 'Inter') {
+  cx.font = `${weight} ${size}px ${font}`; const out = []; let line = '';
+  for (const w of str.split(' ')) { const tryL = line ? line + ' ' + w : w; if (cx.measureText(tryL).width > maxW && line) { out.push(line); line = w } else line = tryL }
+  if (line) out.push(line); return out;
+}
+// left-aligned wrapped block; returns height used
+function para(str, x, y, maxW, size, alpha = 1, col = C.INK, weight = 500, font = 'Inter', lh = 1.4) {
+  const ls = wrapLines(str, maxW, size, weight, font); ls.forEach((l, i) => text(l, x, y + i * size * lh, size, alpha, font, weight, col, 'left')); return ls.length * size * lh;
+}
+// a drawn phone running heartly: entry types in from t0, reply fades in line by line after it
+function heartlyPhone(t, t0, entry, reply, o = {}) {
+  const px = o.x || 540, py = o.y || 1000, pw = o.w || 640, ph = o.h || 900, accent = o.accent || C.EMBER, size = o.size || 36;
+  const typeDur = o.typeDur || 1.3;
+  cx.fillStyle = '#17120E'; cx.beginPath(); cx.roundRect(px - pw / 2, py - ph / 2, pw, ph, 58); cx.fill();
+  cx.save(); cx.strokeStyle = C.CREAM; cx.lineWidth = 6; cx.beginPath(); cx.roundRect(px - pw / 2, py - ph / 2, pw, ph, 58); cx.stroke(); cx.restore();
+  text('heartly', px, py - ph / 2 + 66, 46, 1, 'Caveat', 700, C.CREAM);
+  const L = px - pw / 2 + 52, mw = pw - 104; let y = py - ph / 2 + 150;
+  text('you', L, y, 26, seg(t, t0, t0 + .2), 'Inter', 600, '#9C8E80', 'left'); y += 50;
+  const n = Math.floor(seg(t, t0 + .2, t0 + .2 + typeDur) * entry.length);
+  const eLines = wrapLines(entry, mw, size); // wrap full text so lines don't jump while typing
+  let left = n; eLines.forEach((l, i) => { const s = l.slice(0, Math.max(0, left)); left -= l.length + 1; text(s, L, y + i * size * 1.4, size, 1, 'Inter', 500, C.CREAM, 'left'); });
+  y += eLines.length * size * 1.4 + 40;
+  const r0 = t0 + .35 + typeDur;
+  if (t > r0) {
+    text('heartly', L, y, 26, seg(t, r0, r0 + .25), 'Inter', 600, '#9C8E80', 'left'); y += 50;
+    wrapLines(reply, mw, size).forEach((l, i) => text(l, L, y + i * size * 1.4, size, seg(t, r0 + .1 + i * .3, r0 + .45 + i * .3), 'Inter', 500, accent, 'left'));
+  }
+}
+// short dark dip at each cut
+function dips(t, cuts) { for (const b of cuts) { const d = 1 - Math.abs(t - b) / 0.1; if (d > 0) { cx.fillStyle = `rgba(20,16,13,${d * .85})`; cx.fillRect(0, 0, W, H); } } }
+// camera zoom around a point; call camOff() after
+function camOn(s, ax = 540, ay = 1330) { cx.save(); cx.translate(ax, ay); cx.scale(s, s); cx.translate(-ax, -ay); }
+function camOff() { cx.restore(); }
+// a simple bed seen from the side: headboard at x0, mattress top at y
+function bedSide(x0, x1, y, ink, G = 1330) {
+  wline([[x0, G], [x0, y - 250], [x0 + 40, y - 250], [x0 + 40, y]], 1.4, 6, ink);
+  wline([[x0, y + 40], [x1, y + 40], [x1, G]], 1.4, 6, ink);
+}
+// lying figure on a bed (head at hx), with blanket; eyes open or shut
+function lyingFigure(hx, y, len, ink, bg, eyesOpen = true) {
+  wcircle(hx, y - 20, 34, 7, ink);
+  if (eyesOpen) { cx.fillStyle = ink; cx.beginPath(); cx.arc(hx + 12, y - 28, 5, 0, 6.29); cx.fill(); }
+  else wline([[hx + 4, y - 26], [hx + 20, y - 24]], .5, 4, ink);
+  cx.fillStyle = bg; cx.beginPath(); cx.moveTo(hx + 30, y + 30); cx.quadraticCurveTo(hx + len * .5, y - 70, hx + len, y - 10); cx.lineTo(hx + len + 20, y + 40); cx.lineTo(hx + 30, y + 40); cx.closePath(); cx.fill();
+  wline([[hx + 30, y + 10], [hx + len * .35, y - 38], [hx + len * .7, y - 40], [hx + len, y - 10], [hx + len + 20, y + 40]], 1.6, 6, ink);
+}
+// pillow
+function pillow(x, y, ink) { wline([[x - 70, y], [x - 60, y - 40], [x + 60, y - 44], [x + 72, y], [x - 70, y]], 1.2, 5, ink); }
+// chat bubble (phone UI): right = sent (blue), left = received (grey)
+function chatBubble(x, y, msg, right, k = 1, size = 40, maxW = 520) {
+  if (k <= 0) return 0; const ls = wrapLines(msg, maxW, size); cx.font = `500 ${size}px Inter`;
+  const w = Math.max(...ls.map(l => cx.measureText(l).width)) + 56, h = ls.length * size * 1.3 + 36;
+  const sc = k < 1 ? .6 + .4 * easeOut(k) : 1; const bx = right ? x - w : x;
+  cx.save(); cx.globalAlpha = Math.min(1, k * 2); cx.translate(bx + (right ? w : 0), y); cx.scale(sc, sc); cx.translate(-(bx + (right ? w : 0)), -y);
+  cx.fillStyle = right ? '#2B6CF0' : '#E4DED6'; cx.beginPath(); cx.roundRect(bx, y, w, h, 30); cx.fill();
+  ls.forEach((l, i) => text(l, bx + 28, y + 18 + size * .65 + i * size * 1.3, size, 1, 'Inter', 500, right ? '#fff' : '#1C1A18', 'left'));
+  cx.restore(); return h;
+}
