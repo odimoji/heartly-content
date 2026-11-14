@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Caveat;src:url(node_modules/@fontsource/caveat/files/caveat-latin-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:Caveat;src:url(node_modules/@fontsource/caveat/files/caveat-latin-700-normal.woff2) format('woff2');font-weight:700}
+@font-face{font-family:Inter;src:url(node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2) format('woff2');font-weight:500}
+html,body{margin:0;background:#F3EDE3}
+canvas{display:block}
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,G=1330; // ground y
+const INK='#2A2420', PAPER='#F3EDE3', EMBER='#D9643A', LEAF='#5E7F4E';
+const cx=document.getElementById('c').getContext('2d');
+
+// ---------- helpers ----------
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+let R=rng(1);
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+const seg=(t,a,b)=>clamp((t-a)/(b-a));
+function wline(pts,amp=2.4,w=7,col=INK){ // wobbly polyline through pts
+  cx.strokeStyle=col;cx.lineWidth=w;cx.lineCap='round';cx.lineJoin='round';
+  cx.beginPath();
+  for(let i=0;i<pts.length-1;i++){
+    const [x1,y1]=pts[i],[x2,y2]=pts[i+1];
+    const n=Math.max(2,Math.round(Math.hypot(x2-x1,y2-y1)/22));
+    const nx=-(y2-y1),ny=x2-x1,L=Math.hypot(nx,ny)||1;
+    for(let j=(i?1:0);j<=n;j++){
+      const k=j/n,o=(j===0||j===n)?0:(R()-.5)*2*amp;
+      const x=lerp(x1,x2,k)+nx/L*o,y=lerp(y1,y2,k)+ny/L*o;
+      (i===0&&j===0)?cx.moveTo(x,y):cx.lineTo(x,y);
+    }
+  }
+  cx.stroke();
+}
+function wcircle(x,y,r,w=7,col=INK,amp=2.2){
+  const n=Math.max(18,Math.round(r/3));const pts=[];
+  const start=R()*6.28;
+  for(let i=0;i<=n+2;i++){const a=start+i/n*6.4;const rr=r+(R()-.5)*2*amp;pts.push([x+Math.cos(a)*rr,y+Math.sin(a)*rr])}
+  cx.strokeStyle=col;cx.lineWidth=w;cx.lineCap='round';cx.beginPath();
+  pts.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));cx.stroke();
+}
+function text(s,x,y,size,alpha=1,font='Caveat',weight=700,col=INK){
+  cx.save();cx.globalAlpha=alpha;cx.fillStyle=col;cx.font=`${weight} ${size}px ${font}`;cx.textAlign='center';cx.textBaseline='middle';
+  cx.fillText(s,x,y);cx.restore();
+}
+
+// ---------- figure ----------
+// s: 0 standing .. 1 sitting ; ph: walk phase ; lean: forward lean px ; armUp: writing arm
+function figure(x,s,ph,lean,writing){
+  const hipStand=[x,G-160], hipSit=[x,G-28];
+  const hip=[lerp(hipStand[0],hipSit[0],s),lerp(hipStand[1],hipSit[1],s)];
+  const bodyLen=200;
+  const top=[hip[0]+lean*(1-s),hip[1]-bodyLen];
+  const headR=36, head=[top[0]+lean*0.25*(1-s),top[1]-headR-8];
+  // legs
+  const legs=[];
+  for(const side of [-1,1]){
+    const sw=Math.sin(ph+(side>0?Math.PI:0))*0.42*(1-s);
+    const footStand=[hip[0]+Math.sin(sw)*160,G];
+    const kneeStand=[hip[0]+Math.sin(sw)*80+ (Math.cos(ph+(side>0?Math.PI:0))>0?14:4)*(1-s),G-80];
+    const kneeSit=[x+70+side*6,G-120], footSit=[x+140+side*14,G];
+    const knee=[lerp(kneeStand[0],kneeSit[0],s),lerp(kneeStand[1],kneeSit[1],s)];
+    const foot=[lerp(footStand[0],footSit[0],s),lerp(footStand[1],footSit[1],s)];
+    wline([hip,knee,foot]);
+    legs.push(foot);
+  }
+  wline([hip,top]);
+  wcircle(head[0],head[1],headR);
+  // arms
+  const sh=[lerp(top[0],top[0],.5),top[1]+26];
+  if(writing){
+    wline([sh,[sh[0]+70,sh[1]+70],[x+120,G-160]]);
+    wline([sh,[sh[0]+40,sh[1]+90],[x+95,G-150]]);
+  }else{
+    const a1=Math.sin(ph)*0.45*(1-s);
+    for(const [a,sg] of [[a1,-1],[-a1,1]]){
+      const elbow=[sh[0]+sg*26+Math.sin(a)*55-lean*0.1,sh[1]+66];
+      const hand=[sh[0]+sg*38+Math.sin(a)*100-lean*0.2,sh[1]+128];
+      wline([sh,elbow,hand]);
+    }
+  }
+  return {foot:legs[0],head};
+}
+
+// ---------- ball ----------
+function ball(bx,r,alpha=1){
+  if(r<=0)return;
+  cx.save();cx.globalAlpha=alpha;
+  const by=G-r;
+  // hatch fill
+  cx.save();cx.beginPath();cx.arc(bx,by,r-4,0,6.29);cx.clip();
+  for(let i=-r*2;i<r*2;i+=Math.max(16,r/7)){wline([[bx+i-r,by+r],[bx+i+r,by-r]],1.6,3.2,'rgba(42,36,32,.55)')}
+  cx.restore();
+  wcircle(bx,by,r,8);
+  if(r>40) text('them',bx,by+4,Math.min(r*0.62,120));
+  cx.restore();
+  return [bx,by];
+}
+function chain(a,b,sag,alpha=1){
+  cx.save();cx.globalAlpha=alpha;
+  const n=Math.max(4,Math.round(Math.hypot(b[0]-a[0],b[1]-a[1])/26));
+  for(let i=0;i<n;i++){
+    const k=(i+.5)/n;const x=lerp(a[0],b[0],k);const y=lerp(a[1],b[1],k)+Math.sin(k*Math.PI)*sag;
+    cx.save();cx.translate(x,y);cx.rotate(Math.atan2(b[1]-a[1],b[0]-a[0])+(i%2?0:0));
+    cx.strokeStyle=INK;cx.lineWidth=4.5;cx.beginPath();cx.ellipse(0,0,15,i%2?4:9,0,0,6.29);cx.stroke();cx.restore();
+  }
+  cx.restore();
+}
+function bubble(x,y,msg,k){
+  if(k<=0)return;
+  const sc=k<1?ease(k):1;
+  cx.save();cx.translate(x,y);cx.scale(sc,sc);
+  cx.font='600 50px Caveat';const w=cx.measureText(msg).width+80;
+  const pts=[];const n=28;
+  for(let i=0;i<=n+1;i++){const a=i/n*6.29;pts.push([Math.cos(a)*(w/2)+(R()-.5)*3,Math.sin(a)*46+(R()-.5)*3])}
+  cx.fillStyle=PAPER;cx.beginPath();cx.ellipse(0,0,w/2,46,0,0,6.29);cx.fill();
+  wline(pts,0,5);
+  text(msg,0,2,50,1,'Caveat',600);
+  cx.restore();
+}
+
+// ---------- caption ----------
+const CAPS=[
+ [0.2,2.8,"you don't get over someone."],
+ [2.95,5.3,"you carry them."],
+ [5.45,8.3,"everywhere you go."],
+ [8.45,11.7,"until you write it out."],
+ [11.85,14.1,"and finally put it down."],
+];
+function captions(t){
+  for(const [a,b,s] of CAPS){
+    if(t<a||t>b)continue;
+    const fi=seg(t,a,a+.35),fo=1-seg(t,b-.3,b);
+    const al=Math.min(fi,fo);
+    text(s,W/2,560+(1-ease(fi))*18,92,al);
+  }
+}
+
+// ---------- main ----------
+window.render=function(t){
+  R=rng(Math.floor(t*10)*7+3); // line boil at 10fps
+  cx.fillStyle=PAPER;cx.fillRect(0,0,W,H);
+  // paper grain
+  const gR=rng(99);cx.fillStyle='rgba(60,45,30,.035)';
+  for(let i=0;i<900;i++){cx.fillRect(gR()*W,gR()*H,2,2)}
+
+  const endK=seg(t,14.2,14.8);
+  cx.save();cx.translate(540,G);cx.scale(1.15,1.15);cx.translate(-540,-G);
+  // ground
+  wline([[60,G],[1020,G]],1.8,5);
+
+  // figure x and state
+  let fx,s=0,ph=0,lean=0,writing=false;
+  if(t<5.4){fx=lerp(600,760,t/5.4);ph=t*4.2;lean=34;}
+  else if(t<6.0){fx=760;s=ease(seg(t,5.4,6.0));ph=5.4*4.2;lean=34;}
+  else if(t<11.8){fx=760;s=1;writing=t>8.5&&t<11.6;}
+  else if(t<12.4){fx=760;s=1-ease(seg(t,11.8,12.4));}
+  else {fx=760+Math.pow(t-12.4,1.15)*230;ph=(t-12.4)*7.5;lean=0;}
+
+  // ball radius schedule
+  let r;
+  if(t<5.4) r=lerp(110,150,t/5.4);
+  else if(t<8.4) r=lerp(150,190,ease(seg(t,5.4,8.4)));
+  else if(t<11.6) r=lerp(190,20,ease(seg(t,8.6,11.4)));
+  else r=20;
+  const bx=(t<12.4)?fx-300+(r-150)*-0.35: (760-300+(20-150)*-0.35);
+
+  // sprout at pebble during end
+  const pebX=bx;
+  // chain
+  const chainBreak=seg(t,11.85,12.15);
+  const fig=figure(Math.min(fx,1400),s,ph,lean,writing);
+
+  // ball/pebble
+  if(t<11.6) ball(bx,r);
+  else {cx.fillStyle=EMBER;cx.beginPath();cx.arc(pebX,G-18,18,0,6.29);cx.fill();wcircle(pebX,G-18,18,5);}
+  if(t<12.4){
+    const foot=fig.foot;
+    chain([foot[0]-6,G-8],[bx+r*0.95,G-r*0.45],t<11.8?18:18+chainBreak*40,1-chainBreak);
+  }
+
+  cx.restore();
+  // thought bubbles (screen space)
+  const B=[[5.6,"what if i'd said something",320,820],[6.3,"do they think about me?",770,690],[6.95,"it's 3am again",290,690],[7.6,"just check their page",815,815]];
+  const bf=1-seg(t,8.3,8.7);
+  if(bf>0) for(const [a,m,x,y] of B){ if(t>a){cx.save();cx.globalAlpha=bf;bubble(x,y,m,seg(t,a,a+.35));cx.restore()} }
+
+  cx.save();cx.translate(540,G);cx.scale(1.15,1.15);cx.translate(-540,-G);
+  // notebook + strands
+  if(t>8.4&&t<11.8){
+    const nk=seg(t,8.4,8.7)*(1-seg(t,11.5,11.8));
+    cx.save();cx.globalAlpha=nk;
+    const nbx=fx+60,nby=G-205;
+    cx.fillStyle='#FBF8F2';cx.fillRect(nbx,nby,150,110);
+    wline([[nbx,nby],[nbx+150,nby],[nbx+150,nby+110],[nbx,nby+110],[nbx,nby]],1.2,5);
+    // written lines grow
+    const wk=seg(t,8.7,11.4);
+    for(let i=0;i<4;i++){const lk=clamp(wk*4-i);if(lk>0) wline([[nbx+18,nby+24+i*22],[nbx+18+lk*110,nby+24+i*22]],2.2,3.5)}
+    // strands from ball to notebook
+    const sk=seg(t,8.7,11.4);
+    if(r>22){
+      const by=G-r;
+      for(let j=0;j<4;j++){
+        const a0=-0.9+j*0.45;const sx=bx+Math.cos(a0)*r,sy=by+Math.sin(a0)*r;
+        const ex=nbx+40+j*28,ey=nby+18;
+        const mx=(sx+ex)/2,my=Math.min(sy,ey)-230-j*25;
+        // dashed travelling strand
+        cx.save();cx.setLineDash([22,18]);cx.lineDashOffset=-t*160;cx.strokeStyle='rgba(42,36,32,.75)';cx.lineWidth=4;cx.beginPath();cx.moveTo(sx,sy);cx.quadraticCurveTo(mx,my,ex,ey);cx.stroke();cx.restore();
+      }
+    }
+    cx.restore();
+  }
+
+  // sprout during end card (scaled)
+  if(t>12.6){
+    const sp=ease(seg(t,12.6,14.6));
+    const sx=pebX+40;
+    cx.save();cx.strokeStyle=LEAF;cx.lineWidth=6;cx.lineCap='round';
+    cx.beginPath();cx.moveTo(sx,G);cx.lineTo(sx,G-90*sp);cx.stroke();
+    if(sp>.5){const lk=seg(sp,.5,1);cx.fillStyle=LEAF;
+      cx.beginPath();cx.ellipse(sx-20*lk,G-70,22*lk,10*lk,-.6,0,6.29);cx.fill();
+      cx.beginPath();cx.ellipse(sx+22*lk,G-88,24*lk,11*lk,.6,0,6.29);cx.fill();}
+    cx.restore();
+  }
+  cx.restore();
+
+  captions(t);
+
+  // end card
+  if(endK>0){
+    text('heartly',W/2,800,150,endK,'Caveat',700);
+    text('for the thing you can’t stop thinking about',W/2,905,40,seg(t,14.5,15.1),'Inter',500,'#5A4E45');
+  }
+};
+window.render(0);
+</script>
+</body></html>
