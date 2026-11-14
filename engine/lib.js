@@ -48,7 +48,7 @@ function text(s,x,y,size,alpha=1,font='Caveat',weight=700,col=C.INK,align='cente
 // timed captions: [[start,end,'line'],...]
 function captions(t,list,y=560,size=92,col=C.INK,font='Caveat',weight=700){
   for(const [a,b,s] of list){if(t<a||t>b)continue;const fi=seg(t,a,a+.35),fo=1-seg(t,b-.3,b);
-    text(s,W/2,y+(1-ease(fi))*18,size,Math.min(fi,fo),font,weight,col)}
+    s.split('\n').forEach((ln,i)=>text(ln,W/2,y+(1-ease(fi))*18+i*size*1.05,size,Math.min(fi,fo),font,weight,col))}
 }
 function endCard(t,start,dark=false){
   const k=seg(t,start,start+.6);if(k<=0)return;
@@ -57,7 +57,7 @@ function endCard(t,start,dark=false){
   text('for the thing you can’t stop thinking about',W/2,905,40,seg(t,start+.3,start+.9),'Inter',500,sub);
 }
 // stick figure. s: 0 standing..1 sitting, ph: walk phase, lean: px, writing: bool
-function figure(x,s=0,ph=0,lean=0,writing=false,G=1330,col=C.INK){
+function figure(x,s=0,ph=0,lean=0,writing=false,G=1330,col=C.INK,hands=null,smile=0){
   const hip=[x,lerp(G-160,G-28,s)];const top=[hip[0]+lean*(1-s),hip[1]-200];
   const headR=36,head=[top[0]+lean*.25*(1-s),top[1]-headR-8];const legs=[];
   for(const side of [-1,1]){const p=ph+(side>0?Math.PI:0);const sw=Math.sin(p)*.42*(1-s);
@@ -66,7 +66,9 @@ function figure(x,s=0,ph=0,lean=0,writing=false,G=1330,col=C.INK){
     wline([hip,knee,foot],2.4,7,col);legs.push(foot)}
   wline([hip,top],2.4,7,col);wcircle(head[0],head[1],headR,7,col);
   const sh=[top[0],top[1]+26];
-  if(writing){wline([sh,[sh[0]+70,sh[1]+70],[x+120,G-160]],2.4,7,col);wline([sh,[sh[0]+40,sh[1]+90],[x+95,G-150]],2.4,7,col)}
+  if(smile>0){cx.save();cx.strokeStyle=col;cx.lineWidth=4;cx.lineCap='round';cx.beginPath();cx.arc(head[0]+4,head[1]+6,14,0.35*Math.PI,(0.35+0.3*smile)*Math.PI);cx.stroke();cx.restore()}
+  if(hands){for(const h of hands){const mid=[(sh[0]+h[0])/2+(h[0]>sh[0]?-10:10),(sh[1]+h[1])/2+22];wline([sh,mid,h],2.4,7,col)}}
+  else if(writing){wline([sh,[sh[0]+70,sh[1]+70],[x+120,G-160]],2.4,7,col);wline([sh,[sh[0]+40,sh[1]+90],[x+95,G-150]],2.4,7,col)}
   else{const a1=Math.sin(ph)*.45*(1-s);for(const [a,sg] of [[a1,-1],[-a1,1]]){
     wline([sh,[sh[0]+sg*26+Math.sin(a)*55-lean*.1,sh[1]+66],[sh[0]+sg*38+Math.sin(a)*100-lean*.2,sh[1]+128]],2.4,7,col)}}
   return {foot:legs[0],head,top};
