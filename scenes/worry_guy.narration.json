@@ -1,0 +1,64 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [
+   0,
+   3.4,
+   [
+    "She has a little guy called Worry.",
+    "He goes everywhere."
+   ]
+  ],
+  [
+   3.4,
+   6.4,
+   [
+    "He comes to work.",
+    "They hated that email, he says."
+   ]
+  ],
+  [
+   6.4,
+   9.0,
+   [
+    "He comes to brunch.",
+    "You're talking too much."
+   ]
+  ],
+  [
+   9.0,
+   12.0,
+   [
+    "At three a.m., he gives a little presentation."
+   ]
+  ],
+  [
+   12.0,
+   15.8,
+   [
+    "So she opened Heartly and wrote down everything he said.",
+    "Which of these is actually happening right now? it asked."
+   ]
+  ],
+  [
+   15.8,
+   17.6,
+   [
+    "None of them."
+   ]
+  ],
+  [
+   17.6,
+   19.5,
+   [
+    "He's still around.",
+    "Just pocket-sized."
+   ]
+  ]
+ ]
+}

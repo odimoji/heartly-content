@@ -1,0 +1,62 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [
+   0,
+   3.4,
+   [
+    "Her phone has said 'storage full' for two years."
+   ]
+  ],
+  [
+   3.4,
+   6.6,
+   [
+    "She's deleted four thousand cat photos. Sixty-one apps. The uni group chat."
+   ]
+  ],
+  [
+   6.6,
+   8.2,
+   [
+    "Everything except one voicemail from her nan."
+   ]
+  ],
+  [
+   8.2,
+   11.2,
+   [
+    "She can't delete it.",
+    "She can't play it either."
+   ]
+  ],
+  [
+   11.2,
+   15.2,
+   [
+    "So she opened Heartly and wrote out why.",
+    "You don't have to choose, it said. It can just be yours, until you're ready."
+   ]
+  ],
+  [
+   15.2,
+   17.1,
+   [
+    "On Sunday, she pressed play."
+   ]
+  ],
+  [
+   17.1,
+   19.5,
+   [
+    "Her storage is still full.",
+    "She's fine with that."
+   ]
+  ]
+ ]
+}

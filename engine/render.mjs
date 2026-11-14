@@ -18,13 +18,17 @@ await page.evaluate(async () => {
   await Promise.all(['700 40px Caveat', '600 40px Caveat', '300 40px Inter', '400 40px Inter', '500 40px Inter', '600 40px Inter', '700 40px Inter'].map(f => document.fonts.load(f)));
   await document.fonts.ready;
 });
+// optional time warp written by engine/narrate.py: video time -> scene time (piecewise linear knots)
+const tf = path.join(root, 'scenes', name + '.timing.json');
+const warp = fs.existsSync(tf) && !process.env.NO_WARP ? JSON.parse(fs.readFileSync(tf, 'utf8')).map : null;
+const toScene = tv => { if (!warp) return tv; for (let i = 0; i < warp.length - 1; i++) { const [v0, s0] = warp[i], [v1, s1] = warp[i + 1]; if (tv <= v1) return s0 + (s1 - s0) * (tv - v0) / (v1 - v0); } return warp[warp.length - 1][1]; };
 const el = await page.$('#c');
 const out = path.join(root, 'out'); fs.mkdirSync(out, { recursive: true });
 
 if (flag === '--stills') {
   const files = [];
   for (const t of times) {
-    await page.evaluate(t => window.render(t), Number(t));
+    await page.evaluate(t => window.render(t), toScene(Number(t)));
     const f = path.join(out, `_still_${t}.jpg`); await el.screenshot({ path: f, type: 'jpeg', quality: 85 }); files.push(f);
   }
   await browser.close();
@@ -37,10 +41,10 @@ for i,im in enumerate(ims): s.paste(im,(i*360,0))
 s.save(sys.argv[-1],quality=85)`, ...files, path.join(out, `${name}_sheet.jpg`)]);
   files.forEach(f => fs.unlinkSync(f));
 } else {
-  const dur = await page.evaluate(() => window.SCENE.duration), fps = 30;
+  const dur = warp ? warp[warp.length - 1][0] : await page.evaluate(() => window.SCENE.duration), fps = 30;
   const dir = path.join(out, `_frames_${name}`); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir);
   for (let i = 0; i < Math.round(dur * fps); i++) {
-    await page.evaluate(t => window.render(t), i / fps);
+    await page.evaluate(t => window.render(t), toScene(i / fps));
     await el.screenshot({ path: path.join(dir, `f${String(i).padStart(4, '0')}.jpg`), type: 'jpeg', quality: 92 });
   }
   await browser.close();

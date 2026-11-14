@@ -1,0 +1,49 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [
+   0,
+   3.2,
+   [
+    "He replied: okay. With a full stop.",
+    "She lost the whole evening to it."
+   ]
+  ],
+  [
+   3.2,
+   8.4,
+   [
+    "Hour three: an investigation board.",
+    "Hour six: his mum's a suspect."
+   ]
+  ],
+  [
+   8.4,
+   11.2,
+   [
+    "Eleven drafts. Nothing sent."
+   ]
+  ],
+  [
+   11.2,
+   15.2,
+   [
+    "So she opened Heartly and wrote out what was really going on.",
+    "The full stop wasn't the scary part. Feeling like 'too much' was."
+   ]
+  ],
+  [
+   15.2,
+   19.0,
+   [
+    "Then her phone buzzed. He'd been driving.",
+    "It was never about the full stop."
+   ]
+  ]
+ ]
+}

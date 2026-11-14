@@ -1,0 +1,56 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [
+   0,
+   3.4,
+   [
+    "Two years after the breakup, he's still arguing with her.",
+    "In the shower."
+   ]
+  ],
+  [
+   3.4,
+   6.8,
+   [
+    "Arguments won: three hundred and twelve.",
+    "Said to her: zero."
+   ]
+  ],
+  [
+   6.8,
+   8.2,
+   [
+    "In the car."
+   ]
+  ],
+  [
+   8.2,
+   9.6,
+   [
+    "In bed, at one a.m."
+   ]
+  ],
+  [
+   9.6,
+   13.9,
+   [
+    "So one night he opened Heartly and wrote it all out.",
+    "Maybe it was never about winning, it said. Maybe you just needed someone to hear how much it hurt."
+   ]
+  ],
+  [
+   13.9,
+   18.6,
+   [
+    "First quiet shower in two years.",
+    "The shampoo is so relieved."
+   ]
+  ]
+ ]
+}

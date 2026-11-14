@@ -1,0 +1,56 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [
+   0,
+   3.4,
+   [
+    "Every night at two a.m., her brain screens the classics.",
+    "Enjoy your meal. You too."
+   ]
+  ],
+  [
+   3.4,
+   5.2,
+   [
+    "The wave that wasn't for her."
+   ]
+  ],
+  [
+   5.2,
+   7.1,
+   [
+    "Calling her teacher mum."
+   ]
+  ],
+  [
+   7.1,
+   10.2,
+   [
+    "Then the one that isn't funny.",
+    "The last thing she said to her sister."
+   ]
+  ],
+  [
+   10.2,
+   14.2,
+   [
+    "So she opened Heartly and wrote that one out.",
+    "This one keeps replaying, it said, because part of you still wants to fix it."
+   ]
+  ],
+  [
+   14.2,
+   19.5,
+   [
+    "Next morning, she texted her sister.",
+    "Some reruns are just cringe. Some are unfinished."
+   ]
+  ]
+ ]
+}
