@@ -10,3 +10,4 @@ date,scene,series,caption,posted_url,views,likes,comments,saves,shares,notes
 2026-11-15,reruns,A story,the 2am reruns nobody asked for #overthinking #regret,,,,,,,status: scheduled 15 Nov 20:30 UK in TikTok Studio (narrated, bm_george); regret; 19.5s
 2026-11-15,open_loops,C explainer (Fable test),"why you can't stop thinking about them. what's your open loop?",,,,,,,status: built (Fable 5.2 test; mechanism explainer per PLAYBOOK); 29.4s
 2026-11-15,worry_v2,A story (Fable test),everyone has a little guy. this is hers.,,,,,,,status: built (Fable 5.2 storybook remake of worry_guy); 26.7s
+2026-11-15,worry_3am,A story 3D (Fable),"her worry gave a presentation at 3am. what is on your worry's slide one?",,,,,,,status: built (3D, Remotion + three.js; hook scored 79 on hookscore; two voice options); 32.4s

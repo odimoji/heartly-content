@@ -58,3 +58,18 @@ From Odi's saved examples (TikTok collections "Good ad example" and "Bad ad exam
 - **(a) Mechanism explainer** (middleman style): "why your brain keeps doing X", line art, ending with "you".
 - **(b) Story** (the current stick-figure stories): setup, struggle, turn, release.
 - **(c) One-question post:** a single uncomfortable question as a series ("day 1/30").
+
+## Script rules (from the skills in CLAUDE.md)
+- **Hook:** the first line must score 70+ on `tools/ig-reel/hookscore.py`. Open on the best scene, with motion and the hook text on frame 1. No greeting or set-up.
+- **Shape:** hook (0–2 s), why it matters (2–7 s), one idea per beat with the picture changing every beat, payoff, then one ask.
+- **On-screen text** is its own script: six words or fewer per card.
+- **One ask at the end.** Make it a real question people can answer, and echo a word from the hook.
+- **No AI tells.** Never write:
+  - "It's not X, it's Y" or "it was never about X" contrast reveals. Say the point directly.
+  - "No X, no Y, no Z" lists.
+  - A claim followed by a comma and more clauses restating it.
+  - Self-answered questions and colon reveals ("The result? …").
+  - Stock phrases ("here's the thing", "say goodbye to", "take it to the next level").
+  - Em dashes.
+  - Engagement bait ("thoughts?", "read that again") and manufactured vulnerability.
+- **Never invent** numbers, studies or results.
