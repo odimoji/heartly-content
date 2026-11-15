@@ -22,7 +22,7 @@ Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, 
 - Lowercase, conversational captions on screen (Caveat), short.
 
 ## How to make one
-- Check `scripts/README.md` first: it is the script bank. Build from it before inventing new stories, and mark what you built.
+- Check `scripts/SPRINT.md` (the current ordered list) and `scripts/README.md` (the script bank) first. Research lines come only from `scripts/FACTS.md`. Build from it before inventing new stories, and mark what you built.
 - Write a scene in `scenes/<name>.js` using `engine/lib.js` (see `scenes/hoodie.js` for a story).
 - Check frames first: `node engine/render.mjs scenes/<name>.js --stills 1 5 9 …`, look at `out/<name>_sheet.jpg`, fix, then render: `node engine/render.mjs scenes/<name>.js`.
 - Narrate: write `scenes/<name>.narration.json` (lines per scene segment), then `KOKORO_DIR=~/tts python3 engine/narrate.py scenes/<name>.narration.json`. It speaks the lines, writes `scenes/<name>.timing.json` (stretches each segment so the voice fits; render.mjs reads it), renders, and muxes the audio into `out/<name>.mp4`. Add `--plan` to only print timings. Keep the total ≤30 s.

@@ -1,5 +1,7 @@
 # Script bank
 
+For the Fable 5.2 sprint (15–17 Nov 2026), start with `SPRINT.md` in this folder: it is the ordered list. `FACTS.md` holds the only research lines videos may cite.
+
 Scripts waiting to be built. Any session making videos should check here first, build from these before inventing new ones, and move a script to "Built" (with the scene name) once it has a scene.
 
 Each script follows PLAYBOOK.md: open on a problem the viewer has, teach something clear and useful about it, and only then show Heartly as the way to do it. Odi's note (15 Nov 2026): validating the viewer and correcting the viewer both work, as long as it is clear and lands well. Post one of each and compare.
