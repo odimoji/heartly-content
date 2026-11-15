@@ -25,10 +25,10 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 
 ## The list
 
-1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s.
+1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s. — claimed (content chat, 15 Nov 20:15 UK): trimming to ~25 s with the sleep fact (FACTS 4), as Odi asked in chat
 2. **shower_argument_3d** [no guy] (3D, story, remake of the best performer). He wins the argument with his ex in the shower, in the car, at the gym, to a lamp. Turn: he opens Heartly and writes what he actually wanted to say to her. Fact 1.
-3. **no_contact** [no guy] (explainer, correcting). Script in scripts/README.md. Replace the closing question with FACTS 3. Style: 3D set with labels of 1–3 words, like the middleman video.
-4. **worse_at_night** [no guy] (explainer, validating). Script in scripts/README.md. Replace the closing question with FACTS 2.
+3. **no_contact** [no guy] (explainer, correcting). Script in scripts/README.md. Replace the closing question with FACTS 3. Style: 3D set with labels of 1–3 words, like the middleman video. — claimed (content chat, 15 Nov 20:15 UK): built in 3D, being trimmed to 26 s with FACTS 3
+4. **worse_at_night** [no guy] (explainer, validating). Script in scripts/README.md. Replace the closing question with FACTS 2. — claimed (content chat, 15 Nov 20:15 UK): built in 3D, being trimmed to 26 s with FACTS 2
 5. **worry_meeting** [guy] (3D, story, Worry series). Worry attends her work meeting and keeps passing her notes: "they saw you yawn", "say something", "not that". Turn: lunch break, she writes the notes down in Heartly and sees they are all one fear. Fact 2.
 6. **drafts** [no guy] (3D, story, funny). His notes app has 31 unsent texts to her, each one "the final version". He reads three aloud, each worse. Turn: he writes the real one in Heartly, addressed to nobody. Fact 3.
 7. **profile_check** [no guy] (explainer, correcting, funny). "You checked their profile 9 times today. Each check restarts the clock." Shown as a snooze button he keeps hitting. Turn: write what you were hoping to find. Fact 1. (No stats: "9 times" is the character's count, shown on his screen.)
@@ -38,3 +38,6 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 
 ## Order if time runs short
 1, 2, 3, 5, 4, 6, then the rest. Two posted videos that test the new style against yesterday's numbers are worth more than ten unposted ones.
+
+## Extra (not on the list)
+- **audience_of_one** [guy] (3D, story, funny, breakup). Built by the content chat before this list existed: he posts stories for one viewer who never watches; Worry eggs him on. Being trimmed to 26 s with FACTS 1. Hold or post, Odi's call.
