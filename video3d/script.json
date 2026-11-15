@@ -4,11 +4,6 @@
    "voice": "bm_george",
    "lang": "en-gb",
    "speed": 1.12
-  },
-  "B": {
-   "voice": "af_heart",
-   "lang": "en-us",
-   "speed": 1.12
   }
  },
  "lead": 0.2,
@@ -17,7 +12,7 @@
  "scenes": [
   {
    "id": "hook",
-   "min": 3.6,
+   "min": 5.6,
    "lines": [
     "Her worry gave a presentation at 3am.",
     "Slide one: you're getting fired."
@@ -25,23 +20,23 @@
   },
   {
    "id": "street",
-   "min": 2.4,
+   "min": 3.0,
    "lines": [
     "He's followed her all day."
    ]
   },
   {
    "id": "office",
-   "min": 2.8,
+   "min": 3.2,
    "lines": [
     "At work: they hated that email."
    ]
   },
   {
-   "id": "brunch",
-   "min": 2.8,
+   "id": "dinner",
+   "min": 3.2,
    "lines": [
-    "At brunch: you're talking too much."
+    "At dinner: you're talking too much."
    ]
   },
   {
@@ -61,7 +56,7 @@
   },
   {
    "id": "none",
-   "min": 2.4,
+   "min": 3.0,
    "lines": [
     "None of them."
    ]
@@ -75,7 +70,7 @@
   },
   {
    "id": "ask",
-   "min": 2.6,
+   "min": 3.0,
    "lines": [
     "What's on your worry's slide one?"
    ]

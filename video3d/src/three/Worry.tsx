@@ -10,7 +10,7 @@ export const Worry: React.FC<{
   pos: V3; r: number; f: number; rotY?: number; look?: [number, number]; talk?: number; mood?: Mood;
   hop?: number; squash?: number; tie?: boolean; legs?: boolean; wave?: number; seed?: number;
 }> = ({ pos, r, f, rotY = 0, look = [0, 0], talk = 0, mood = "neutral", hop = 0, squash = 0, tie = true, legs = true, wave = 0, seed = 0 }) => {
-  const N = 950;
+  const N = 1500;
   const fur = useMemo(() => {
     const out: { dir: Vector3; len: number; ph: number }[] = [];
     let s = 7 + seed;
@@ -19,7 +19,7 @@ export const Worry: React.FC<{
       const y = 1 - (2 * (i + 0.5)) / N, rad = Math.sqrt(1 - y * y), th = i * 2.399963;
       const dir = new Vector3(Math.cos(th) * rad, y, Math.sin(th) * rad);
       const face = dir.z > 0.62 && dir.y > -0.5 && dir.y < 0.62; // keep the face clear
-      out.push({ dir, len: face ? 0.001 : 0.55 + rnd() * 0.5, ph: rnd() * 6.28 });
+      out.push({ dir, len: face ? 0.001 : 0.6 + rnd() * 0.55, ph: rnd() * 6.28 });
     }
     return out;
   }, [seed]);
@@ -53,7 +53,7 @@ export const Worry: React.FC<{
     const m = new Matrix4(), q = new Quaternion(), up = new Vector3(0, 1, 0), sc = new Vector3(), p = new Vector3(), d = new Vector3();
     fur.forEach((h, i) => {
       d.copy(h.dir);
-      d.x += Math.sin(f * 0.22 + h.ph) * 0.13; d.y += Math.cos(f * 0.19 + h.ph * 1.7) * 0.13; d.z += Math.sin(f * 0.17 + h.ph * 0.6) * 0.1;
+      d.x += Math.sin(f * 0.22 + h.ph) * 0.1; d.y += Math.cos(f * 0.19 + h.ph * 1.7) * 0.1 - 0.32; d.z += Math.sin(f * 0.17 + h.ph * 0.6) * 0.08; // soft, slightly drooping coat
       d.normalize();
       q.setFromUnitVectors(up, d);
       p.copy(h.dir).multiplyScalar(0.9 + 0.22 * h.len);
@@ -70,7 +70,7 @@ export const Worry: React.FC<{
   const browY = mood === "shock" ? 0.74 : mood === "smug" ? 0.56 : 0.64;
   const sq = squash;
   const mouthOpen = 0.3 + talk * 0.9 + (mood === "shock" ? 0.9 : 0);
-  const BODY = "#6a6573", FUR = "#7d7888", DARK = "#221c22";
+  const BODY = "#5b536e", FUR = "#6f6788", DARK = "#221c22";
   return (
     <group position={[pos[0], pos[1], pos[2]]} rotation={[0, rotY, 0]} scale={r}>
       {legs && [-1, 1].map((s) => (
@@ -98,7 +98,7 @@ export const Worry: React.FC<{
           ))
         ) : (
           <instancedMesh ref={ref} args={[undefined, undefined, N]} castShadow>
-            <coneGeometry args={[0.075, 0.5, 5]} />
+            <coneGeometry args={[0.058, 0.5, 5]} />
             <M c={FUR} rough={1} />
           </instancedMesh>
         )}

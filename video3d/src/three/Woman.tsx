@@ -11,6 +11,7 @@ export type Pose = {
   smile?: boolean;
   phone?: boolean; // holds a glowing phone in front of her
   pocket?: React.ReactNode; // something riding in her side pocket
+  pillow?: number; // 0..1 lifts a pillow from her lap to hide behind
 };
 
 // A soft toy-like character: big head, bun, jumper. Faces +z; pos is at her feet (or seat when sitting).
@@ -77,6 +78,12 @@ export const Woman: React.FC<{
           <mesh position={[0, 0.83, 0.44]} rotation={[-0.5, 0, 0]}>
             <boxGeometry args={[0.13, 0.24, 0.02]} />
             <M c="#dfe6ff" emissive="#b9c8ff" ei={1.6} />
+          </mesh>
+        )}
+        {pose.pillow !== undefined && (
+          <mesh position={[0, 0.72 + pose.pillow * 0.56, 0.3 + pose.pillow * 0.04]} rotation={[-0.2 * pose.pillow, 0, 0]} scale={[1.55, 1.05, 0.42]} castShadow>
+            <sphereGeometry args={[0.23, 24, 18]} />
+            <M c="#fbf6ee" />
           </mesh>
         )}
         {/* head */}

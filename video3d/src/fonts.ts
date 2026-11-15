@@ -8,6 +8,8 @@ if (typeof document !== "undefined") {
     new FontFace("Caveat", `url(${staticFile("fonts/caveat-700.woff2")})`, { weight: "700" }).load(),
     new FontFace("Inter", `url(${staticFile("fonts/inter-500.woff2")})`, { weight: "500" }).load(),
     new FontFace("Inter", `url(${staticFile("fonts/inter-600.woff2")})`, { weight: "600" }).load(),
+    new FontFace("Cormorant", `url(${staticFile("fonts/cormorant-600.woff2")})`, { weight: "600", style: "normal" }).load(),
+    new FontFace("Cormorant", `url(${staticFile("fonts/cormorant-600i.woff2")})`, { weight: "600", style: "italic" }).load(),
   ]).then((fs) => {
     fs.forEach((f) => document.fonts.add(f));
     ready = true;

@@ -35,6 +35,13 @@ Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, 
 - Check frames: `./stills.sh 30 200 400 …` → `out/sheet.jpg`. Render: `npx remotion render Worry3am out/video.mp4 --muted --browser-executable=$B --gl=swangle --concurrency=2`, then add the audio with ffmpeg.
 - Remotion is free for teams of up to 3 people; above that it needs a paid licence.
 
+## The Heartly look for 3D videos (Odi, 15 Nov 2026: keep the smooth soft 3D, make it ours; no dark outlines, no scribble Worry, no print filter)
+- "Night to dawn", taken from the app and heartly.world: every set is a small lit stage on Heartly's warm midnight ground (#120d0a) with a soft glow behind it. Stories start at night and end at dawn.
+- Colours stay in the brand family: midnight, cream, gold, ember, terracotta, warm wood. Violet (#A98BFF) belongs to Worry alone: his coat and the light behind him.
+- Type: Cormorant Garamond (cream; gold italic for the key words) for the narrator and for anything Heartly says. Small gold Inter capitals for the time stamp above each caption ("3:00 AM", "2:40 PM · AT WORK"). Caveat only for Worry's own words (his flipchart and speech bubbles).
+- Captions sit at the top of the frame, above the set. The final question sits at the bottom.
+- Movement: open on a close-up, cut between scenes with a zoom-through, and let the characters react to each other in every scene.
+
 ## Skills we use (from the reel Odi sent, 15 Nov 2026)
 - Hooks: write 3+ options from the 26 formulas in `tools/ig-reel/hooks.json`, score with `python3 tools/ig-reel/hookscore.py hooks.txt`, use one that scores 70+. Check the script with `python3 tools/ig-reel/beats.py script.txt --target 30`. (From Jakeschincariol/instagram-agent-skill, MIT.)
 - Script wording: follow the "no AI tells" list in PLAYBOOK.md (from coreyhaines31/marketingskills, `skills/social`).
