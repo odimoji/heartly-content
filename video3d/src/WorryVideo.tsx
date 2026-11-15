@@ -7,7 +7,7 @@ import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion"
 import timing from "./timing.json";
 import { useFontsReady } from "./fonts";
 import { SoftBlurIn } from "./remocn/soft-blur-in";
-import { ease, easeOut, lerp, seg, Stick, V3 } from "./three/parts";
+import { ease, easeOut, lerp, Look, LOOK, Outlines, seg, Stick, V3 } from "./three/parts";
 import { Bedroom, Cafe, Office, Slide, Street } from "./three/sets";
 import { Woman } from "./three/Woman";
 import { Mood, Worry } from "./three/Worry";
@@ -127,7 +127,8 @@ const Phone: React.FC<{ lf: number; replyAt: number }> = ({ lf, replyAt }) => {
 };
 
 // ---------- the video ----------
-export const WorryVideo: React.FC = () => {
+export const WorryVideo: React.FC<{ look?: Look }> = ({ look = "clay" }) => {
+  LOOK.current = look;
   const f = useCurrentFrame();
   const { width, height } = useVideoConfig();
   const fonts = useFontsReady();
@@ -264,9 +265,25 @@ export const WorryVideo: React.FC = () => {
   const dip = Math.max(0, 1 - Math.min(lf, sc.dur - lf) / 3) * (f < 3 ? 0 : 1);
   return (
     <AbsoluteFill style={{ background: BG[id] }}>
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <filter id="riso" colorInterpolationFilters="sRGB">
+          <feColorMatrix type="matrix" values="0.3 0.55 0.15 0 0  0.3 0.55 0.15 0 0  0.3 0.55 0.15 0 0  0 0 0 1 0" />
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues="0.13 0.24 0.38 0.85 0.95 0.97" />
+            <feFuncG type="discrete" tableValues="0.12 0.20 0.30 0.39 0.69 0.93" />
+            <feFuncB type="discrete" tableValues="0.20 0.36 0.52 0.23 0.53 0.86" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed={Math.floor(f / 3)} />
+          <feColorMatrix type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.4  0 0 0 0.5 0" />
+        </filter>
+      </svg>
+      <AbsoluteFill style={look === "riso" || look === "combo" ? { filter: "url(#riso)" } : undefined}>
       <ThreeCanvas width={width} height={height} shadows camera={{ fov: 26, near: 0.1, far: 80 }}>
         {cam}
         <Lights kind={lights} />
+        {look === "ink" && <Outlines />}
         {content}
         {id !== "phone" && (
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.31, 0]} receiveShadow>
@@ -275,6 +292,9 @@ export const WorryVideo: React.FC = () => {
           </mesh>
         )}
       </ThreeCanvas>
+      </AbsoluteFill>
+      {(look === "riso" || look === "combo") && <AbsoluteFill style={{ backgroundImage: "radial-gradient(rgba(38,35,58,.55) 1.4px, transparent 1.9px)", backgroundSize: "9px 9px", mixBlendMode: "multiply", opacity: 0.55 }} />}
+      {look !== "clay" && <AbsoluteFill style={{ filter: "url(#grain)", mixBlendMode: "multiply", opacity: 0.55 }} />}
       <AbsoluteFill>{fonts && overlay}</AbsoluteFill>
       <AbsoluteFill style={{ background: "#14100d", opacity: dip * 0.85 }} />
     </AbsoluteFill>

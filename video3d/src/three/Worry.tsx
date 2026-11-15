@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
-import { InstancedMesh, Matrix4, Quaternion, Vector3 } from "three";
-import { M, V3 } from "./parts";
+import { CatmullRomCurve3, InstancedMesh, Matrix4, Quaternion, TubeGeometry, Vector3 } from "three";
+import { LOOK, M, V3 } from "./parts";
 
 export type Mood = "neutral" | "smug" | "sad" | "happy" | "shock";
 
@@ -23,6 +23,30 @@ export const Worry: React.FC<{
     }
     return out;
   }, [seed]);
+  // ink look: he is a tangle of scribbled ink lines that boils like a hand-drawn line
+  const ink = LOOK.current === "ink" || LOOK.current === "combo";
+  const boil = Math.floor(f / 3);
+  const scribble = useMemo(() => {
+    if (!ink) return [];
+    let s = 11 + seed * 7;
+    const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+    let b = 101 + boil * 31 + seed;
+    const jit = () => ((b = (b * 16807) % 2147483647) / 2147483647 - 0.5) * 0.09;
+    const out: TubeGeometry[] = [];
+    for (let i = 0; i < 13; i++) {
+      const pts: Vector3[] = [];
+      const ax = new Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize();
+      const u = new Vector3(ax.y, -ax.x, 0.3).normalize(), v = new Vector3().crossVectors(ax, u).normalize();
+      for (let k = 0; k < 9; k++) {
+        const a = (k / 9) * Math.PI * 2, rr = 1.02 + rnd() * 0.3;
+        pts.push(new Vector3().addScaledVector(u, Math.cos(a) * rr).addScaledVector(v, Math.sin(a) * rr).addScaledVector(ax, (rnd() - 0.5) * 0.7).add(new Vector3(jit(), jit(), jit())));
+        const q = pts[pts.length - 1];
+        if (q.z > 0.45 && Math.abs(q.x) < 0.85 && q.y > -0.35 && q.y < 0.7) q.z = -q.z; // keep the face clear
+      }
+      out.push(new TubeGeometry(new CatmullRomCurve3(pts, true, "catmullrom", 0.6), 72, 0.035, 5, true));
+    }
+    return out;
+  }, [ink, boil, seed]);
   const ref = useRef<InstancedMesh>(null);
   useLayoutEffect(() => {
     if (!ref.current) return;
@@ -63,13 +87,21 @@ export const Worry: React.FC<{
       ))}
       <group position={[0, 1.3 + hop / r, 0]} scale={[1 - sq * 0.5, 1 + sq, 1 - sq * 0.5]}>
         <mesh castShadow receiveShadow>
-          <sphereGeometry args={[1, 40, 28]} />
-          <M c={BODY} rough={1} />
+          <sphereGeometry args={[ink ? 0.93 : 1, 40, 28]} />
+          <M c={ink ? "#3b3552" : BODY} rough={1} />
         </mesh>
-        <instancedMesh ref={ref} args={[undefined, undefined, N]} castShadow>
-          <coneGeometry args={[0.075, 0.5, 5]} />
-          <M c={FUR} rough={1} />
-        </instancedMesh>
+        {ink ? (
+          scribble.map((g, i) => (
+            <mesh key={i} geometry={g} castShadow>
+              <meshBasicMaterial color="#2a2420" />
+            </mesh>
+          ))
+        ) : (
+          <instancedMesh ref={ref} args={[undefined, undefined, N]} castShadow>
+            <coneGeometry args={[0.075, 0.5, 5]} />
+            <M c={FUR} rough={1} />
+          </instancedMesh>
+        )}
         {/* eyes */}
         {[-1, 1].map((s) => (
           <group key={s} position={[s * 0.36, 0.2, 0.82]} scale={[1, blink * eyeOpen, 1]}>
