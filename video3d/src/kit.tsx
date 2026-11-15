@@ -133,12 +133,12 @@ export const PhoneUI: React.FC<{ lf: number; replyAt: number; entry: string; rep
 };
 
 // a closing fact with its source: small gold label, the claim in two lines, and a footnote
-export const Fact: React.FC<{ eyebrow: string; lines: [string, string]; source: string; at2?: number }> = ({ eyebrow, lines, source, at2 = 40 }) => {
+export const Fact: React.FC<{ eyebrow: string; lines: [string, string]; source: string; at1?: number; at2?: number }> = ({ eyebrow, lines, source, at1 = 8, at2 = 40 }) => {
   const f = useCurrentFrame();
   return (
     <div style={{ position: "absolute", top: 1128, left: 50, right: 50, textAlign: "center" }}>
-      <Eyebrow text={eyebrow} from={4} />
-      <div style={{ ...serif, marginTop: 14, fontSize: 70, lineHeight: 1.06 }}><SoftBlurIn text={lines[0]} from={8} /></div>
+      <Eyebrow text={eyebrow} from={Math.max(0, at1 - 4)} />
+      <div style={{ ...serif, marginTop: 14, fontSize: 70, lineHeight: 1.06 }}><SoftBlurIn text={lines[0]} from={at1} /></div>
       <div style={{ ...serif, marginTop: 4, fontSize: 84, lineHeight: 1.06, fontStyle: "italic", color: GOLD }}><SoftBlurIn text={lines[1]} from={at2} /></div>
       <div style={{ marginTop: 18, fontFamily: "Inter", fontWeight: 500, fontSize: 24, color: "rgba(246,236,220,.7)", opacity: seg(f, at2 + 14, at2 + 26) }}>{source}</div>
     </div>

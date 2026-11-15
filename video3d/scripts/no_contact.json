@@ -22,47 +22,36 @@
    "gain": 0.66
   }
  },
- "lead": 0.2,
- "gap": 0.2,
- "tail": 0.35,
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
  "scenes": [
   {
    "id": "hook",
-   "min": 4.5,
+   "min": 3.4,
    "lines": [
     [
      {
-      "t": "Sixty days of no contact,",
-      "speed": 1.05
-     },
-     {
-      "t": "and you still think about them every day.",
-      "pause": 0.1,
-      "speed": 1.12
-     },
-     {
-      "t": "Here's why.",
-      "pause": 0.25,
-      "speed": 0.95,
-      "pitch": -0.8,
-      "cue": "why"
+      "t": "Sixty days of no contact, and you still think about them every day.",
+      "speed": 1.22,
+      "cue": "still"
      }
     ]
    ]
   },
   {
    "id": "loop",
-   "min": 4.0,
+   "min": 3.0,
    "lines": [
     [
      {
       "t": "No contact stops new contact.",
-      "speed": 1.1
+      "speed": 1.22
      },
      {
-      "t": "It doesn't touch the loop in your head.",
-      "pause": 0.2,
-      "speed": 1.0,
+      "t": "Not the loop in your head.",
+      "pause": 0.04,
+      "speed": 1.113,
       "pitch": -0.5,
       "cue": "loop"
      }
@@ -71,83 +60,58 @@
   },
   {
    "id": "questions",
-   "min": 5.0,
+   "min": 3.4,
    "lines": [
     [
      {
       "t": "Why?",
-      "who": "w",
-      "speed": 1.0,
+      "speed": 1.23,
+      "pitch": 0.8,
       "cue": "q1"
      },
      {
       "t": "What if?",
-      "who": "w",
-      "pause": 0.12,
-      "speed": 1.05,
-      "pitch": 2,
+      "pause": 0.02,
+      "speed": 1.284,
+      "pitch": 1.2,
       "cue": "q2"
      },
      {
       "t": "Was it me?",
-      "who": "w",
-      "pause": 0.12,
-      "speed": 0.95,
-      "pitch": -2,
+      "pause": 0.02,
+      "speed": 1.07,
+      "pitch": -1,
       "cue": "q3"
      }
     ],
     [
      {
-      "t": "Your brain files them as unfinished business,",
-      "pause": 0.15,
-      "speed": 1.1
-     },
-     {
-      "t": "so it keeps replaying them.",
-      "pause": 0.08,
-      "speed": 1.0,
-      "pitch": -0.5
-     }
-    ]
-   ]
-  },
-  {
-   "id": "door",
-   "min": 3.2,
-   "lines": [
-    [
-     {
-      "t": "Shutting the door harder",
-      "speed": 1.12,
-      "pitch": 0.5
-     },
-     {
-      "t": "does nothing.",
-      "pause": 0.22,
-      "speed": 0.88,
-      "pitch": -1.2,
-      "cue": "nothing"
+      "t": "Unanswered, so they keep replaying.",
+      "pause": 0.02,
+      "speed": 1.177,
+      "pitch": -0.4,
+      "cue": "replay"
      }
     ]
    ]
   },
   {
    "id": "phone",
-   "min": 5.5,
+   "min": 4.6,
    "lines": [
     [
      {
       "t": "So he opened Heartly, and wrote the first one down.",
-      "speed": 1.04,
+      "speed": 1.198,
       "gain": 0.72
      }
     ],
     [
      {
-      "t": "Underneath 'why'. Is it: was it me?",
+      "t": "Underneath 'why': was it me?",
       "who": "h",
-      "pause": 0.45,
+      "pause": 0.25,
+      "speed": 0.9,
       "cue": "say"
      }
     ]
@@ -155,21 +119,21 @@
   },
   {
    "id": "rest",
-   "min": 4.5,
+   "min": 4.6,
    "lines": [
     [
      {
-      "t": "Take them out of your head.",
-      "pause": 0.3,
-      "speed": 0.98,
-      "pitch": 0.4
+      "t": "Across 146 studies, writing about what's weighing on you",
+      "pause": 0.0,
+      "speed": 1.177,
+      "pitch": 0.3
      },
      {
-      "t": "Answer them one at a time, in writing.",
-      "pause": 0.25,
-      "speed": 0.95,
-      "pitch": 0.4,
-      "cue": "do"
+      "t": "had a small but real benefit.",
+      "pause": 0.04,
+      "speed": 1.027,
+      "pitch": 0.3,
+      "cue": "result"
      }
     ]
    ]

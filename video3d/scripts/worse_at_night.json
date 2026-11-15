@@ -22,32 +22,32 @@
    "gain": 0.66
   }
  },
- "lead": 0.2,
- "gap": 0.2,
- "tail": 0.35,
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
  "scenes": [
   {
    "id": "hook",
-   "min": 4.6,
+   "min": 3.6,
    "lines": [
     [
      {
       "t": "Fine all day.",
-      "speed": 1.18,
+      "speed": 1.227,
       "pitch": 0.8
      },
      {
       "t": "Wrecked at 2am.",
-      "pause": 0.22,
-      "speed": 0.86,
+      "pause": 0.14,
+      "speed": 0.915,
       "pitch": -1.5,
       "gain": 0.9,
       "cue": "wrecked"
      },
      {
       "t": "You're not going backwards.",
-      "pause": 0.3,
-      "speed": 1.0,
+      "pause": 0.1,
+      "speed": 1.082,
       "pitch": 0.3,
       "cue": "not"
      }
@@ -56,12 +56,12 @@
   },
   {
    "id": "day",
-   "min": 3.6,
+   "min": 2.3,
    "lines": [
     [
      {
       "t": "In the day, your attention is taken.",
-      "speed": 1.15,
+      "speed": 1.206,
       "pitch": 0.5
      }
     ]
@@ -69,19 +69,19 @@
   },
   {
    "id": "empties",
-   "min": 5.5,
+   "min": 4.0,
    "lines": [
     [
      {
       "t": "At night, nothing competes with it.",
-      "speed": 0.98,
+      "speed": 1.04,
       "pitch": -0.6,
       "cue": "night"
      },
      {
       "t": "Same thought. Emptier room.",
-      "pause": 0.5,
-      "speed": 0.92,
+      "pause": 0.2,
+      "speed": 0.978,
       "pitch": -0.4,
       "cue": "same"
      }
@@ -89,42 +89,22 @@
    ]
   },
   {
-   "id": "tired",
-   "min": 3.6,
-   "lines": [
-    [
-     {
-      "t": "And being tired makes everything feel more final than it is.",
-      "speed": 1.04
-     }
-    ],
-    [
-     {
-      "t": "Forever!",
-      "who": "w",
-      "pause": 0.1,
-      "speed": 1.0,
-      "cue": "say"
-     }
-    ]
-   ]
-  },
-  {
    "id": "phone",
-   "min": 5.5,
+   "min": 4.4,
    "lines": [
     [
      {
-      "t": "So she opened Heartly, and wrote out what was really going on.",
-      "speed": 1.04,
+      "t": "So she opened Heartly, and wrote it all out.",
+      "speed": 1.144,
       "gain": 0.72
      }
     ],
     [
      {
-      "t": "It's 2am. What would 2pm you say?",
+      "t": "What would 2pm you say?",
       "who": "h",
-      "pause": 0.45,
+      "pause": 0.18,
+      "speed": 0.9,
       "cue": "say"
      }
     ]
@@ -132,21 +112,21 @@
   },
   {
    "id": "rest",
-   "min": 4.8,
+   "min": 5.0,
    "lines": [
     [
      {
-      "t": "Don't argue with it at 2am.",
-      "pause": 0.3,
-      "speed": 1.0,
+      "t": "Chicago researchers had anxious students write out their worries for ten minutes before an exam.",
+      "pause": 0.04,
+      "speed": 1.206,
       "pitch": 0.3
      },
      {
-      "t": "Get it out of your head, and onto a page.",
-      "pause": 0.25,
-      "speed": 0.94,
+      "t": "They scored nearly a grade higher.",
+      "pause": 0.08,
+      "speed": 1.019,
       "pitch": 0.3,
-      "cue": "do"
+      "cue": "result"
      }
     ]
    ]

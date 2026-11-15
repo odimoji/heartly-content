@@ -22,30 +22,25 @@
    "gain": 0.66
   }
  },
- "lead": 0.2,
- "gap": 0.2,
- "tail": 0.35,
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
  "scenes": [
   {
    "id": "hook",
-   "min": 5.2,
+   "min": 4.6,
    "lines": [
     [
      {
       "t": "Her worry gave a presentation, at 3am.",
-      "speed": 1.06
+      "speed": 1.14
      }
     ],
     [
      {
-      "t": "Slide one.",
-      "speed": 1.05,
-      "pitch": 0.4
-     },
-     {
-      "t": "You're getting fired!",
+      "t": "Slide one: you're getting fired!",
       "who": "w",
-      "pause": 0.14,
+      "pause": 0.12,
       "speed": 1.05,
       "cue": "say"
      }
@@ -53,21 +48,8 @@
    ]
   },
   {
-   "id": "street",
-   "min": 2.6,
-   "lines": [
-    [
-     {
-      "t": "He's followed her all day.",
-      "speed": 1.2,
-      "pitch": 0.6
-     }
-    ]
-   ]
-  },
-  {
    "id": "office",
-   "min": 2.8,
+   "min": 2.6,
    "lines": [
     [
      {
@@ -85,45 +67,20 @@
    ]
   },
   {
-   "id": "dinner",
-   "min": 2.8,
-   "lines": [
-    [
-     {
-      "t": "At dinner.",
-      "speed": 1.2
-     },
-     {
-      "t": "You're talking too much!",
-      "who": "w",
-      "pause": 0.22,
-      "speed": 1.04,
-      "cue": "say"
-     }
-    ]
-   ]
-  },
-  {
    "id": "huge",
-   "min": 3.6,
+   "min": 3.4,
    "lines": [
     [
      {
-      "t": "By 3am,",
-      "speed": 1.2,
-      "pitch": -1
-     },
-     {
-      "t": "he's huge.",
-      "pause": 0.16,
-      "speed": 0.84,
-      "pitch": -1.6,
-      "gain": 0.95,
+      "t": "By 3am, he's huge.",
+      "speed": 0.92,
+      "pitch": -1.4,
+      "gain": 0.9,
       "cue": "huge"
      },
      {
-      "t": "And he's on slide three.",
-      "pause": 0.26,
+      "t": "And on slide three.",
+      "pause": 0.22,
       "speed": 1.08,
       "pitch": -0.5,
       "cue": "three"
@@ -133,7 +90,7 @@
   },
   {
    "id": "phone",
-   "min": 5.5,
+   "min": 5.0,
    "lines": [
     [
      {
@@ -146,57 +103,24 @@
      {
       "t": "Which of these is happening, right now?",
       "who": "h",
-      "pause": 0.45,
-      "cue": "say"
+      "pause": 0.3,
+      "cue": "say",
+      "speed": 0.86
      }
     ]
    ]
   },
   {
-   "id": "none",
-   "min": 2.8,
-   "lines": [
-    [
-     {
-      "t": "None of them.",
-      "pause": 0.6,
-      "speed": 0.8,
-      "pitch": -2,
-      "gain": 0.6
-     }
-    ]
-   ]
-  },
-  {
-   "id": "pocket",
-   "min": 3.2,
-   "lines": [
-    [
-     {
-      "t": "He still tags along.",
-      "speed": 1.06,
-      "pitch": 0.6
-     },
-     {
-      "t": "He just fits in her pocket now.",
-      "pause": 0.28,
-      "speed": 0.98,
-      "pitch": 0.6,
-      "cue": "pocket"
-     }
-    ]
-   ]
-  },
-  {
-   "id": "fact",
-   "min": 5.0,
+   "id": "dawn",
+   "min": 5.6,
    "lines": [
     [
      {
       "t": "In a sleep lab, people who wrote down tomorrow's to-do list before bed",
       "speed": 1.08,
       "pitch": 0.3,
-      "gain": 0.8
+      "gain": 0.8,
+      "pause": 0.6
      },
      {
       "t": "fell asleep nine minutes faster.",
