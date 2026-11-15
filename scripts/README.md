@@ -15,7 +15,7 @@ Each script follows PLAYBOOK.md: open on a problem the viewer has, teach somethi
 - Do: take the questions out of your head and answer them one at a time, in writing.
 - Turn (narrator, once): "so he opened Heartly, wrote the first one down, and it showed him the question underneath."
 - End on the viewer: "which question is yours?" (answerable in comments)
-- Caption: no contact was never the hard part. (the app is heartly) #nocontact #breakup
+- Caption: 60 days of no contact and the questions are still here. (the app is heartly) #nocontact #breakup
 - Honesty: no stats, no study names. "unfinished business" is plain speech, not a clinical claim.
 
 ### worse_at_night (format a, mechanism explainer; angle: validating)
@@ -25,7 +25,7 @@ Each script follows PLAYBOOK.md: open on a problem the viewer has, teach somethi
 - Do: don't argue with it in your head at 2am. Get it out of your head and onto a page.
 - Turn (narrator, once): "so she opened Heartly and wrote out what was really going on."
 - End on the viewer: "what's yours at 2am?"
-- Caption: it's not bigger at night. the room is just emptier. (the app is heartly) #overthinking #2am
+- Caption: same thought. emptier room. (the app is heartly) #overthinking #2am
 - Honesty: no stats or clinical terms.
 
 ## Built

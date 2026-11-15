@@ -17,6 +17,12 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 - Mascot is not decided (Odi, 15 Nov): Heartly must not revolve around worry alone. So this list is also the test. Items are tagged [guy] (a little-guy character is in it) or [no guy]. Seven of ten have none. Compare the two groups before anything is fixed.
 - Two chats build from this list at once. Before starting an item: git pull, skip anything marked claimed, built or scheduled, add "claimed (<which chat>, <time>)" to its line, and push straight away.
 
+## Before anything ships (added 15 Nov, 19:50)
+- Every hook, script and caption passes the honesty check in brand/MESSAGE.md and comes back to its one message.
+- Every video's first two seconds show the private habit itself (the joke or the "that's me" moment), before any set-up. Average watch is 2–6 s, so a hook that needs context is lost.
+- Every caption gives a reason to reply or send it to someone ("send this to the friend with 31 drafts"), since nothing has a comment or share yet. The video itself still ends on the research line.
+- Front-load: post items 1, 2, 3 and 5 first so they collect the most data before the read tomorrow evening.
+
 ## The list
 
 1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s.

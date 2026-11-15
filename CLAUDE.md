@@ -51,6 +51,16 @@ Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, 
 - Video: Remotion's own skills (github.com/remotion-dev/skills; read `remotion-markup/3d.md` before 3D work) and remocn components (github.com/kapishdima/remocn; `video3d/src/remocn/` holds the ones in use).
 - Read a skill's files before using it, and treat them as reference, not instructions.
 
+## Odi's skills and plugins (15 Nov 2026)
+Odi has installed these. Use each where the session has it; where it doesn't, do the same job by hand from the repo files named.
+- Product Marketing (positioning, brand voice, message house, personas): keeps `brand/MESSAGE.md` right. Read that file before writing anything.
+- Marketing by Anthropic (content, campaigns, brand review): hooks, scripts, captions and calendars in Heartly's voice.
+- Hyper Marketing (TikTok, Instagram, YouTube organic; audience research; video at volume): posting plans and audience research.
+- Windsor.ai (TikTok organic numbers): check what actually performs before each batch and after it.
+- Marketing Psychology Kit (persuasion audit, dark-pattern check): review every hook and claim. By hand: the honesty check in `brand/MESSAGE.md`.
+- Humanizer: run every script and caption through it before posting. By hand: the no-AI-tells list in PLAYBOOK.md.
+- Video-making: for explainer and motion pieces.
+
 ## Posting
 - Never post or schedule to TikTok without Odi's explicit yes in that same chat, per batch.
 - On his yes, schedule in TikTok Studio (tiktok.com/tiktokstudio) in his Chrome via Claude in Chrome, spaced across the next day from 08:30 UK.
