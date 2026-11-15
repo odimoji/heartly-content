@@ -1,0 +1,16 @@
+{
+ "voice": "bm_george",
+ "lang": "en-gb",
+ "speed": 1.2,
+ "gap": 0.2,
+ "lead": 0.2,
+ "tail": 0.35,
+ "segments": [
+  [0, 4.6, ["Why can't you stop thinking about them?", "Your brain hates unfinished things."]],
+  [4.6, 8.4, ["So the breakup with no explanation keeps replaying."]],
+  [8.4, 15.2, ["The argument you never finished.", "The text left on read.", "The thing you never said to someone who's gone."]],
+  [15.2, 18.0, ["That's you. A head full of open loops."]],
+  [18.0, 25.0, ["You can't always get closure from them.", "But you can finish it yourself.", "Write it out, and the loop closes."]],
+  [25.0, 29.4, ["Heartly is where you finish them.", "What's your open loop?"]]
+ ]
+}
