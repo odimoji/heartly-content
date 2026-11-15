@@ -27,3 +27,13 @@ Odi (15 Nov 2026): end videos with a bit more education, not a question. Say tha
 - One fact per video, spoken by the narrator just before or just after the Heartly line, with a short on-screen label (for example "UCLA · 2007").
 - Pick the fact that matches the story: 1 for feelings you can't name, 2 for worry and 3am loops, 3 for anything carried a long time.
 - Heartly is the next step, never the thing the study tested. Do not imply the research was about Heartly or about AI.
+
+## 4. Writing tomorrow's list down helps you fall asleep (added 15 Nov, found by the content chat, checked here)
+- Study: Scullin and colleagues, Baylor University, Journal of Experimental Psychology: General, 2018. 57 healthy adults aged 18 to 30, one night in a sleep lab.
+- Finding: people who spent five minutes writing a to-do list for the next few days fell asleep about nine minutes faster than people who wrote about tasks they had already finished.
+- Say: "In a sleep lab, people who wrote down tomorrow's to-do list before bed fell asleep nine minutes faster."
+- Do not say: that it was journaling or writing about feelings, or that it treats insomnia (the authors say they don't know if it holds for insomnia).
+- Source: https://news.web.baylor.edu/news/story/2018/can-writing-your-dos-help-you-doze-baylor-study-suggests-jotting-down-tasks-can
+
+## Not for Heartly videos
+- Sohal and others, 2022 (journaling and symptom scores across 20 trials): it is about mental illness, so it stays out.
