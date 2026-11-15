@@ -12,8 +12,11 @@ Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, 
 - Nothing is the final brand identity yet. The stick-figure world is the first test; iterate on what the numbers say.
 
 ## Format
-- 1080×1920, 30 fps, 15–35 s.
-- Narrated (Odi, 14 Nov 2026): British male storyteller voice (Kokoro `bm_george`, speed 1.2). The narration tells the story, wry and warm, more than the captions say. A trending sound can go underneath on TikTok at low volume.
+- 1080×1920, 30 fps, 15–38 s.
+- Narrated and acted (Odi, 15 Nov 2026: the voice must not be flat; pace and feeling change with the story). Every phrase gets its own direction in the script: who says it, speed, pitch, loudness, and the pause before it.
+  - Cast: the narrator (Kokoro `bm_george`, British male), Worry's own words in his own higher, cheekier voice (`am_puck`, pitched up), and Heartly's reply in a slow, soft voice (`af_heart`).
+  - Slow down and drop the pitch for heavy beats, speed up for light ones, leave a real pause before a punchline or a quiet line.
+  - Kokoro cannot act on its own. If Odi wants more than this, the next step is a paid expressive voice (needs his API key) or his own recorded voice.
 - Hook in the first second, on screen.
 - Safe area: keep text and key action between y=230 and y=1440, and keep the right 230 px clear of text.
 - Lowercase, conversational captions on screen (Caveat), short.
@@ -31,7 +34,7 @@ Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, 
 - Project: `video3d/` (Remotion + three.js via `@remotion/three`). Characters live in `video3d/src/three/` (`Worry.tsx` the mascot, `Woman.tsx`, `sets.tsx` rooms). `src/WorryVideo.tsx` is the first video.
 - Setup: `cd video3d && npm i`. Remotion can't download its own browser here, so pass the pre-installed one:
   `B=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`
-- Narration and timing: edit `video3d/script.json`, then `KOKORO_DIR=~/tts python3 vo.py`. It writes `src/timing.json` (scene lengths) and `out/vo_<voice>.wav` (voice plus a quiet music pad).
+- Narration and timing: edit `video3d/script.json` (cast, and per phrase: `who`, `speed`, `pitch`, `gain`, `pause`, `cue`), then `KOKORO_DIR=~/tts python3 vo.py`. It prints each phrase's pace and pitch, and writes `src/timing.json` (scene lengths, line windows, cues the animation syncs to) and `out/vo.wav` (voices plus a quiet music pad). Captions and bubbles must sit inside a `<Sequence>` so their timing starts with the scene.
 - Check frames: `./stills.sh 30 200 400 …` → `out/sheet.jpg`. Render: `npx remotion render Worry3am out/video.mp4 --muted --browser-executable=$B --gl=swangle --concurrency=2`, then add the audio with ffmpeg.
 - Remotion is free for teams of up to 3 people; above that it needs a paid licence.
 

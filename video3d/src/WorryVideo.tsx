@@ -3,7 +3,7 @@
 import { ThreeCanvas } from "@remotion/three";
 import { useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "three";
-import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import timing from "./timing.json";
 import { useFontsReady } from "./fonts";
 import { SoftBlurIn } from "./remocn/soft-blur-in";
@@ -151,6 +151,7 @@ export const WorryVideo: React.FC = () => {
   const line = (j: number) => Math.round(sc.lines[j].A[0] * FPS);
   const lineEnd = (j: number) => Math.round((sc.lines[j].A[0] + sc.lines[j].A[1]) * FPS);
   const talk = (on: boolean) => (on ? Math.abs(Math.sin(f * 0.95)) : 0);
+  const cue = (name: string, fallback: number) => (sc.cues as Record<string, number>)[name] ?? fallback;
   const id = sc.id;
   // zoom-through cuts: rush in at the end of a scene, settle in from far at the start of the next
   const zin = idx < timing.scenes.length - 1 ? Math.pow(seg(lf, sc.dur - 7, sc.dur), 2) : 0;
@@ -165,7 +166,7 @@ export const WorryVideo: React.FC = () => {
     const flip = ease(seg(lf, flipAt, flipAt + 15));
     const tap = Math.max(0, Math.sin(f * 0.5)) * 0.05;
     const hop = lf >= flipAt && lf < flipAt + 12 ? Math.sin(seg(lf, flipAt, flipAt + 12) * Math.PI) * 0.18 : 0;
-    const speaking = (lf >= line(0) && lf <= lineEnd(0)) || (lf >= line(1) && lf <= lineEnd(1));
+    const speaking = lf >= cue("say", line(1)) && lf <= lineEnd(1); // only his own words move his mouth
     lights = <Lights kind="night" />;
     content = (
       <>
@@ -193,23 +194,25 @@ export const WorryVideo: React.FC = () => {
       </>
     );
   } else if (id === "huge") {
-    const grow = sp(lf - 24, 9, 120);
+    const growAt = cue("huge", 26) - 2;
+    const grow = sp(lf - growAt, 9, 120);
     const r = lerp(0.42, 0.58, grow), wp: V3 = [1.12, 0, 0.5];
-    const flipAt = 56, flip = ease(seg(lf, flipAt, flipAt + 15));
-    const shake = Math.sin(lf * 2.4) * 0.025 * Math.max(0, 1 - Math.abs(lf - 30) / 12);
+    const flipAt = cue("three", 50) + 6, flip = ease(seg(lf, flipAt, flipAt + 15));
+    const shake = Math.sin(lf * 2.4) * 0.025 * Math.max(0, 1 - Math.abs(lf - growAt - 6) / 12);
+    const hide = ease(seg(lf, growAt + 6, growAt + 22));
     lights = <Lights kind="night" />;
     content = (
       <>
         <Bedroom slide={{ kind: "three" }} prev={{ kind: "two" }} flip={flip} fonts={fonts} f={f} chartX={0.1} pillowUp={1} />
-        <Woman pos={[-0.8, 0.47, -0.52]} rotY={0.3} pose={{ sit: true, armL: [-1.0 - 0.9 * ease(seg(lf, 30, 46)), -0.25], armR: [-1.0 - 0.9 * ease(seg(lf, 30, 46)), -0.25], headTurn: 0.35, headTilt: 0.12, pillow: ease(seg(lf, 30, 46)) }} />
-        <Worry pos={wp} r={r} f={f} rotY={-0.45} look={[-0.75, 0.25]} mood="smug" talk={talk(lf >= line(0) && lf <= lineEnd(0))} squash={(1 - grow) * 0.0 + Math.sin(Math.min(1, seg(lf, 24, 40)) * Math.PI) * 0.12} />
+        <Woman pos={[-0.8, 0.47, -0.52]} rotY={0.3} pose={{ sit: true, armL: [-1.0 - 0.9 * hide, -0.25], armR: [-1.0 - 0.9 * hide, -0.25], headTurn: 0.35, headTilt: 0.12, pillow: hide }} />
+        <Worry pos={wp} r={r} f={f} rotY={-0.45} look={[-0.75, 0.25]} mood="smug" squash={Math.sin(Math.min(1, seg(lf, growAt, growAt + 16)) * Math.PI) * 0.12} />
         <Rim pos={wp} r={r} />
         <Stick a={[wp[0] - r * 0.95, r * 1.75, wp[2] + 0.1]} b={[0.32, 1.25 + Math.max(0, Math.sin(f * 0.5)) * 0.05, -0.42]} r={0.012} c="#f3ead9" />
         <Stick a={[wp[0] - r * 0.6, r * 1.6, wp[2] + 0.1]} b={[wp[0] - r * 0.98, r * 1.76, wp[2] + 0.1]} r={0.04} c="#221c22" />
       </>
     );
     cam = <Cam target={[0.2, 1.22 + shake, 0]} d={zd(lerp(11.8, 10.6, ease(p)))} />;
-    overlay = <Cap eyebrow="3:00 AM AGAIN" text="he’s on slide three" from={50} />;
+    overlay = <Cap eyebrow="3:00 AM AGAIN" text="he’s on slide three" from={flipAt} />;
   } else if (id === "street") {
     const x = lerp(-1.0, 0.5, p);
     const g = ease(seg(lf, 38, 46)) - ease(seg(lf, 62, 70)); // she glances back; he freezes
@@ -226,7 +229,7 @@ export const WorryVideo: React.FC = () => {
     cam = <Cam target={[x * 0.55 - 0.15, 1.0, 0]} d={zd(lerp(9.6, 8.6, ease(p)))} el={0.17} />;
     overlay = <Cap eyebrow="EARLIER · 8:15 AM" text="he’s followed her all day" />;
   } else if (id === "office") {
-    const saidAt = line(0) + 20;
+    const saidAt = cue("say", line(0) + 20);
     const inK = seg(lf, 4, saidAt - 2);
     const wp: V3 = [lerp(1.3, 0.68, easeOut(inK)), 0.77 + Math.abs(Math.sin(inK * Math.PI * 2)) * 0.2 * (1 - inK), 0.0];
     const stop = ease(seg(lf, saidAt + 2, saidAt + 12)), slump = ease(seg(lf, saidAt + 26, saidAt + 44));
@@ -248,7 +251,7 @@ export const WorryVideo: React.FC = () => {
       </>
     );
   } else if (id === "dinner") {
-    const landAt = 16, saidAt = line(0) + 22;
+    const landAt = 16, saidAt = cue("say", line(0) + 22);
     const fall = Math.pow(seg(lf, 6, landAt), 2);
     const land = Math.max(0, 1 - Math.abs(lf - landAt - 2) / 5);
     const wp: V3 = [0, lerp(2.7, 0.765, fall), -0.06];
@@ -272,7 +275,8 @@ export const WorryVideo: React.FC = () => {
     );
   } else if (id === "phone") {
     const peek = easeOut(seg(lf, 8, 28));
-    const react = lf >= line(1) + 20;
+    const replyAt = cue("say", line(1));
+    const react = lf >= replyAt + 20;
     const wp: V3 = [0, lerp(-1.9, 0.1, peek) + (react ? 0.06 : 0), -0.5];
     lights = <Lights kind="night" />;
     content = (
@@ -282,7 +286,7 @@ export const WorryVideo: React.FC = () => {
       </>
     );
     cam = <Cam target={[0, 0, 0]} d={zd(6)} yaw={0} el={0} />;
-    overlay = <Phone lf={lf} replyAt={line(1)} />;
+    overlay = <Phone lf={lf} replyAt={replyAt} />;
   } else if (id === "none") {
     const m = ease(seg(lf, 4, 62));
     const cross: [number, number, number] = [easeOut(seg(lf, 8, 16)), easeOut(seg(lf, 19, 27)), easeOut(seg(lf, 30, 38))];
@@ -314,7 +318,7 @@ export const WorryVideo: React.FC = () => {
   } else {
     // pocket + ask: sunrise street. He hops after her, jumps into her pocket, and stays there.
     const ask = id === "ask";
-    const stopAt = 52, jumpAt = 58, inAt = 71;
+    const jumpAt = cue("pocket", 58), stopAt = jumpAt - 6, inAt = jumpAt + 13;
     const x = ask ? 0.1 : lerp(-0.95, 0.1, easeOut(seg(lf, 0, stopAt)));
     const walking = !ask && lf < stopAt;
     const inPocket = ask || lf >= inAt;
@@ -366,7 +370,10 @@ export const WorryVideo: React.FC = () => {
       {id !== "hook" && id !== "phone" && id !== "ask" && <AbsoluteFill style={{ background: "linear-gradient(rgba(12,9,7,.9) 0%, rgba(12,9,7,.7) 20%, rgba(12,9,7,0) 34%)" }} />}
       {id === "ask" && <AbsoluteFill style={{ background: "linear-gradient(rgba(12,9,7,0) 52%, rgba(12,9,7,.8) 68%, rgba(12,9,7,.94) 100%)" }} />}
       <AbsoluteFill style={{ filter: "url(#grain)", mixBlendMode: "soft-light", opacity: 0.9 }} />
-      <AbsoluteFill style={{ opacity: 1 - zin }}>{fonts && overlay}</AbsoluteFill>
+      <AbsoluteFill style={{ opacity: 1 - zin }}>
+        {/* the Sequence gives captions and bubbles a frame count that starts with their scene */}
+        <Sequence key={id} from={sc.start} layout="none">{fonts && overlay}</Sequence>
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

@@ -1,78 +1,204 @@
 {
- "voices": {
-  "A": {
+ "cast": {
+  "n": {
    "voice": "bm_george",
    "lang": "en-gb",
-   "speed": 1.12
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
   }
  },
  "lead": 0.2,
- "gap": 0.22,
+ "gap": 0.2,
  "tail": 0.35,
  "scenes": [
   {
    "id": "hook",
-   "min": 5.6,
+   "min": 5.2,
    "lines": [
-    "Her worry gave a presentation at 3am.",
-    "Slide one: you're getting fired."
+    [
+     {
+      "t": "Her worry gave a presentation, at 3am.",
+      "speed": 1.06
+     }
+    ],
+    [
+     {
+      "t": "Slide one.",
+      "speed": 1.05,
+      "pitch": 0.4
+     },
+     {
+      "t": "You're getting fired!",
+      "who": "w",
+      "pause": 0.14,
+      "speed": 1.05,
+      "cue": "say"
+     }
+    ]
    ]
   },
   {
    "id": "street",
-   "min": 3.0,
+   "min": 2.6,
    "lines": [
-    "He's followed her all day."
+    [
+     {
+      "t": "He's followed her all day.",
+      "speed": 1.2,
+      "pitch": 0.6
+     }
+    ]
    ]
   },
   {
    "id": "office",
-   "min": 3.2,
+   "min": 2.8,
    "lines": [
-    "At work: they hated that email."
+    [
+     {
+      "t": "At work.",
+      "speed": 1.2
+     },
+     {
+      "t": "They hated that email.",
+      "who": "w",
+      "pause": 0.14,
+      "speed": 0.96,
+      "cue": "say"
+     }
+    ]
    ]
   },
   {
    "id": "dinner",
-   "min": 3.2,
+   "min": 2.8,
    "lines": [
-    "At dinner: you're talking too much."
+    [
+     {
+      "t": "At dinner.",
+      "speed": 1.2
+     },
+     {
+      "t": "You're talking too much!",
+      "who": "w",
+      "pause": 0.22,
+      "speed": 1.04,
+      "cue": "say"
+     }
+    ]
    ]
   },
   {
    "id": "huge",
-   "min": 2.8,
+   "min": 3.6,
    "lines": [
-    "By 3am he's huge, and on slide three."
+    [
+     {
+      "t": "By 3am,",
+      "speed": 1.2,
+      "pitch": -1
+     },
+     {
+      "t": "he's huge.",
+      "pause": 0.16,
+      "speed": 0.84,
+      "pitch": -1.6,
+      "gain": 0.95,
+      "cue": "huge"
+     },
+     {
+      "t": "And he's on slide three.",
+      "pause": 0.26,
+      "speed": 1.08,
+      "pitch": -0.5,
+      "cue": "three"
+     }
+    ]
    ]
   },
   {
    "id": "phone",
    "min": 5.5,
    "lines": [
-    "So she opened Heartly and typed out every slide.",
-    "It asked: which of these is happening right now?"
+    [
+     {
+      "t": "So she opened Heartly, and typed out every slide.",
+      "speed": 1.04,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "Which of these is happening, right now?",
+      "who": "h",
+      "pause": 0.45,
+      "cue": "say"
+     }
+    ]
    ]
   },
   {
    "id": "none",
-   "min": 3.0,
+   "min": 2.8,
    "lines": [
-    "None of them."
+    [
+     {
+      "t": "None of them.",
+      "pause": 0.6,
+      "speed": 0.8,
+      "pitch": -2,
+      "gain": 0.6
+     }
+    ]
    ]
   },
   {
    "id": "pocket",
    "min": 3.2,
    "lines": [
-    "He still tags along. He fits in her pocket now."
+    [
+     {
+      "t": "He still tags along.",
+      "speed": 1.06,
+      "pitch": 0.6
+     },
+     {
+      "t": "He just fits in her pocket now.",
+      "pause": 0.28,
+      "speed": 0.98,
+      "pitch": 0.6,
+      "cue": "pocket"
+     }
+    ]
    ]
   },
   {
    "id": "ask",
-   "min": 3.0,
+   "min": 2.8,
    "lines": [
-    "What's on your worry's slide one?"
+    [
+     {
+      "t": "What's on your worry's slide one?",
+      "speed": 1.04,
+      "pitch": 1.0,
+      "gain": 0.85
+     }
+    ]
    ]
   }
  ]
