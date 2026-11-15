@@ -1,0 +1,199 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  }
+ },
+ "lead": 0.2,
+ "gap": 0.2,
+ "tail": 0.35,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 4.6,
+   "lines": [
+    [
+     {
+      "t": "Nobody tells you your glow-up has an audience of one.",
+      "speed": 1.08
+     },
+     {
+      "t": "And she's not watching.",
+      "pause": 0.28,
+      "speed": 0.9,
+      "pitch": -1.2,
+      "cue": "not"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "stories",
+   "min": 3.4,
+   "lines": [
+    [
+     {
+      "t": "He's posted nine stories this week.",
+      "speed": 1.12,
+      "pitch": 0.5
+     }
+    ],
+    [
+     {
+      "t": "Post another!",
+      "who": "w",
+      "pause": 0.05,
+      "speed": 1.05,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "list",
+   "min": 4.2,
+   "lines": [
+    [
+     {
+      "t": "The gym.",
+      "speed": 1.15,
+      "cue": "gym"
+     },
+     {
+      "t": "The haircut.",
+      "pause": 0.12,
+      "speed": 1.15,
+      "cue": "hair"
+     },
+     {
+      "t": "A salad he didn't eat.",
+      "pause": 0.12,
+      "speed": 1.0,
+      "pitch": -0.6,
+      "cue": "salad"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "views",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "Then he checks who's watched.",
+      "speed": 1.05
+     }
+    ],
+    [
+     {
+      "t": "Check again.",
+      "who": "w",
+      "pause": 0.2,
+      "speed": 1.0,
+      "cue": "say"
+     },
+     {
+      "t": "Check again!",
+      "who": "w",
+      "pause": 0.35,
+      "speed": 1.1,
+      "pitch": 1.5,
+      "cue": "say2"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "never",
+   "min": 3.2,
+   "lines": [
+    [
+     {
+      "t": "Forty-one days.",
+      "pause": 0.2,
+      "speed": 0.92,
+      "pitch": -1
+     },
+     {
+      "t": "It's never her.",
+      "pause": 0.3,
+      "speed": 0.84,
+      "pitch": -1.6,
+      "gain": 0.7,
+      "cue": "never"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.5,
+   "lines": [
+    [
+     {
+      "t": "So he opened Heartly, and typed the truth.",
+      "speed": 1.04,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "What do you want her to see?",
+      "who": "h",
+      "pause": 0.45,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "run",
+   "min": 5.2,
+   "lines": [
+    [
+     {
+      "t": "This morning he went for a run,",
+      "pause": 0.3,
+      "speed": 1.05,
+      "pitch": 0.5
+     },
+     {
+      "t": "and told no one.",
+      "pause": 0.22,
+      "speed": 0.9,
+      "pitch": 0.3,
+      "cue": "noone"
+     }
+    ],
+    [
+     {
+      "t": "Looking okay and being okay are two different jobs.",
+      "pause": 0.25,
+      "speed": 0.98,
+      "pitch": 0.3,
+      "cue": "teach"
+     }
+    ]
+   ]
+  }
+ ]
+}

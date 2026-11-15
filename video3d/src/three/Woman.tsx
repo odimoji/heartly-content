@@ -141,3 +141,4 @@ export const Woman: React.FC<{
     </group>
   );
 };
+export { Woman as Person } from "./Woman";

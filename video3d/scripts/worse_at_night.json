@@ -1,0 +1,155 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  }
+ },
+ "lead": 0.2,
+ "gap": 0.2,
+ "tail": 0.35,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 4.6,
+   "lines": [
+    [
+     {
+      "t": "Fine all day.",
+      "speed": 1.18,
+      "pitch": 0.8
+     },
+     {
+      "t": "Wrecked at 2am.",
+      "pause": 0.22,
+      "speed": 0.86,
+      "pitch": -1.5,
+      "gain": 0.9,
+      "cue": "wrecked"
+     },
+     {
+      "t": "You're not going backwards.",
+      "pause": 0.3,
+      "speed": 1.0,
+      "pitch": 0.3,
+      "cue": "not"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "day",
+   "min": 3.6,
+   "lines": [
+    [
+     {
+      "t": "In the day, your attention is taken.",
+      "speed": 1.15,
+      "pitch": 0.5
+     }
+    ]
+   ]
+  },
+  {
+   "id": "empties",
+   "min": 5.5,
+   "lines": [
+    [
+     {
+      "t": "At night, nothing competes with it.",
+      "speed": 0.98,
+      "pitch": -0.6,
+      "cue": "night"
+     },
+     {
+      "t": "Same thought. Emptier room.",
+      "pause": 0.5,
+      "speed": 0.92,
+      "pitch": -0.4,
+      "cue": "same"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "tired",
+   "min": 3.6,
+   "lines": [
+    [
+     {
+      "t": "And being tired makes everything feel more final than it is.",
+      "speed": 1.04
+     }
+    ],
+    [
+     {
+      "t": "Forever!",
+      "who": "w",
+      "pause": 0.1,
+      "speed": 1.0,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.5,
+   "lines": [
+    [
+     {
+      "t": "So she opened Heartly, and wrote out what was really going on.",
+      "speed": 1.04,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "It's 2am. What would 2pm you say?",
+      "who": "h",
+      "pause": 0.45,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "rest",
+   "min": 4.8,
+   "lines": [
+    [
+     {
+      "t": "Don't argue with it at 2am.",
+      "pause": 0.3,
+      "speed": 1.0,
+      "pitch": 0.3
+     },
+     {
+      "t": "Get it out of your head, and onto a page.",
+      "pause": 0.25,
+      "speed": 0.94,
+      "pitch": 0.3,
+      "cue": "do"
+     }
+    ]
+   ]
+  }
+ ]
+}

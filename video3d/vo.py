@@ -1,14 +1,21 @@
 # Directed narration. script.json gives a cast (narrator, Worry, Heartly) and, for every phrase, how to say it:
 # who, speed, pitch (semitones), gain, pause before, and an optional cue name the animation can sync to.
 # Writes src/timing.json (scene lengths, line windows, cues, in frames) and out/vo.wav (voices + quiet pad).
-#   KOKORO_DIR=~/tts python3 vo.py
-import json, os
+#   KOKORO_DIR=~/tts python3 vo.py [scripts/<name>.json]
+import json, os, sys
 from fractions import Fraction
 import numpy as np, soundfile as sf
 from scipy.signal import resample_poly
 from kokoro_onnx import Kokoro
 here = os.path.dirname(os.path.abspath(__file__))
-cfg = json.load(open(os.path.join(here, 'script.json')))
+# no argument: script.json -> src/timing.json + out/vo.wav (the Worry video)
+# with a script:  python3 vo.py scripts/<name>.json -> src/timing/<name>.json + out/<name>_vo.wav
+if len(sys.argv) > 1:
+    NAME = os.path.basename(sys.argv[1]).split('.')[0]
+    SCRIPT, TIMING, WAV = sys.argv[1], os.path.join(here, 'src', 'timing', NAME + '.json'), os.path.join(here, 'out', NAME + '_vo.wav')
+else:
+    SCRIPT, TIMING, WAV = os.path.join(here, 'script.json'), os.path.join(here, 'src', 'timing.json'), os.path.join(here, 'out', 'vo.wav')
+cfg = json.load(open(SCRIPT))
 kd = os.environ.get('KOKORO_DIR', os.path.expanduser('~/tts'))
 k = Kokoro(os.path.join(kd, 'kokoro-v1.0.onnx'), os.path.join(kd, 'voices-v1.0.bin'))
 SR, FPS = 24000, 30
@@ -50,7 +57,7 @@ for s in cfg['scenes']:
     dur = round(max(s['min'], cur - GAP + TAIL) * FPS) / FPS
     scenes.append({'id': s['id'], 'start': round(t * FPS), 'dur': round(dur * FPS), 'lines': lines, 'cues': cues}); t += dur
 total = t; print(f'total {total:.1f}s')
-json.dump({'fps': FPS, 'total': round(total * FPS), 'scenes': scenes}, open(os.path.join(here, 'src', 'timing.json'), 'w'), indent=1)
+json.dump({'fps': FPS, 'total': round(total * FPS), 'scenes': scenes}, open(TIMING, 'w'), indent=1)
 n = int(total * SR); tt = np.arange(n) / SR; pad = np.zeros(n, dtype=np.float32)
 chords = [[174.61, 220.0, 261.63, 329.63], [146.83, 220.0, 261.63, 349.23], [130.81, 196.0, 261.63, 329.63], [116.54, 174.61, 233.08, 293.66]]
 seg = total / 8
@@ -62,4 +69,4 @@ pad *= np.clip(tt / 1.0, 0, 1) * np.clip((total - tt) / 1.5, 0, 1); pad = pad / 
 tr = np.zeros(n + 2 * SR, dtype=np.float32)
 for st, a in clips: s0 = int(st * SR); tr[s0:s0 + len(a)] += a
 os.makedirs(os.path.join(here, 'out'), exist_ok=True)
-sf.write(os.path.join(here, 'out', 'vo.wav'), np.clip(tr[:n] + pad, -0.98, 0.98), SR)
+sf.write(WAV, np.clip(tr[:n] + pad, -0.98, 0.98), SR)

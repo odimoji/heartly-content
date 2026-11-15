@@ -188,15 +188,23 @@
    ]
   },
   {
-   "id": "ask",
-   "min": 2.8,
+   "id": "fact",
+   "min": 5.0,
    "lines": [
     [
      {
-      "t": "What's on your worry's slide one?",
-      "speed": 1.04,
-      "pitch": 1.0,
-      "gain": 0.85
+      "t": "In a sleep lab, people who wrote down tomorrow's to-do list before bed",
+      "speed": 1.08,
+      "pitch": 0.3,
+      "gain": 0.8
+     },
+     {
+      "t": "fell asleep nine minutes faster.",
+      "pause": 0.12,
+      "speed": 0.96,
+      "pitch": 0.3,
+      "gain": 0.85,
+      "cue": "result"
      }
     ]
    ]
