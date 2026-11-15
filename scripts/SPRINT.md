@@ -14,7 +14,7 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 - Length: aim for 20–26 s. The 36 s cut of worry_3am is too long for a 3–6 s average watch.
 - Hook on frame 1, scored 70+ with tools/ig-reel/hookscore.py.
 - Heartly once, at the turn, by what the character does. Never invent stats beyond FACTS.md.
-- Mascot is not decided (Odi, 15 Nov): Heartly must not revolve around worry alone. So this list is also the test. Items are tagged [guy] (a little-guy character is in it) or [no guy]. Six of ten have none. Compare the two groups before anything is fixed.
+- Mascot is not decided (Odi, 15 Nov): Heartly must not revolve around worry alone. So this list is also the test. Items are tagged [guy] (a little-guy character is in it) or [no guy]. Seven of ten have none. Compare the two groups before anything is fixed.
 - Two chats build from this list at once. Before starting an item: git pull, skip anything marked claimed, built or scheduled, add "claimed (<which chat>, <time>)" to its line, and push straight away.
 
 ## The list
