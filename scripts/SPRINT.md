@@ -23,6 +23,12 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 - Every caption gives a reason to reply or send it to someone ("send this to the friend with 31 drafts"), since nothing has a comment or share yet. The video itself still ends on the research line.
 - Front-load: post items 1, 2, 3 and 5 first so they collect the most data before the read tomorrow evening.
 
+## Posting during the sprint (added 15 Nov, 20:15)
+- The standing rule holds: nothing is posted without Odi's yes in the chat doing the posting.
+- If Odi gives a standing yes there for the sprint ("post each sprint video as it finishes"), post each one as soon as it has passed the checks above, and send him the video and caption at the same moment so he can pull it if something is off.
+- Keep at least 90 minutes between posts. If several finish together, post the highest on the list first and queue the rest 90 minutes apart. No posts between 00:30 and 07:00 UK; hold those for 07:30.
+- Log the post time in the tracker so tomorrow's read can compare like with like (hours live matters as much as views).
+
 ## The list
 
 1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s. — claimed (content chat, 15 Nov 20:15 UK): trimming to ~25 s with the sleep fact (FACTS 4), as Odi asked in chat
