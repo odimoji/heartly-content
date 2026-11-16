@@ -1,5 +1,25 @@
 # Heartly content: rules for every session
 
+## CURRENT DIRECTION (Odi, 16 Nov 2026): the series. This replaces the sprint and overrides anything below that conflicts.
+- **Series:** "30 days to the wedding". Zara, mid-20s; her ex marries in 30 days and she RSVP'd yes. One episode = one day. Bible, outline and scripts: `scripts/series/`.
+- **Goal:** views, comments, follows. Not installs. Posted on a new character account, not heartly.ai. Odi posts from his phone; Claude never posts or schedules.
+- **Our own world:** reference accounts are for structure only (deadline, HUD, fast cuts, vote). No borrowed characters, style, jokes, settings or premise details.
+- **Tone:** simple, serious underneath, relatable, entertaining. 18+. Flaws are relatable, never humiliating.
+- **Clarity rule:** every shot readable in one second with the sound off: who, where, doing what. One idea per shot.
+- **Heartly's role:** each night she writes it out; it reflects what's underneath; two next steps appear; the episode ends on those as a split-screen vote ("comment one word: X or Y"); the winner happens next episode and its effect stays. Never a cut to a UI slide: hands, over the shoulder, push into the screen, back to her face. Name visible on the phone, never spoken, never pitched. The screen must behave like the real app. No research facts.
+- **Modules:** the 30 days map onto the app's real modules (Attachment, Vices, Distraction, Anger, Blame, Pride, Fear, Grief), shown through what she does, never named.
+- **Script bar:** the first 3 seconds decide everything; open on a moment that lands in under 2 s. Each script must pass: would someone send it to a friend, is there one line worth quoting, does it work cold, could any line be cut. Then the no-AI-tells check.
+- **Look:** 2D-built with depth so it reads almost 3D: shaded forms, a clear light source in every scene, rim light on her, layered parallax, depth blur, soft cast shadows, fabric and wall texture. Heartly night palette. Not flat vector, not pixel art, not the 3D dolls, not stick figures.
+- **Edit:** HUD top-left (DAYS LEFT + DIGNITY meter). New shot every 1.5-3 s, 25+ shots per 60 s, none over 4 s. Captions 2-3 words, chunky, one keyword coloured, lower third. 45-75 s.
+- **Voice:** one continuous take, never stitched phrases. Times written as spoken. Odi picks from samples before animation.
+- **Kit:** character, flat, phone, HUD, caption and vote-card components, so a new episode needs only a new script file.
+- **Order, stop for Odi's yes at each step:** 1 outline + three episode 1 scripts; 2 character sheet (two style options, 8 expressions, the flat); 3 three 15 s voice samples; 4 episode 1 stills, every shot; 5 render once, send file and caption.
+- **Skills (Social Media Skills plugin), read before the step they serve and list which were used:** storytelling-and-narrative, short-form-video-script, tiktok-script, scripting-and-storyboarding, hook-writer, viral-reverse-engineering; ai-voiceover; ai-music-and-sound; caption-writer, tiktok-video-publishing, instagram-reels-publishing, profile-optimization; Humanizer and the brand/MESSAGE.md honesty check on everything. (story-writer is about Instagram Stories frames, not narrative.)
+- **Working rules:** one video at a time, no parallel agents, render once.
+
+Everything below is the earlier direction, kept for reference.
+
+
 Odi runs Heartly (iPhone app: you write out what you can't stop thinking about, it reflects back what's underneath and walks you through letting it go). This repo makes its TikTok content. Odi sets direction and approves; Claude makes the videos.
 
 ## What a good video is (Odi's direction, 14 Nov 2026)

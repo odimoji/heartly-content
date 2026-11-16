@@ -1,3 +1,6 @@
+# REPLACED on 16 Nov 2026 by the series. See scripts/series/README.md and CLAUDE.md.
+Nothing below is being built. Kept as a record of what was made and posted.
+
 # Fable 5.2 sprint list (15–17 Nov 2026)
 
 Direction set by Odi in the planning chat. The content chat builds from this list, top to bottom, in the established 3D night-to-dawn style (see CLAUDE.md), and may mix in other styles where a note says so. Mark each one built / scheduled here and in tracker/posts.csv.
