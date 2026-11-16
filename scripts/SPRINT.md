@@ -27,6 +27,7 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 - The standing rule holds: nothing is posted without Odi's yes in the chat doing the posting.
 - If Odi gives a standing yes there for the sprint ("post each sprint video as it finishes"), post each one as soon as it has passed the checks above, and send him the video and caption at the same moment so he can pull it if something is off.
 - Keep at least 90 minutes between posts. If several finish together, post the highest on the list first and queue the rest 90 minutes apart. No posts between 00:30 and 07:00 UK; hold those for 07:30.
+- (Odi, 16 Nov) No automated or scheduled posting overnight. The three posts scheduled in TikTok Studio for 03:50, 05:20 and 06:50 on 16 Nov got 0 views while the one posted directly at 02:11 got 600+. From now on: render the video, send Odi the file and caption, and he posts it from the TikTok app on his phone at a normal time (evening peak, about 19:00–21:00 UK), adding a trending sound in the app. Only automate posting again if Odi says so.
 - Log the post time in the tracker so tomorrow's read can compare like with like (hours live matters as much as views).
 
 ## The list
