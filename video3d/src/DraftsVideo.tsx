@@ -133,7 +133,7 @@ export const DraftsVideo: React.FC = () => {
         <DraftsRoom f={f} />
         <Him {...body}>
           <Phone pos={[0, 0.78, 0.4]} rot={[0.8, Math.PI, 0]} />
-          <pointLight position={[0, 1.0, 0.5]} color="#ffe9c8" intensity={3.4 * (1 + 0.06 * tap)} distance={2.4} decay={1.4} />
+          <pointLight position={[0, 1.0, 0.5]} color="#ffe9c8" intensity={1.0 * (1 + 0.06 * tap)} distance={2.4} decay={1.4} />
         </Him>
       </>
     );
@@ -277,6 +277,7 @@ export const DraftsVideo: React.FC = () => {
     overlay = (
       <>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(12,9,7,0) 50.5%, rgba(12,9,7,.92) 57%, rgba(12,9,7,.985) 63%, rgba(12,9,7,.985) 100%)" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 420, background: "linear-gradient(rgba(12,9,7,.9) 0%, rgba(12,9,7,.75) 55%, rgba(12,9,7,0) 100%)" }} />
         <Stamp text="6:30 AM" from={46} />
         <div style={{ position: "absolute", top: 1106, left: 60, right: 230, textAlign: "center" }}>
           <Eyebrow text="146 STUDIES · 2006" from={Math.max(0, t0 - 2)} />
