@@ -1,0 +1,63 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  },
+  "m": {
+   "voice": "am_michael",
+   "lang": "en-us",
+   "speed": 1.05,
+   "pitch": 0,
+   "gain": 0.82
+  }
+ },
+ "lead": 0.6,
+ "gap": 0.18,
+ "tail": 0.3,
+ "scenes": [
+  {
+   "id": "ask",
+   "min": 8.0,
+   "lines": [
+    [
+     {
+      "t": "What would you say,",
+      "who": "n",
+      "speed": 0.92,
+      "pitch": -1,
+      "gain": 0.8,
+      "pause": 0.0,
+      "cue": "a"
+     },
+     {
+      "t": "if you knew they'd never read it?",
+      "who": "n",
+      "speed": 0.86,
+      "pitch": -1.5,
+      "gain": 0.78,
+      "pause": 0.45,
+      "cue": "b"
+     }
+    ]
+   ]
+  }
+ ]
+}
