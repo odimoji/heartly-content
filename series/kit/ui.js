@@ -38,6 +38,31 @@
     ctx.restore();
   };
 
+  // a phone held in her hand: forearm, palm behind the phone, four fingertips round the far edge, thumb over the screen.
+  // thumbAt = [fx, fy] as fractions of the phone; sleeve = cuff colour (her blazer) or null for a bare arm
+  g.heldPhone = function (ctx, cx, cy, w, fn, o = {}) {
+    const h = w * 2.06, sk = ZC.skin, rot = o.rot ?? -0.05, ta = o.thumbAt || [0.6, 0.86];
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot);
+    // forearm coming up from the bottom right
+    const arm = (c) => { c.moveTo(w * 0.12, h * 0.5); c.lineTo(w * 0.78, h * 0.34); c.lineTo(w * 1.5, h * 1.5); c.lineTo(w * 0.5, h * 1.5); c.closePath(); };
+    zform(ctx, arm, o.sleeve || sk, [w * 0.1, h * 0.3, w * 1.4, h * 1.2], { rimW: w * 0.03, lo: 0.4 });
+    if (o.sleeve) { zform(ctx, (c) => { c.moveTo(w * 0.1, h * 0.52); c.lineTo(w * 0.8, h * 0.35); c.lineTo(w * 0.86, h * 0.45); c.lineTo(w * 0.17, h * 0.63); c.closePath(); }, sk, [w * 0.1, h * 0.35, w * 0.8, h * 0.3], { rimW: 0 }); ctx.strokeStyle = ZC.gold; ctx.lineWidth = w * 0.02; ctx.beginPath(); ctx.moveTo(w * 0.19, h * 0.655); ctx.lineTo(w * 0.87, h * 0.475); ctx.stroke(); }
+    // palm behind the lower half of the phone
+    zform(ctx, (c) => c.ellipse(w * 0.12, h * 0.3, w * 0.66, h * 0.3, -0.2, 0, 6.3), sk, [-w * 0.6, 0, w * 1.4, h * 0.62], { rimW: w * 0.02 });
+    ctx.restore();
+    phone(ctx, cx, cy, w, fn, { rot, glow: o.glow, glowC: o.glowC });
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot);
+    // fingertips wrapping the left edge
+    [0.02, 0.13, 0.24, 0.345].forEach((fy, i) => { const fw = w * (0.2 - i * 0.012), fh = w * 0.15; zform(ctx, (c) => c.roundRect(-w / 2 - fw * 0.42, h * fy, fw, fh, fh * 0.48), sk, [-w / 2 - fw * 0.42, h * fy, fw, fh], { rimW: 0, sx: -0.1, sy: 0.12 }); });
+    // the thumb: base at the lower right edge, tip at thumbAt
+    const bx = w * 0.56, by = h * 0.36, tx = (ta[0] - 0.5) * w, ty = (ta[1] - 0.5) * h, an = Math.atan2(ty - by, tx - bx), L = Math.hypot(tx - bx, ty - by);
+    ctx.translate(bx, by); ctx.rotate(an);
+    zform(ctx, (c) => { c.moveTo(-w * 0.1, -w * 0.15); c.bezierCurveTo(L * 0.4, -w * 0.15, L * 0.8, -w * 0.11, L, -w * 0.085); c.arc(L, 0, w * 0.085, -Math.PI / 2, Math.PI / 2); c.bezierCurveTo(L * 0.8, w * 0.11, L * 0.4, w * 0.16, -w * 0.1, w * 0.19); c.closePath(); }, sk, [-w * 0.1, -w * 0.16, L + w * 0.2, w * 0.36], { rimW: w * 0.012 });
+    ctx.fillStyle = o.sleeve ? "rgba(196,70,60,.85)" : "rgba(255,225,205,.5)"; ctx.beginPath(); ctx.roundRect(L - w * 0.075, -w * 0.058, w * 0.12, w * 0.116, w * 0.05); ctx.fill(); // nail (painted by day)
+    ctx.strokeStyle = "rgba(90,50,35,.35)"; ctx.lineWidth = w * 0.008; ctx.beginPath(); ctx.moveTo(L * 0.52, -w * 0.09); ctx.lineTo(L * 0.52, w * 0.1); ctx.stroke(); // knuckle
+    ctx.restore();
+  };
+
   // ---------- screens
   g.screenInvite = (pressed) => (ctx, w, h) => {
     const bg = ctx.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, "#fbf4e8"); bg.addColorStop(1, "#f0e2cc"); ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);

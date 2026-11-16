@@ -1,150 +1,145 @@
-// Zara's flat at night, built in layers (back wall, furniture, her, foreground) with one warm lamp as the key light.
-// drawFlat(ctx, o): o.style picks her look; o.expr her face; o.par is a parallax offset in px (camera moves).
+// Zara's world, each set full-bleed (1080x1920) and built in layers with one clear light source:
+//   drawFlat: her sleek flat at night (arc lamp, city lights through a big window, laptop, wine glass, one dying plant, heels by the door)
+//   drawBedroom: 1am, lit by her phone
+//   drawOffice: the glass-walled agency by day
+// o.par slides the layers for camera moves; o.zara = false leaves her out; o.expr / o.pose set her up.
 (function (g) {
-  const W = 1080, H = 1920, FLOOR = 1300;
+  const W = 1080, H = 1920;
   const blurred = (ctx, px, fn) => { ctx.save(); ctx.filter = `blur(${px}px)`; fn(); ctx.restore(); };
-  const shadow = (ctx, x, y, rx, ry, a = 0.45) => blurred(ctx, 16, () => { ctx.fillStyle = `rgba(8,4,3,${a})`; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, 6.3); ctx.fill(); });
+  const shadow = (ctx, x, y, rx, ry, a = 0.45) => blurred(ctx, 18, () => { ctx.fillStyle = `rgba(8,4,3,${a})`; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, 6.3); ctx.fill(); });
   const box = (x, y, w, h, r) => (c) => c.roundRect(x, y, w, h, r);
-  function flower(ctx, x, y, r, col) {
-    for (let i = 0; i < 7; i++) { const a = i * 0.9, px = x + Math.cos(a) * r * 0.55, py = y + Math.sin(a) * r * 0.55; zform(ctx, (c) => c.ellipse(px, py, r * 0.55, r * 0.55, 0, 0, 6.3), col, [px - r * 0.6, py - r * 0.6, r * 1.2, r * 1.2], { rimW: r * 0.08 }); }
-    zform(ctx, (c) => c.ellipse(x, y, r * 0.4, r * 0.4, 0, 0, 6.3), zdark(col, 0.25), [x - r * 0.4, y - r * 0.4, r * 0.8, r * 0.8], { rimW: 0 });
+  const screenGlow = (ctx, x, y, r, c) => { ctx.save(); ctx.globalCompositeOperation = "screen"; const gr = ctx.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, "rgba(0,0,0,0)"); ctx.fillStyle = gr; ctx.fillRect(x - r, y - r, r * 2, r * 2); ctx.restore(); };
+  // a made-up skyline: towers with lit windows, and soft points of light
+  function city(ctx, x, y, w, h, day) {
+    const sky = ctx.createLinearGradient(0, y, 0, y + h);
+    if (day) { sky.addColorStop(0, "#f6cfa0"); sky.addColorStop(1, "#f3e2c8"); } else { sky.addColorStop(0, "#14132a"); sky.addColorStop(0.7, "#3a2a48"); sky.addColorStop(1, "#6a3a40"); }
+    ctx.fillStyle = sky; ctx.fillRect(x, y, w, h);
+    let s = 11; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+    for (let i = 0; i < 12; i++) { const bw = 50 + rnd() * 70, bx = x + (i / 12) * w + rnd() * 20 - 10, bh = h * (0.25 + rnd() * 0.5);
+      ctx.fillStyle = day ? `rgba(160,120,90,${0.35 + rnd() * 0.25})` : ["#1a1730", "#221c38", "#15122a"][i % 3]; ctx.fillRect(bx, y + h - bh, bw, bh);
+      if (!day) { for (let r = 0; r < bh / 22; r++) for (let c2 = 0; c2 < bw / 16; c2++) if (rnd() > 0.55) { ctx.fillStyle = rnd() > 0.3 ? "rgba(255,205,130,.85)" : "rgba(190,215,255,.7)"; ctx.fillRect(bx + 5 + c2 * 16, y + h - bh + 8 + r * 22, 7, 10); } } }
+    if (!day) blurred(ctx, 8, () => { for (let i = 0; i < 26; i++) { ctx.fillStyle = ["rgba(255,190,110,.6)", "rgba(255,120,90,.5)", "rgba(190,215,255,.5)"][i % 3]; ctx.beginPath(); ctx.arc(x + rnd() * w, y + h * (0.55 + rnd() * 0.45), 5 + rnd() * 9, 0, 6.3); ctx.fill(); } });
   }
-  function bouquet(ctx, x, y, s, cols) {
-    ctx.strokeStyle = "#4f6a45"; ctx.lineWidth = 5 * s; ctx.lineCap = "round";
-    const heads = [[-46, -150], [0, -185], [44, -150], [-22, -118], [26, -112]];
-    heads.forEach(([dx, dy]) => { ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + dx * s * 0.3, y + dy * s * 0.5, x + dx * s, y + dy * s); ctx.stroke(); });
-    heads.forEach(([dx, dy], i) => flower(ctx, x + dx * s, y + dy * s, 30 * s, cols[i % cols.length]));
-  }
+  function heels(ctx, x, y, s = 1) { [0, 46].forEach((d, i) => { ctx.save(); ctx.translate(x + d * s, y + i * 6 * s); ctx.scale(s, s); ctx.rotate(i ? 0.5 : -0.1);
+    zform(ctx, (c) => { c.moveTo(-34, -6); c.quadraticCurveTo(0, -34, 32, -18); c.lineTo(40, 0); c.lineTo(-16, 0); c.closePath(); }, "#c0452f", [-34, -34, 76, 34], { rimW: 3 }); ctx.strokeStyle = "#8a2f20"; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(-28, -8); ctx.lineTo(-32, 0 + (i ? 0 : 0)); ctx.lineTo(-33, 26 * (i ? 0 : 1)); ctx.stroke(); ctx.restore(); }); }
+  function wine(ctx, x, y, s = 1) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.strokeStyle = "rgba(255,245,230,.55)"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -52); ctx.moveTo(-20, 0); ctx.lineTo(20, 0); ctx.stroke();
+    ctx.fillStyle = "rgba(255,245,230,.16)"; ctx.beginPath(); ctx.moveTo(-26, -112); ctx.quadraticCurveTo(-30, -52, 0, -52); ctx.quadraticCurveTo(30, -52, 26, -112); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#8a2030"; ctx.beginPath(); ctx.moveTo(-27, -84); ctx.quadraticCurveTo(-26, -55, 0, -55); ctx.quadraticCurveTo(26, -55, 27, -84); ctx.closePath(); ctx.fill(); ctx.restore(); }
+  function laptop(ctx, x, y, s = 1, lit = true) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    zform(ctx, box(-110, -150, 220, 146, 10), "#2a2220", [-110, -150, 220, 146], { rimW: 4 }); if (lit) { ctx.fillStyle = "#dfe8ff"; ctx.fillRect(-100, -140, 200, 126); ctx.fillStyle = "rgba(60,70,110,.5)"; [0, 1, 2, 3].forEach((i) => ctx.fillRect(-86, -124 + i * 26, 172 - i * 30, 10)); }
+    zform(ctx, (c) => { c.moveTo(-122, 0); c.lineTo(122, 0); c.lineTo(136, 16); c.lineTo(-136, 16); c.closePath(); }, "#b9b0a4", [-136, 0, 272, 16], { rimW: 0 }); ctx.restore(); if (lit) screenGlow(ctx, x, y - 80 * s, 300 * s, "rgba(170,200,255,.3)"); }
+  function plant(ctx, x, y, s = 1) { zform(ctx, (c) => { c.moveTo(x - 44 * s, y - 110 * s); c.lineTo(x + 44 * s, y - 110 * s); c.lineTo(x + 34 * s, y); c.lineTo(x - 34 * s, y); c.closePath(); }, "#e9dcc6", [x - 44 * s, y - 110 * s, 88 * s, 110 * s], { rimW: 5 });
+    ctx.strokeStyle = "#5c6a3c"; ctx.lineWidth = 6 * s; ctx.lineCap = "round"; [[-80, -170, "#6f7f48"], [46, -230, "#8a8a4a"], [86, -100, "#a08a48"], [-30, -120, "#9a7a40"]].forEach(([dx, dy, c]) => { ctx.beginPath(); ctx.moveTo(x, y - 108 * s); ctx.quadraticCurveTo(x + dx * 0.2 * s, y - 108 * s + dy * 0.8 * s, x + dx * s, y - 108 * s + dy * s); ctx.stroke(); ctx.save(); ctx.translate(x + dx * s, y - 108 * s + dy * s); ctx.rotate(dx > 0 ? 1.0 : -0.8); zform(ctx, (k) => k.ellipse(0, 0, 46 * s, 24 * s, 0, 0, 6.3), c, [-46 * s, -24 * s, 92 * s, 48 * s], { rimW: 3 }); ctx.restore(); }); }
+
   g.drawFlat = function (ctx, o = {}) {
-    const par = o.par || 0, style = o.style || "soft";
-    ctx.fillStyle = "#120d0a"; ctx.fillRect(0, 0, W, H);
-    // ---------- back layer: wall, window, things on the wall (moves least)
+    const par = o.par || 0, FLOOR = 1390;
+    // back: wall and the big window
     ctx.save(); ctx.translate(par * 0.3, 0);
-    const wall = ctx.createLinearGradient(0, 380, 0, FLOOR); wall.addColorStop(0, "#3d2520"); wall.addColorStop(1, "#2a1814");
-    ctx.fillStyle = wall; ctx.fillRect(-60, 380, W + 120, FLOOR - 380);
-    ctx.save(); ctx.globalAlpha = 0.07; ctx.fillStyle = "#f6dcc0"; for (let x = -60; x < W + 60; x += 54) ctx.fillRect(x, 380, 2, FLOOR - 380); ctx.restore(); // wallpaper stripe
-    // lamp light pooling on the wall
-    ctx.save(); ctx.globalCompositeOperation = "screen"; const lg = ctx.createRadialGradient(200, 700, 0, 200, 700, 620); lg.addColorStop(0, "rgba(255,170,95,.62)"); lg.addColorStop(0.5, "rgba(230,120,70,.2)"); lg.addColorStop(1, "rgba(230,120,70,0)"); ctx.fillStyle = lg; ctx.fillRect(-60, 380, W + 120, FLOOR - 380); ctx.restore();
-    // window: night, a railway bridge, one lit train
-    zform(ctx, box(606, 452, 318, 372, 10), "#d8c3a2", [606, 452, 318, 372], { rimW: 0, lo: 0.5 });
-    ctx.save(); ctx.beginPath(); ctx.roundRect(624, 470, 282, 336, 4); ctx.clip();
-    const sky = ctx.createLinearGradient(0, 470, 0, 806); sky.addColorStop(0, "#1b1b3a"); sky.addColorStop(1, "#3a2c4a"); ctx.fillStyle = sky; ctx.fillRect(624, 470, 282, 336);
-    ctx.save(); ctx.filter = "blur(10px)"; ctx.fillStyle = "rgba(255,240,210,.5)"; ctx.beginPath(); ctx.arc(840, 540, 44, 0, 6.3); ctx.fill(); ctx.restore();
-    ctx.fillStyle = "#f6ecd2"; ctx.beginPath(); ctx.arc(840, 540, 26, 0, 6.3); ctx.fill();
-    ctx.fillStyle = "#15122a"; ctx.fillRect(624, 690, 282, 26); for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.rect(634 + i * 74, 716, 16, 90); ctx.fill(); ctx.beginPath(); ctx.arc(679 + i * 74, 716, 29, 0, Math.PI, true); ctx.rect(650 + i * 74, 716, 58, 0); ctx.fill(); }
-    ctx.fillStyle = "#15122a"; ctx.fillRect(624, 716, 282, 14);
-    ctx.fillStyle = "#ffd98a"; for (let i = 0; i < 6; i++) ctx.fillRect(650 + i * 22, 676, 14, 9);
-    ctx.fillStyle = "#2a2350"; ctx.fillRect(644, 670, 140, 20); ctx.fillStyle = "#ffd98a"; for (let i = 0; i < 6; i++) ctx.fillRect(650 + i * 22, 675, 14, 9);
+    const wall = ctx.createLinearGradient(0, 0, 0, FLOOR); wall.addColorStop(0, "#2a1c1a"); wall.addColorStop(1, "#3a2620"); ctx.fillStyle = wall; ctx.fillRect(-80, 0, W + 160, FLOOR);
+    city(ctx, 380, 180, 760, 1010);
+    ctx.fillStyle = "#1a1210"; [380, 632, 884].forEach((x) => ctx.fillRect(x - 6, 180, 12, 1010)); ctx.fillRect(380, 174, 760, 12); ctx.fillRect(380, 1184, 760, 14);
+    ctx.save(); ctx.globalAlpha = 0.1; ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.moveTo(420, 180); ctx.lineTo(560, 180); ctx.lineTo(430, 1190); ctx.lineTo(380, 1190); ctx.closePath(); ctx.fill(); ctx.restore(); // glass
+    // one framed print, and a console with the things she hasn't dealt with
+    zform(ctx, box(96, 430, 190, 250, 6), "#1a1210", [96, 430, 190, 250], { rimW: 4 }); ctx.fillStyle = "#e9dcc6"; ctx.fillRect(110, 444, 162, 222); ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(190, 560, 54, 0, 6.3); ctx.fill(); ctx.fillStyle = "#d9b26a"; ctx.fillRect(110, 600, 162, 6);
     ctx.restore();
-    ctx.fillStyle = "#d8c3a2"; ctx.fillRect(760, 470, 10, 336); ctx.fillRect(624, 632, 282, 10);
-    zform(ctx, box(590, 820, 350, 22, 6), "#e2cfae", [590, 820, 350, 22], { rimW: 0 });
-    // corkboard with the photo strip she hasn't taken down
-    zform(ctx, box(318, 500, 214, 176, 8), "#8a5a3c", [318, 500, 214, 176], { rimW: 0 });
-    zform(ctx, box(330, 512, 190, 152, 4), "#b98556", [330, 512, 190, 152], { rimW: 0, lo: 0.2 });
-    ctx.save(); ctx.translate(378, 590); ctx.rotate(-0.07); ctx.fillStyle = "#fbf4e8"; ctx.fillRect(-26, -64, 52, 128); ["#c98a5e", "#b06a48", "#d9a070"].forEach((c, i) => { ctx.fillStyle = "#3a2a3a"; ctx.fillRect(-21, -59 + i * 41, 42, 36); ctx.fillStyle = c; ctx.beginPath(); ctx.arc(-8, -38 + i * 41, 8, 0, 6.3); ctx.arc(9, -40 + i * 41, 9, 0, 6.3); ctx.fill(); }); ctx.restore();
-    ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(378, 522, 6, 0, 6.3); ctx.fill();
-    ctx.save(); ctx.translate(462, 566); ctx.rotate(0.06); ctx.fillStyle = "#f3e2b8"; ctx.fillRect(-34, -30, 68, 60); ctx.fillStyle = "#8a6a4a"; for (let i = 0; i < 3; i++) ctx.fillRect(-24, -16 + i * 14, 48 - i * 10, 4); ctx.restore();
-    ctx.save(); ctx.translate(470, 632); ctx.rotate(-0.04); ctx.fillStyle = "#e9c3b0"; ctx.fillRect(-30, -18, 60, 36); ctx.restore();
-    // fairy lights over the window
-    ctx.strokeStyle = "rgba(30,18,14,.8)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(560, 430); ctx.quadraticCurveTo(765, 470, 970, 426); ctx.stroke();
-    for (let i = 0; i <= 12; i++) { const t = i / 12, x = 560 + 410 * t, y = 430 + 2 * 40 * t * (1 - t) - 4 * t + 6; ctx.save(); ctx.globalCompositeOperation = "screen"; ctx.filter = "blur(7px)"; ctx.fillStyle = "rgba(255,200,120,.75)"; ctx.beginPath(); ctx.arc(x, y, 11, 0, 6.3); ctx.fill(); ctx.restore(); ctx.fillStyle = "#ffe2b0"; ctx.beginPath(); ctx.arc(x, y, 4, 0, 6.3); ctx.fill(); }
-    // a small framed print and a bunch of flowers hung upside down to dry
-    zform(ctx, box(96, 610, 92, 116, 4), "#d8c3a2", [96, 610, 92, 116], { rimW: 0 }); ctx.fillStyle = "#3a2a3a"; ctx.fillRect(106, 620, 72, 96); ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(142, 676, 22, 0, 6.3); ctx.fill(); ctx.fillStyle = "#f0cc72"; ctx.beginPath(); ctx.arc(156, 650, 9, 0, 6.3); ctx.fill();
-    ctx.strokeStyle = "#6a5a3a"; ctx.lineWidth = 4; [[-10, 0], [0, 6], [10, 0]].forEach(([dx, dy], i) => { ctx.beginPath(); ctx.moveTo(552, 690); ctx.lineTo(552 + dx * 2.2, 770 + dy); ctx.stroke(); ctx.fillStyle = ["#c98aa0", "#d9b26a", "#e8a38a"][i]; ctx.beginPath(); ctx.arc(552 + dx * 2.4, 778 + dy, 13, 0, 6.3); ctx.fill(); }); ctx.fillStyle = "#b5654a"; ctx.fillRect(546, 684, 12, 8);
-    // shelf of jars: dried petals from bouquets she was proud of
-    zform(ctx, box(96, 560, 190, 14, 4), "#6a4630", [96, 560, 190, 14], { rimW: 0 });
-    [["#d9643a", 118], ["#e8b8a0", 168], ["#d9b26a", 218], ["#c98aa0", 262]].forEach(([c, x], i) => { const h = 58 - (i % 2) * 12; ctx.fillStyle = "rgba(240,230,215,.22)"; ctx.beginPath(); ctx.roundRect(x - 17, 560 - h, 34, h, 8); ctx.fill(); ctx.fillStyle = c; ctx.beginPath(); ctx.roundRect(x - 14, 560 - h * 0.62, 28, h * 0.6, 6); ctx.fill(); ctx.fillStyle = "#c9a57a"; ctx.fillRect(x - 15, 560 - h - 6, 30, 8); ctx.strokeStyle = "rgba(255,240,220,.5)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 11, 560 - h + 8); ctx.lineTo(x - 11, 552); ctx.stroke(); });
-    ctx.restore();
+    // warm pool from the lamp
+    screenGlow(ctx, 250, 760, 760, "rgba(255,170,95,.5)");
+    // floor
+    const fl = ctx.createLinearGradient(0, FLOOR, 0, H); fl.addColorStop(0, "#4a3226"); fl.addColorStop(1, "#1a110d"); ctx.fillStyle = fl; ctx.fillRect(0, FLOOR, W, H - FLOOR);
+    ctx.save(); ctx.globalAlpha = 0.1; ctx.strokeStyle = "#0e0806"; ctx.lineWidth = 2; for (let i = -6; i < 14; i++) { ctx.beginPath(); ctx.moveTo(540 + i * 80, FLOOR); ctx.lineTo(540 + i * 240, H); ctx.stroke(); } ctx.restore();
+    ctx.fillStyle = "#150e0c"; ctx.fillRect(0, FLOOR - 14, W, 14);
+    ctx.save(); ctx.globalAlpha = 0.25; city(ctx, 380, FLOOR, 760, 200); ctx.restore(); const fade = ctx.createLinearGradient(0, FLOOR, 0, FLOOR + 220); fade.addColorStop(0, "rgba(40,26,20,.55)"); fade.addColorStop(1, "#2a1c16"); ctx.fillStyle = fade; ctx.fillRect(380, FLOOR, 700, 220); // the city in the polished floor
+    zform(ctx, (c) => c.ellipse(560, 1560, 470, 90, 0, 0, 6.3), "#cbb89a", [90, 1470, 940, 180], { rimW: 0, lo: 0.5, sx: 0.04, sy: 0.3 });
+    screenGlow(ctx, 260, 1440, 560, "rgba(255,160,90,.3)");
 
-    // ---------- floor
-    const fl = ctx.createLinearGradient(0, FLOOR, 0, 1600); fl.addColorStop(0, "#5a3a28"); fl.addColorStop(1, "#1d120d"); ctx.fillStyle = fl; ctx.fillRect(0, FLOOR, W, 320);
-    ctx.save(); ctx.globalAlpha = 0.12; ctx.strokeStyle = "#1a0f0a"; ctx.lineWidth = 2; for (let i = -6; i < 14; i++) { ctx.beginPath(); ctx.moveTo(540 + i * 70, FLOOR); ctx.lineTo(540 + i * 190, 1620); ctx.stroke(); } ctx.restore();
-    ctx.fillStyle = "#2a1712"; ctx.fillRect(0, FLOOR - 16, W, 16); // skirting
-    zform(ctx, (c) => c.ellipse(520, 1420, 420, 70, 0, 0, 6.3), "#b88a62", [100, 1350, 840, 140], { rimW: 0, lo: 0.45, sx: 0.05, sy: 0.3 });
-    ctx.save(); ctx.globalCompositeOperation = "screen"; const fg2 = ctx.createRadialGradient(240, 1330, 0, 240, 1330, 520); fg2.addColorStop(0, "rgba(255,160,90,.34)"); fg2.addColorStop(1, "rgba(255,160,90,0)"); ctx.fillStyle = fg2; ctx.fillRect(0, FLOOR, W, 320); ctx.restore();
-
-    // ---------- mid layer: fridge, lamp, sofa, plant, table
     ctx.save(); ctx.translate(par * 0.7, 0);
-    // fridge with the invitation under a pizza-slice magnet
-    shadow(ctx, 990, FLOOR + 6, 120, 20);
-    zform(ctx, box(900, 700, 200, 600, 16), "#cfc6b6", [900, 700, 200, 600], { rimW: 0, lo: 0.55, sx: 0.12, sy: 0.02 });
-    ctx.fillStyle = "rgba(40,25,20,.45)"; ctx.fillRect(900, 900, 200, 5); ctx.fillStyle = "#8f887a"; ctx.fillRect(916, 800, 9, 70); ctx.fillRect(916, 930, 9, 90);
-    ctx.save(); ctx.translate(992, 800); ctx.rotate(0.05); ctx.fillStyle = "rgba(0,0,0,.3)"; ctx.fillRect(-45, -57, 96, 124); ctx.fillStyle = "#fbf4e8"; ctx.fillRect(-48, -62, 96, 124); ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 2; ctx.strokeRect(-41, -55, 82, 110);
-    ctx.fillStyle = "#3a2a22"; ctx.font = "italic 600 22px Cormorant"; ctx.textAlign = "center"; ctx.fillText("Miles", 0, -20); ctx.fillText("& Ivy", 0, 4); ctx.fillStyle = "#b9a78d"; ctx.fillRect(-26, 20, 52, 3); ctx.fillRect(-18, 32, 36, 3);
-    ctx.fillStyle = "#e3a63a"; ctx.beginPath(); ctx.moveTo(-16, -78); ctx.lineTo(16, -78); ctx.lineTo(0, -44); ctx.closePath(); ctx.fill(); ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(-4, -70, 4, 0, 6.3); ctx.arc(5, -62, 3.5, 0, 6.3); ctx.fill(); ctx.restore();
-    // floor lamp (the key light)
-    shadow(ctx, 150, FLOOR + 4, 70, 12);
-    ctx.fillStyle = "#1c120e"; ctx.fillRect(144, 700, 10, 600); ctx.beginPath(); ctx.ellipse(149, FLOOR, 54, 12, 0, 0, 6.3); ctx.fill();
-    ctx.save(); ctx.beginPath(); ctx.moveTo(98, 610); ctx.lineTo(200, 610); ctx.lineTo(232, 716); ctx.lineTo(66, 716); ctx.closePath(); const sh = ctx.createLinearGradient(0, 610, 0, 716); sh.addColorStop(0, "#ffd9a0"); sh.addColorStop(1, "#ffb060"); ctx.fillStyle = sh; ctx.fill(); ctx.restore();
-    blurred(ctx, 30, () => { ctx.globalCompositeOperation = "screen"; ctx.fillStyle = "rgba(255,190,120,.55)"; ctx.beginPath(); ctx.ellipse(149, 680, 130, 110, 0, 0, 6.3); ctx.fill(); });
-    // sofa
-    shadow(ctx, 520, FLOOR + 10, 330, 30, 0.6);
-    zform(ctx, box(232, 930, 590, 300, 60), "#b5553a", [232, 930, 590, 380], { lo: 0.5, rimW: 10, sx: 0.06, sy: 0.02 });
-    zform(ctx, box(206, 1050, 110, 250, 46), "#c05e40", [206, 1050, 110, 250], { rimW: 0, lo: 0.4 });
-    zform(ctx, box(738, 1050, 110, 250, 46), "#a84c33", [738, 1050, 110, 250], { rimW: 9, lo: 0.5 });
-    zform(ctx, box(290, 1130, 474, 120, 40), "#c96446", [290, 1130, 474, 150], { rimW: 0, lo: 0.42, sx: 0.02, sy: -0.2 });
-    zform(ctx, box(280, 1230, 494, 70, 18), "#8f3f2a", [280, 1230, 494, 70], { rimW: 0, lo: 0.5 });
-    zform(ctx, box(318, 1010, 130, 130, 34), "#d9b26a", [318, 1010, 130, 130], { rimW: 0, lo: 0.4 }); // cushion
-    // a blanket over the arm, books by the lamp, slippers kicked off
-    zform(ctx, (c) => { c.moveTo(730, 1040); c.quadraticCurveTo(800, 1020, 852, 1050); c.lineTo(858, 1210); c.quadraticCurveTo(800, 1232, 740, 1204); c.closePath(); }, "#e9dcc6", [730, 1030, 128, 200], { rimW: 6, lo: 0.4 });
-    ctx.save(); ctx.globalAlpha = 0.5; ctx.strokeStyle = "#b5654a"; ctx.lineWidth = 7; [1080, 1120, 1160].forEach((y) => { ctx.beginPath(); ctx.moveTo(736, y); ctx.quadraticCurveTo(800, y - 14, 856, y + 6); ctx.stroke(); }); ctx.restore();
-    [["#7f9a78", 0], ["#d9b26a", -18], ["#3d5a7a", -34], ["#c96446", -50]].forEach(([c, dy], i) => zform(ctx, box(180 + (i % 2) * 8, 1272 + dy, 104 - i * 6, 18, 4), c, [180, 1272 + dy, 104, 18], { rimW: 0 }));
-    [[610, 1318, 0.2], [664, 1326, -0.15]].forEach(([x, y, r]) => { ctx.save(); ctx.translate(x, y); ctx.rotate(r); zform(ctx, (c) => c.ellipse(0, 0, 30, 13, 0, 0, 6.3), "#c98aa0", [-30, -13, 60, 26], { rimW: 2 }); ctx.restore(); });
-    // the dying houseplant
-    shadow(ctx, 866, FLOOR + 6, 60, 12);
-    zform(ctx, (c) => { c.moveTo(830, 1200); c.lineTo(902, 1200); c.lineTo(890, 1300); c.lineTo(842, 1300); c.closePath(); }, "#b5654a", [830, 1200, 72, 100], { rimW: 5 });
-    ctx.strokeStyle = "#5c6a3c"; ctx.lineWidth = 6; ctx.lineCap = "round";
-    [[-70, -150, "#6f7f48"], [40, -190, "#8a8a4a"], [70, -90, "#a08a48"]].forEach(([dx, dy, c]) => { ctx.beginPath(); ctx.moveTo(866, 1202); ctx.quadraticCurveTo(866 + dx * 0.2, 1202 + dy * 0.8, 866 + dx, 1202 + dy); ctx.stroke(); ctx.save(); ctx.translate(866 + dx, 1202 + dy); ctx.rotate(dx > 0 ? 0.9 : -0.7); zform(ctx, (k) => k.ellipse(0, 0, 44, 24, 0, 0, 6.3), c, [-44, -24, 88, 48], { rimW: 3 }); ctx.restore(); });
+    // the door, her heels kicked off beside it, her bag
+    zform(ctx, box(-40, 420, 170, 980, 4), "#3a2a24", [-40, 420, 170, 980], { rimW: 6, lo: 0.5 }); ctx.fillStyle = "#d9b26a"; ctx.beginPath(); ctx.arc(104, 930, 9, 0, 6.3); ctx.fill();
+    shadow(ctx, 170, 1420, 90, 12, 0.5); heels(ctx, 150, 1418, 1.15);
+    // the arc lamp (the key light)
+    ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(250, 1392); ctx.bezierCurveTo(240, 700, 300, 520, 470, 560); ctx.stroke(); ctx.fillStyle = "#1a1210"; ctx.beginPath(); ctx.ellipse(250, 1394, 60, 12, 0, 0, 6.3); ctx.fill();
+    blurred(ctx, 26, () => { ctx.globalCompositeOperation = "screen"; ctx.fillStyle = "rgba(255,200,130,.75)"; ctx.beginPath(); ctx.arc(470, 610, 110, 0, 6.3); ctx.fill(); });
+    zform(ctx, (c) => c.ellipse(470, 600, 62, 62, 0, 0, 6.3), "#ffe2b0", [408, 538, 124, 124], { rimW: 0, lo: 0.1, shadow: false });
+    // the sofa: low, cream, one ember cushion
+    shadow(ctx, 580, 1400, 360, 30, 0.6);
+    zform(ctx, box(250, 1010, 680, 300, 50), "#d8c8ae", [250, 1010, 680, 400], { lo: 0.5, rimW: 10, sx: 0.05, sy: 0.02 });
+    zform(ctx, box(226, 1120, 110, 270, 44), "#e2d3ba", [226, 1120, 110, 270], { rimW: 0, lo: 0.4 }); zform(ctx, box(844, 1120, 110, 270, 44), "#cdbb9f", [844, 1120, 110, 270], { rimW: 9, lo: 0.5 });
+    zform(ctx, box(310, 1200, 560, 130, 40), "#e6d8c0", [310, 1200, 560, 160], { rimW: 0, lo: 0.42, sx: 0.02, sy: -0.2 }); zform(ctx, box(300, 1310, 580, 80, 16), "#b8a688", [300, 1310, 580, 80], { rimW: 0, lo: 0.5 });
+    zform(ctx, box(336, 1080, 140, 140, 36), "#d9643a", [336, 1080, 140, 140], { rimW: 0, lo: 0.4 });
+    // her blazer's twin: the work bag dropped by the sofa
+    zform(ctx, box(900, 1290, 120, 110, 16), "#1f1614", [900, 1290, 120, 110], { rimW: 6 }); ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(960, 1290, 34, Math.PI, 0); ctx.stroke();
+    plant(ctx, 1010, 1400, 1.05);
     ctx.restore();
 
-    // ---------- her
-    ctx.save(); ctx.translate(par * 0.85, 0);
-    const ZH = style === "soft" ? 640 : 720;
-    if (o.zara !== false) drawZara(ctx, 540 + (o.zx || 0), 1300 + zSitLift(style) * ZH, ZH, style, o.expr || "dread", o.pose || { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 });
-    ctx.restore();
+    if (o.zara !== false) { ctx.save(); ctx.translate(par * 0.85, 0); const ZH = 780;
+      drawZara(ctx, 590 + (o.zx || 0), 1392 + zSitLift() * ZH, ZH, o.expr || "dread", o.pose || { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 }); ctx.restore(); }
 
-    // ---------- front of her: the coffee table and tonight's flowers
+    // in front of her: the table, laptop still open, wine, the invitation
     ctx.save(); ctx.translate(par * 1.1, 0);
-    shadow(ctx, 380, 1470, 200, 22, 0.55);
-    zform(ctx, box(190, 1380, 380, 28, 12), "#7a5038", [190, 1380, 380, 28], { rimW: 4 });
-    ctx.fillStyle = "#3a2318"; ctx.fillRect(214, 1408, 16, 64); ctx.fillRect(530, 1408, 16, 64);
-    zform(ctx, box(254, 1300, 70, 82, 14), "#e9dcc6", [254, 1300, 70, 82], { rimW: 4 });
-    bouquet(ctx, 289, 1304, 0.8, ["#f3d9c8", "#e8a38a", "#fbf4e8"]);
-    zform(ctx, box(430, 1330, 54, 52, 10), "#d9643a", [430, 1330, 54, 52], { rimW: 3 }); // mug, still warm
-    ctx.save(); ctx.strokeStyle = "rgba(255,240,220,.28)"; ctx.lineWidth = 5; ctx.lineCap = "round"; ctx.filter = "blur(3px)"; [0, 16].forEach((d) => { ctx.beginPath(); ctx.moveTo(448 + d, 1322); ctx.bezierCurveTo(438 + d, 1300, 462 + d, 1286, 450 + d, 1262); ctx.stroke(); }); ctx.restore();
-    zform(ctx, box(496, 1362, 62, 20, 4), "#fbf4e8", [496, 1362, 62, 20], { rimW: 0 }); // a ribbon offcut and scissors from work
-    ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(350, 1376); ctx.bezierCurveTo(370, 1356, 390, 1392, 414, 1372); ctx.stroke();
+    shadow(ctx, 430, 1640, 300, 26, 0.6);
+    zform(ctx, box(150, 1530, 560, 34, 14), "#e9dcc6", [150, 1530, 560, 34], { rimW: 5 }); ctx.fillStyle = "#1a1210"; ctx.fillRect(184, 1564, 14, 84); ctx.fillRect(662, 1564, 14, 84);
+    laptop(ctx, 330, 1516, 0.9); wine(ctx, 540, 1530, 1.1);
+    ctx.save(); ctx.translate(628, 1474); ctx.rotate(0.08); ctx.fillStyle = "#fbf4e8"; ctx.fillRect(-42, -56, 84, 112); ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 2; ctx.strokeRect(-36, -50, 72, 100); ctx.fillStyle = "#3a2a22"; ctx.font = "italic 600 19px Cormorant"; ctx.textAlign = "center"; ctx.fillText("Miles", 0, -14); ctx.fillText("& Ivy", 0, 8); ctx.restore();
     ctx.restore();
-
-    // ---------- foreground, out of focus (moves most)
+    // closest to the camera, out of focus
     ctx.save(); ctx.translate(par * 1.8, 0);
-    blurred(ctx, 9, () => {
-      ctx.fillStyle = "#1a100c"; [[-10, 1610, 190, 70, -0.5], [120, 1560, 170, 60, -0.9], [40, 1500, 150, 50, -1.2]].forEach(([x, y, a, b, r]) => { ctx.beginPath(); ctx.ellipse(x, y, a, b, r, 0, 6.3); ctx.fill(); });
-      ctx.fillStyle = "#24130e"; ctx.beginPath(); ctx.roundRect(900, 1470, 200, 240, 40); ctx.fill();
-      ctx.fillStyle = "#c9785c"; [[930, 1420, 46], [1010, 1380, 54], [1060, 1450, 40]].forEach(([x, y, r]) => { ctx.beginPath(); ctx.arc(x, y, r, 0, 6.3); ctx.fill(); });
-    });
+    blurred(ctx, 11, () => { ctx.fillStyle = "#140c0a"; [[-20, 1820, 220, 80, -0.5], [150, 1760, 190, 66, -0.9], [40, 1690, 160, 54, -1.2]].forEach(([x, y, a, b, r]) => { ctx.beginPath(); ctx.ellipse(x, y, a, b, r, 0, 6.3); ctx.fill(); }); ctx.fillStyle = "#1c110e"; ctx.beginPath(); ctx.roundRect(880, 1700, 260, 300, 50); ctx.fill(); });
     ctx.restore();
-    // vignette
-    const vg = ctx.createRadialGradient(540, 1000, 380, 540, 1000, 980); vg.addColorStop(0, "rgba(10,6,5,0)"); vg.addColorStop(1, "rgba(10,6,5,.72)"); ctx.fillStyle = vg; ctx.fillRect(0, 380, W, 1300);
-    const top = ctx.createLinearGradient(0, 380, 0, 470); top.addColorStop(0, "#120d0a"); top.addColorStop(1, "rgba(18,13,10,0)"); ctx.fillStyle = top; ctx.fillRect(0, 380, W, 90);
-    const bot = ctx.createLinearGradient(0, 1540, 0, 1700); bot.addColorStop(0, "rgba(18,13,10,0)"); bot.addColorStop(1, "#120d0a"); ctx.fillStyle = bot; ctx.fillRect(0, 1540, W, 380);
+    const vg = ctx.createRadialGradient(540, 1000, 420, 540, 1000, 1150); vg.addColorStop(0, "rgba(10,6,5,0)"); vg.addColorStop(1, "rgba(10,6,5,.7)"); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
   };
+
+  g.drawBedroom = function (ctx, o = {}) {
+    const wall = ctx.createLinearGradient(0, 0, 0, 1300); wall.addColorStop(0, "#15121c"); wall.addColorStop(1, "#241a22"); ctx.fillStyle = wall; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.beginPath(); ctx.rect(-40, 200, 330, 760); ctx.clip(); city(ctx, -40, 200, 330, 760); ctx.restore(); ctx.fillStyle = "#0e0a0c"; ctx.fillRect(286, 200, 12, 760); ctx.fillRect(-40, 954, 338, 14);
+    blurred(ctx, 3, () => { ctx.fillStyle = "rgba(240,230,220,.1)"; ctx.fillRect(300, 190, 90, 790); }); // a sheer curtain
+    // headboard, pillows
+    zform(ctx, box(250, 720, 760, 520, 60), "#4a3a44", [250, 720, 760, 520], { rimW: 8, lo: 0.5 });
+    [[470, 1120, -0.08], [800, 1130, 0.06]].forEach(([x, y, r]) => { ctx.save(); ctx.translate(x, y); ctx.rotate(r); zform(ctx, box(-180, -90, 360, 180, 60), "#e6dccb", [-180, -90, 360, 180], { rimW: 5, lo: 0.5 }); ctx.restore(); });
+    // bedside table: the clock, a glass of water she won't drink
+    zform(ctx, box(40, 1150, 210, 420, 14), "#3a2a24", [40, 1150, 210, 420], { rimW: 0, lo: 0.5 });
+    zform(ctx, box(66, 1070, 150, 84, 16), "#1a1210", [66, 1070, 150, 84], { rimW: 3 }); ctx.save(); ctx.shadowColor = "#ff9a5a"; ctx.shadowBlur = 16; ctx.fillStyle = "#ffb27a"; ctx.font = "600 50px Inter"; ctx.textAlign = "center"; ctx.fillText(o.time || "1:12", 141, 1130); ctx.restore();
+    ctx.fillStyle = "rgba(220,235,255,.2)"; ctx.beginPath(); ctx.roundRect(196, 1088, 40, 64, 6); ctx.fill();
+    if (o.zara !== false) { const ZH = 900; drawZara(ctx, 640 + (o.zx || 0), 1690, ZH, o.expr || "raw", o.pose || { look: "night", armL: [0.25, -1.75], armR: [0.25, -1.75], phone: "R", glow: 1, tilt: -0.05 }); }
+    // the duvet over her legs
+    zform(ctx, (c) => { c.moveTo(220, 1330); c.bezierCurveTo(420, 1250, 860, 1250, 1100, 1320); c.lineTo(1100, 1960); c.lineTo(220, 1960); c.closePath(); }, "#d9cdb8", [220, 1260, 880, 700], { rimW: 0, lo: 0.6, sx: 0.03, sy: -0.06 });
+    ctx.save(); ctx.globalAlpha = 0.14; ctx.strokeStyle = "#4a3a30"; ctx.lineWidth = 5; [[420, 1300, 380, 1900], [760, 1290, 820, 1900]].forEach(([a, b, c2, d]) => { ctx.beginPath(); ctx.moveTo(a, b); ctx.quadraticCurveTo((a + c2) / 2 + 40, (b + d) / 2, c2, d); ctx.stroke(); }); ctx.restore();
+    screenGlow(ctx, 640 + (o.zx || 0), 1240, 620, "rgba(160,190,255,.3)");
+    const vg = ctx.createRadialGradient(600, 1100, 300, 600, 1100, 1150); vg.addColorStop(0, "rgba(6,5,8,0)"); vg.addColorStop(1, "rgba(6,5,8,.78)"); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+  };
+
+  g.drawOffice = function (ctx, o = {}) {
+    city(ctx, 0, 0, W, 1320, true);
+    screenGlow(ctx, 900, 200, 900, "rgba(255,235,190,.55)");
+    ctx.fillStyle = "#2a1f1a"; [0, 270, 540, 810, 1074].forEach((x) => ctx.fillRect(x - 5, 0, 10, 1320)); ctx.fillRect(0, 560, W, 8); // glass wall frames
+    ctx.save(); ctx.globalAlpha = 0.12; ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.moveTo(60, 0); ctx.lineTo(240, 0); ctx.lineTo(90, 1320); ctx.lineTo(0, 1320); ctx.closePath(); ctx.fill(); ctx.restore();
+    // colleagues behind the glass, soft
+    blurred(ctx, 7, () => { [[160, "#7a5640"], [930, "#c08a62"]].forEach(([x, c]) => { ctx.fillStyle = "#3a2a30"; ctx.beginPath(); ctx.roundRect(x - 70, 900, 140, 420, 50); ctx.fill(); ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, 850, 54, 0, 6.3); ctx.fill(); }); ctx.fillStyle = "#8a6a4a"; ctx.fillRect(40, 1180, 300, 30); });
+    const fl = ctx.createLinearGradient(0, 1320, 0, H); fl.addColorStop(0, "#b99c7c"); fl.addColorStop(1, "#5a4636"); ctx.fillStyle = fl; ctx.fillRect(0, 1320, W, 600);
+    if (o.zara !== false) drawZara(ctx, 520, 1640, 1080, o.expr || "neutral", o.pose || { armL: [0.2, -1.9], armR: [0.14, 0.08] });
+    // her desk across the front: laptop, name plate, a wedding file
+    shadow(ctx, 540, 1700, 520, 30, 0.35);
+    zform(ctx, box(-40, 1560, 1160, 60, 10), "#f1e6d2", [-40, 1560, 1160, 60], { rimW: 0, lo: 0.3 }); zform(ctx, box(-40, 1620, 1160, 320, 0), "#3a2a24", [-40, 1620, 1160, 320], { rimW: 0, lo: 0.5 });
+    laptop(ctx, 840, 1560, 1.25, false);
+    zform(ctx, box(120, 1490, 250, 70, 6), "#fbf4e8", [120, 1490, 250, 70], { rimW: 0 }); ctx.fillStyle = "#d9643a"; ctx.fillRect(120, 1490, 250, 14);
+    zform(ctx, box(430, 1508, 170, 54, 6), "#1f1614", [430, 1508, 170, 54], { rimW: 0 }); ctx.fillStyle = "#d9b26a"; ctx.font = "600 26px Inter"; ctx.textAlign = "center"; ctx.fillText("ZARA", 515, 1545);
+  };
+
   // the HUD: days left and the DIGNITY meter, top-left, always there
   g.drawHUD = function (ctx, days, dignity) {
     ctx.save(); ctx.translate(56, 236);
-    ctx.fillStyle = "rgba(23,18,14,.86)"; ctx.beginPath(); ctx.roundRect(0, 0, 330, 132, 26); ctx.fill(); ctx.strokeStyle = "rgba(217,178,106,.75)"; ctx.lineWidth = 3; ctx.stroke();
+    ctx.fillStyle = "rgba(23,18,14,.88)"; ctx.beginPath(); ctx.roundRect(0, 0, 330, 132, 26); ctx.fill(); ctx.strokeStyle = "rgba(217,178,106,.75)"; ctx.lineWidth = 3; ctx.stroke();
     ctx.textAlign = "left"; ctx.fillStyle = "#d9b26a"; ctx.font = "600 22px Inter"; ctx.letterSpacing = "4px"; ctx.fillText("DAYS LEFT", 24, 40); ctx.fillText("DIGNITY", 24, 98);
     ctx.letterSpacing = "0px"; ctx.fillStyle = "#f6ecdc"; ctx.font = "600 54px Cormorant"; ctx.textAlign = "right"; ctx.fillText(String(days), 306, 50);
-    ctx.fillStyle = "rgba(246,236,220,.18)"; ctx.beginPath(); ctx.roundRect(150, 82, 116, 18, 9); ctx.fill();
-    ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.roundRect(150, 82, 116 * dignity / 100, 18, 9); ctx.fill();
-    ctx.fillStyle = "#f6ecdc"; ctx.font = "600 22px Inter"; ctx.fillText(dignity + "%", 310, 99);
-    ctx.restore();
+    ctx.fillStyle = "rgba(246,236,220,.18)"; ctx.beginPath(); ctx.roundRect(150, 82, 116, 18, 9); ctx.fill(); ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.roundRect(150, 82, 116 * dignity / 100, 18, 9); ctx.fill();
+    ctx.fillStyle = "#f6ecdc"; ctx.font = "600 22px Inter"; ctx.fillText(dignity + "%", 310, 99); ctx.restore();
   };
-  // captions: chunky, lower third, 2-3 words, one word coloured. parts = [["30", true], [" DAYS", false]]
-  g.drawCaption = function (ctx, parts, y = 1470) {
-    ctx.save(); ctx.font = "600 92px Inter"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-    const total = parts.reduce((a, [t]) => a + ctx.measureText(t).width, 0); let x = 540 - total / 2;
-    parts.forEach(([t, hot]) => { ctx.textAlign = "left"; ctx.strokeStyle = "#120d0a"; ctx.lineWidth = 16; ctx.strokeText(t, x, y); ctx.fillStyle = hot ? "#f0b34a" : "#fbf4e8"; ctx.fillText(t, x, y); x += ctx.measureText(t).width; });
+  // captions: chunky, lower third, 2-3 words, one word coloured, kept clear of the right-hand buttons
+  g.drawCaption = function (ctx, parts, y = 1420) {
+    ctx.save(); let size = 92; ctx.font = `600 ${size}px Inter`; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+    const width = () => parts.reduce((a, [t]) => a + ctx.measureText(t).width, 0);
+    while (width() > 800 && size > 54) { size -= 4; ctx.font = `600 ${size}px Inter`; }
+    let x = 470 - width() / 2; if (x < 40) x = 40;
+    parts.forEach(([t, hot]) => { ctx.textAlign = "left"; ctx.strokeStyle = "#120d0a"; ctx.lineWidth = size * 0.18; ctx.strokeText(t, x, y); ctx.fillStyle = hot ? "#f0b34a" : "#fbf4e8"; ctx.fillText(t, x, y); x += ctx.measureText(t).width; });
     ctx.restore();
   };
 })(globalThis);

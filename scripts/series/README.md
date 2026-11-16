@@ -8,18 +8,19 @@ Zara's ex gets married in 30 days and she said yes to the invite. One episode is
 Goal: views, comments, follows. Not installs. It runs on its own character account, not heartly.ai.
 
 ## Her world (ours, invented; not tied to any real place)
-Like a cartoon's town: it feels lived-in and is nowhere in particular. No real cities, streets or shops, no surnames.
-- **Zara, 26.** Lives alone in a small top-floor flat above a laundrette. The radiator ticks. The window looks onto a railway bridge.
-- **Job:** makes wedding flowers at the flower shop. Her own houseplant is dying.
+Like a cartoon's city: it feels lived-in and is nowhere in particular. No real cities, streets or companies, no surnames.
+- **Zara, 26.** A smart, stylish corporate woman. Long bone-straight hair, tailored cream blazer, gold jewellery, heels. Confident and glamorous, never sexualised; no lingering body shots. By day she is completely put together. At 1am she is in an old t-shirt with her hair tied up, writing draft nine. That contrast is the comedy.
+- **Her flat:** sleek and modern. A good arc lamp, city lights through a big window, a laptop still open, a wine glass, one dying plant, her heels kicked off by the door.
+- **Job:** events director at an events and PR agency with glass walls. She plans other people's big days, weddings included.
 - **Miles, the ex.** Kind, avoids arguments. Three years together. It ended in a car park, which she holds against the car park.
 - **Ivy, the bride.** Engaged five months after the breakup. Zara has decided she's lovely and resents it.
 - **Remy, best friend.** Works nights, replies in capitals.
-- **Mrs Finch, her boss.** Says little. Sees everything.
+- **Mrs Finch, her director.** Says little. Sees everything.
 - **Her mum.** Rings on Sundays. Liked Miles.
-- **Habits and things:** gold hoops she never takes off, a mustard cardigan with one odd button, Miles's grey hoodie at the back of the wardrobe, a jar of dried petals from every bouquet she was proud of, the invitation on the fridge under a pizza-slice magnet, a corkboard with one photo strip she hasn't taken down.
+- **Things that recur:** the invitation propped on her coffee table, a photo-booth strip of her and Miles she hasn't thrown out, Miles's grey hoodie at the back of the wardrobe, the heels by the door, the plant.
 
 ## Voice
-A neutral narrator tells it in the third person, calm and dry. Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
+A neutral narrator tells it in the third person, calm and dry (ElevenLabs library voice "Mike", Odi's pick, 16 Nov; Zara is "Beth" for now). Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
 
 ## Votes
 Each episode ends on two choices as a split screen, one word each, one wise and one tempting; the narrator asks "What would you do?" and people comment the word. The episode never promises that the winner happens. Odi reads the comments and gives the winner. Real counts only, shown at the start of the next episode. A tie or no votes: the narrator flips a coin on screen. The vote decides how she gets through a day; the big turns happen either way.
@@ -42,13 +43,13 @@ Module names are Heartly's real ones from the app (Attachment, Vices, Distractio
 | 6 | Vices | The morning after. She liked a photo of his from 2023. | Public embarrassment |
 | 7 | Vices | She downloads the app. Swipes like it's a job. | |
 | 8 | Vices | The date. Nice man. She talks about Miles for 40 minutes. | End of week 1 recap |
-| 9 | Distraction | She signs up for everything: 6 a.m. classes, extra shifts, a pottery course. | |
+| 9 | Distraction | She signs up for everything: 6 a.m. classes, three extra accounts, a pottery course. | |
 | 10 | Distraction | The glow-up. Hair, nails, a dress she can't afford. | |
 | 11 | Distraction | She is so busy she forgets her mum's birthday. | Cost of running |
 | 12 | Distraction | A quiet Sunday she can't sit through. | |
-| 13 | Anger | The order ticket prints at work: bride's bouquet, Miles & Ivy wedding. It's hers to make. | Midpoint turn |
-| 14 | Anger | She builds the ugliest bouquet of her career, on purpose. Mrs Finch looks at it. | |
-| 15 | Anger | She says the thing about the car park, out loud, to a bucket of eucalyptus. | |
+| 13 | Anger | Mrs Finch drops a new account on her desk: the Miles & Ivy wedding. It's hers to run. | Midpoint turn |
+| 14 | Anger | She drafts the worst seating plan of her career, on purpose. Mrs Finch looks at it. | |
+| 15 | Anger | She says the thing about the car park, out loud, to an empty meeting room. | |
 | 16 | Anger | Under it: he never fought for it. Neither did she. | |
 | 17 | Blame | She makes the list of everything he did. It's long. | |
 | 18 | Blame | Remy asks for her half of the list. | |
@@ -60,9 +61,9 @@ Module names are Heartly's real ones from the app (Attachment, Vices, Distractio
 | 24 | Fear | The seating plan arrives. She's on the table by the toilets with his uncles. | |
 | 25 | Fear | She drafts the text that gets her out of going. | Lowest point |
 | 26 | Fear | She pictures the actual worst moment and walks through it. It's about nine seconds long. | |
-| 27 | Grief | She remakes the bouquet properly. | |
-| 28 | Grief | The hoodie goes in a bag for his sister. The photo strip comes off the corkboard. | |
-| 29 | Grief | The night before. Nothing to fix. She waters the monstera. | |
+| 27 | Grief | She redoes the wedding plan properly, the way she'd want her own done. | |
+| 28 | Grief | The hoodie goes in a bag for his sister. The photo strip goes in a drawer. | |
+| 29 | Grief | The night before. Nothing to fix. She waters the plant. | |
 | 30 | (all of it) | The wedding. We see her walk in. The last vote is the audience's send-off, not a cliffhanger. | End |
 
 Things the outline avoids on purpose: nobody is humiliated for laughs, no crisis or self-harm storyline, no promise that she ends up "healed". She ends up at a wedding, able to be there.
