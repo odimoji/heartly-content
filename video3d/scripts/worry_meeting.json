@@ -1,0 +1,129 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  },
+  "m": {
+   "voice": "am_michael",
+   "lang": "en-us",
+   "speed": 1.05,
+   "pitch": 0,
+   "gain": 0.82
+  }
+ },
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 4.0,
+   "lines": [
+    [
+     {
+      "t": "Nobody tells you your worry takes notes in every meeting.",
+      "speed": 1.14
+     },
+     {
+      "t": "Bad ones.",
+      "pause": 0.2,
+      "speed": 0.9,
+      "pitch": -1.2,
+      "cue": "bad"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "notes",
+   "min": 4.4,
+   "lines": [
+    [
+     {
+      "t": "They saw you yawn.",
+      "who": "w",
+      "speed": 1.05,
+      "cue": "n1"
+     },
+     {
+      "t": "Say something.",
+      "who": "w",
+      "pause": 0.25,
+      "speed": 1.05,
+      "pitch": 1,
+      "cue": "n2"
+     },
+     {
+      "t": "Not that!",
+      "who": "w",
+      "pause": 0.45,
+      "speed": 1.0,
+      "pitch": 2,
+      "cue": "n3"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "At lunch, she typed the notes into Heartly.",
+      "speed": 1.12,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "Are these three notes one fear?",
+      "who": "h",
+      "pause": 0.2,
+      "speed": 0.9,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "rest",
+   "min": 5.5,
+   "lines": [
+    [
+     {
+      "t": "Chicago researchers had anxious students write out their worries for ten minutes before an exam.",
+      "pause": 0.06,
+      "speed": 1.2,
+      "pitch": 0.3
+     },
+     {
+      "t": "They scored nearly a grade higher.",
+      "pause": 0.08,
+      "speed": 1.02,
+      "pitch": 0.3,
+      "cue": "result"
+     }
+    ]
+   ]
+  }
+ ]
+}

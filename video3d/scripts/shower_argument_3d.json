@@ -1,0 +1,135 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  },
+  "m": {
+   "voice": "am_michael",
+   "lang": "en-us",
+   "speed": 1.05,
+   "pitch": 0,
+   "gain": 0.82
+  }
+ },
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 4.2,
+   "lines": [
+    [
+     {
+      "t": "And another thing!",
+      "who": "m",
+      "speed": 1.1,
+      "pitch": 1,
+      "cue": "rant"
+     }
+    ],
+    [
+     {
+      "t": "Stop winning arguments in the shower.",
+      "pause": 0.05,
+      "speed": 1.12
+     },
+     {
+      "t": "She can't hear you.",
+      "pause": 0.18,
+      "speed": 0.92,
+      "pitch": -1.2,
+      "cue": "cant"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "places",
+   "min": 4.0,
+   "lines": [
+    [
+     {
+      "t": "He's won in the car.",
+      "speed": 1.16,
+      "cue": "car"
+     },
+     {
+      "t": "At the gym.",
+      "pause": 0.08,
+      "speed": 1.16,
+      "cue": "gym"
+     },
+     {
+      "t": "Against a lamp.",
+      "pause": 0.12,
+      "speed": 0.98,
+      "pitch": -0.8,
+      "cue": "lamp"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "So he opened Heartly, and wrote what he actually wanted to say.",
+      "speed": 1.14,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "What did you want her to hear?",
+      "who": "h",
+      "pause": 0.2,
+      "speed": 0.8,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "rest",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "In a UCLA brain-scan study, putting a feeling into words",
+      "pause": 0.1,
+      "speed": 1.12,
+      "pitch": 0.3
+     },
+     {
+      "t": "turned down the brain's alarm response.",
+      "pause": 0.06,
+      "speed": 1.0,
+      "pitch": 0.3,
+      "cue": "result"
+     }
+    ]
+   ]
+  }
+ ]
+}

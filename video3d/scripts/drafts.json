@@ -1,0 +1,121 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  },
+  "m": {
+   "voice": "am_michael",
+   "lang": "en-us",
+   "speed": 1.05,
+   "pitch": 0,
+   "gain": 0.82
+  }
+ },
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 3.8,
+   "lines": [
+    [
+     {
+      "t": "Nobody tells you the thirty-first draft is worse than the first.",
+      "speed": 1.14
+     }
+    ]
+   ]
+  },
+  {
+   "id": "read",
+   "min": 8.1,
+   "lines": [
+    [
+     {
+      "t": "Draft four. Hey.",
+      "who": "m",
+      "speed": 1.08,
+      "cue": "d1"
+     },
+     {
+      "t": "Draft nineteen. Hey. I'm fine, by the way.",
+      "who": "m",
+      "pause": 0.3,
+      "speed": 1.12,
+      "cue": "d2"
+     },
+     {
+      "t": "Draft thirty-one. Sent from the gym.",
+      "who": "m",
+      "pause": 0.5,
+      "speed": 1.1,
+      "pitch": 0.6,
+      "cue": "d3"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "So he wrote the real one in Heartly, addressed to nobody.",
+      "speed": 1.14,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "What's the part you kept deleting?",
+      "who": "h",
+      "pause": 0.2,
+      "speed": 0.9,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "rest",
+   "min": 4.6,
+   "lines": [
+    [
+     {
+      "t": "Across 146 studies, writing about what's weighing on you",
+      "pause": 0.04,
+      "speed": 1.18,
+      "pitch": 0.3
+     },
+     {
+      "t": "had a small but real benefit.",
+      "pause": 0.04,
+      "speed": 1.02,
+      "pitch": 0.3,
+      "cue": "result"
+     }
+    ]
+   ]
+  }
+ ]
+}
