@@ -20,6 +20,8 @@ Use this when drawing Heartly on a character's phone. The drawn screen must beha
 - Pattern of every Heartly turn: one short reflection of what the user just said, a blank line, then ONE question. The user replies in a few words. Heartly never gives advice lists or options here.
 - Input: a dark "Reply..." field at the bottom with the round send arrow.
 
-## What this means for stories
-- Heartly reflects and asks; it does not hand out two fixes. The only real two-button moment is the end of onboarding.
-- So a vote should be on what the character answers or does next after Heartly's question, not on "options Heartly gave".
+## What this means for stories (Odi, 16 Nov 2026)
+- The goal is growth and engagement, so every episode ends on a two-way vote.
+- Where the real app has a choice, use it as it is: the end of onboarding ("Yes, start with <module>" / "Somewhere else feels closer"), and any other real choice screens Odi sends.
+- Where it has none (a stage chat is reflect, then one question), create the two options: after Heartly's question, her two possible next moves appear as the episode's split-screen vote card, in Heartly's colours and type.
+- Heartly's own lines on her phone still follow the real pattern: a short reflection, then one question.
