@@ -7,15 +7,22 @@ Zara's ex gets married in 30 days and she said yes to the invite. One episode is
 
 Goal: views, comments, follows. Not installs. It runs on its own character account, not heartly.ai.
 
-## Her world (ours, invented from scratch)
-- **Zara Adeyemi, 26.** Lives alone in a top-floor one-bed above a dry cleaner's on Rye Lane, Peckham, south London. The radiator clanks. The window looks onto the railway arches.
-- **Job:** junior florist at Petal & Twine, a small shop that does mostly weddings. She builds other people's bouquets all day. Her own monstera is dying.
-- **The ex:** Kojo Mensah, 28, quantity surveyor, kind, conflict-avoidant. Three years together. Ended 14 months ago in a car park outside a Nando's, which she will never forgive the Nando's for.
-- **The bride:** Simone. Engaged five months after the breakup. Zara has decided she's lovely and resents it.
-- **Bisi:** best friend since school, a midwife on nights, replies in capitals and voice notes at 4 a.m.
-- **Mrs Okoro:** owner of Petal & Twine. Says little. Sees everything.
-- **Her mum:** rings on Sundays. Liked Kojo. Still asks after him.
-- **Habits and things:** gold hoops she never takes off, a mustard cardigan with one odd button, a green satin bonnet at night, Kojo's grey university hoodie at the back of the wardrobe, a jar of dried petals from every bouquet she was proud of, the invitation on the fridge under a pizza-slice magnet, a corkboard with one photo strip she hasn't taken down.
+## Her world (ours, invented; not tied to any real place)
+Like a cartoon's town: it feels lived-in and is nowhere in particular. No real cities, streets or shops, no surnames.
+- **Zara, 26.** Lives alone in a small top-floor flat above a laundrette. The radiator ticks. The window looks onto a railway bridge.
+- **Job:** makes wedding flowers at the flower shop. Her own houseplant is dying.
+- **Miles, the ex.** Kind, avoids arguments. Three years together. It ended in a car park, which she holds against the car park.
+- **Ivy, the bride.** Engaged five months after the breakup. Zara has decided she's lovely and resents it.
+- **Remy, best friend.** Works nights, replies in capitals.
+- **Mrs Finch, her boss.** Says little. Sees everything.
+- **Her mum.** Rings on Sundays. Liked Miles.
+- **Habits and things:** gold hoops she never takes off, a mustard cardigan with one odd button, Miles's grey hoodie at the back of the wardrobe, a jar of dried petals from every bouquet she was proud of, the invitation on the fridge under a pizza-slice magnet, a corkboard with one photo strip she hasn't taken down.
+
+## Voice
+A neutral narrator tells it in the third person, calm and dry. Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
+
+## Votes
+Each episode ends on two choices as a split screen, one word each; people comment the word. Odi reads the comments and gives the winner. Real counts only, shown at the start of the next episode. A tie or no votes: the narrator flips a coin on screen. The vote decides how she gets through a day; the big turns happen either way.
 
 ## On-screen furniture
 - **HUD, top-left, always there:** DAYS LEFT (counts down) and one funny meter, DIGNITY, as a percentage. The vote moves it and it never resets.
@@ -30,26 +37,26 @@ Module names are Heartly's real ones from the app (Attachment, Vices, Distractio
 | 1 | Attachment | She RSVPs yes and can't undo it. Nine drafts to him at 1 a.m. | Premise |
 | 2 | Attachment | The vote's winner. She checks his profile before her alarm has finished. | |
 | 3 | Attachment | The hoodie comes out of the wardrobe "to wash it". | |
-| 4 | Attachment | Bisi makes her count the checks. The number is said out loud. | First honest laugh |
+| 4 | Attachment | Remy makes her count the checks. The number is said out loud. | First honest laugh |
 | 5 | Vices | Friday. "One drink." | |
 | 6 | Vices | The morning after. She liked a photo of his from 2023. | Public embarrassment |
 | 7 | Vices | She downloads the app. Swipes like it's a job. | |
-| 8 | Vices | The date. Nice man. She talks about Kojo for 40 minutes. | End of week 1 recap |
+| 8 | Vices | The date. Nice man. She talks about Miles for 40 minutes. | End of week 1 recap |
 | 9 | Distraction | She signs up for everything: 6 a.m. classes, extra shifts, a pottery course. | |
 | 10 | Distraction | The glow-up. Hair, nails, a dress she can't afford. | |
 | 11 | Distraction | She is so busy she forgets her mum's birthday. | Cost of running |
 | 12 | Distraction | A quiet Sunday she can't sit through. | |
-| 13 | Anger | The order ticket prints at work: bride's bouquet, Mensah wedding. It's hers to make. | Midpoint turn |
-| 14 | Anger | She builds the ugliest bouquet of her career, on purpose. Mrs Okoro looks at it. | |
-| 15 | Anger | She says the thing about the Nando's car park, out loud, to a bucket of eucalyptus. | |
+| 13 | Anger | The order ticket prints at work: bride's bouquet, Miles & Ivy wedding. It's hers to make. | Midpoint turn |
+| 14 | Anger | She builds the ugliest bouquet of her career, on purpose. Mrs Finch looks at it. | |
+| 15 | Anger | She says the thing about the car park, out loud, to a bucket of eucalyptus. | |
 | 16 | Anger | Under it: he never fought for it. Neither did she. | |
 | 17 | Blame | She makes the list of everything he did. It's long. | |
-| 18 | Blame | Bisi asks for her half of the list. | |
+| 18 | Blame | Remy asks for her half of the list. | |
 | 19 | Blame | She runs into his sister at the market. The sister is kind. That's worse. | |
 | 20 | Pride | The plus-one. She wants someone on her arm for the photo. | |
 | 21 | Pride | She rehearses being fine in the mirror. Three versions of "so happy for you". | |
 | 22 | Pride | The dress that says "look what you lost" versus the dress she likes. | |
-| 23 | Pride | She tells Mrs Okoro whose wedding it is. | Truth told at work |
+| 23 | Pride | She tells Mrs Finch whose wedding it is. | Truth told at work |
 | 24 | Fear | The seating plan arrives. She's on the table by the toilets with his uncles. | |
 | 25 | Fear | She drafts the text that gets her out of going. | Lowest point |
 | 26 | Fear | She pictures the actual worst moment and walks through it. It's about nine seconds long. | |
@@ -68,4 +75,4 @@ Things the outline avoids on purpose: nobody is humiliated for laughs, no crisis
 5. @daysleftzara
 
 ## What I still need from Odi
-- A screen recording of the real app from "start writing" to "two next steps", so the drawn phone behaves like it. The reflection and step wording in the scripts is mine until I've seen it.
+- Nothing for the screens: brand/APP_SCREENS.md describes the real app and every Heartly screen is drawn from it.
