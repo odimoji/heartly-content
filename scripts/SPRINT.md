@@ -31,7 +31,7 @@ Direction set by Odi in the planning chat. The content chat builds from this lis
 
 ## The list
 
-1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s. — claimed (content chat, 15 Nov 20:15 UK): trimming to ~25 s with the sleep fact (FACTS 4), as Odi asked in chat
+1. **worry_3am, final cut** [guy] (3D, story). Already built. Change the ending from the question to FACTS 2, and trim towards 26 s. — claimed (content chat, 15 Nov 20:15 UK): trimming to ~25 s with the sleep fact (FACTS 4), as Odi asked in chat — posted 16 Nov 02:16 UK (Odi, 16 Nov: full 45.7 s cut with the pocket ending, tie line + FACTS 2; his call overrides the length rule for this one)
 2. **shower_argument_3d** [no guy] (3D, story, remake of the best performer). He wins the argument with his ex in the shower, in the car, at the gym, to a lamp. Turn: he opens Heartly and writes what he actually wanted to say to her. Fact 1. — claimed (content chat, 15 Nov 21:05 UK)
 3. **no_contact** [no guy] (explainer, correcting). Script in scripts/README.md. Replace the closing question with FACTS 3. Style: 3D set with labels of 1–3 words, like the middleman video. — claimed (content chat, 15 Nov 20:15 UK): built in 3D, being trimmed to 26 s with FACTS 3
 4. **worse_at_night** [no guy] (explainer, validating). Script in scripts/README.md. Replace the closing question with FACTS 2. — claimed (content chat, 15 Nov 20:15 UK): built in 3D, being trimmed to 26 s with FACTS 2
