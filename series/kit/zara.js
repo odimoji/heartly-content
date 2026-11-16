@@ -54,14 +54,14 @@
     caught:   { name: "caught out",     bi: 0.2,  bo: 0.6,  bh: 0.4,  open: 1.0,  px: 0.75, py: 0.05, ps: 0.85, mouth: "o", browL: 0.9 },
     plotting: { name: "plotting",       bi: -0.9, bo: 0.5,  bh: -0.25, open: 0.55, px: -0.5, py: 0,   ps: 1,    mouth: "smirk" },
     hiding:   { name: "hiding",         bi: 0.9,  bo: -0.2, bh: 0.1,  open: 0.7,  px: 0,    py: 0.35, ps: 0.9,  mouth: "none", cushion: true },
-    raw:      { name: "raw",            bi: 0.8,  bo: -0.4, bh: -0.05, open: 0.6, px: -0.15, py: 0.45, ps: 1.05, mouth: "down", wet: true },
+    raw:      { name: "raw",            bi: 0.9,  bo: -0.4, bh: 0.1, open: 0.82, px: -0.15, py: 0.45, ps: 1.05, mouth: "down", wet: true },
     smile:    { name: "small real smile", bi: 0.15, bo: 0.1, bh: 0.1, open: 0.72, px: 0,    py: 0.05, ps: 1.05, mouth: "smile", blush: 1.5, happy: true },
   };
   g.ZEXPR = EX;
 
   const SHAPE = {
     soft:    { head: [0, -0.795], hr: [0.150, 0.158], neckW: 0.05, shY: -0.632, shW: 0.118, waistW: 0.105, hipY: -0.385, hipW: 0.118, armL: 0.25, armR: 0.043, legR: 0.05, legGap: 0.058, eyeDx: 0.064, eyeY: 0.022, eyeR: [0.034, 0.044], browW: 0.05, mouthY: 0.092, hairR: 0.062, foot: [0.07, 0.03], shin: 0.2 },
-    graphic: { head: [0, -0.868], hr: [0.092, 0.108], neckW: 0.034, shY: -0.752, shW: 0.105, waistW: 0.078, hipY: -0.5, hipW: 0.096, armL: 0.3, armR: 0.03, legR: 0.038, legGap: 0.046, eyeDx: 0.04, eyeY: 0.012, eyeR: [0.025, 0.024], browW: 0.04, mouthY: 0.062, hairR: 0.04, foot: [0.058, 0.022], shin: 0.27 },
+    graphic: { head: [0, -0.868], hr: [0.092, 0.108], neckW: 0.034, shY: -0.752, shW: 0.105, waistW: 0.078, hipY: -0.5, hipW: 0.096, armL: 0.3, armR: 0.03, legR: 0.038, legGap: 0.046, eyeDx: 0.04, eyeY: 0.012, eyeR: [0.025, 0.024], browW: 0.04, mouthY: 0.062, hairR: 0.04, foot: [0.058, 0.022], shin: 0.2 },
   };
 
   // when she sits, her feet are this far (as a share of H) above the yFeet you pass: add it to keep them on the floor
@@ -184,22 +184,22 @@
     [-1, 1].forEach((s) => {
       const ex = hx + s * u(S.eyeDx);
       ctx.save();
-      const shape = (c) => { if (style === "soft") c.ellipse(ex, ey, erx, ery, 0, 0, 6.2832); else { c.moveTo(ex - erx * 1.25, ey + ery * 0.15); c.quadraticCurveTo(ex, ey - ery * 1.5, ex + erx * 1.25, ey + ery * 0.15); c.quadraticCurveTo(ex, ey + ery * 1.2, ex - erx * 1.25, ey + ery * 0.15); c.closePath(); } };
+      const shape = (c) => { if (style === "soft") c.ellipse(ex, ey, erx, ery, 0, 0, 6.2832); else { c.moveTo(ex - erx * 1.25, ey + ery * 0.1); c.quadraticCurveTo(ex, ey - ery * 1.9, ex + erx * 1.25, ey + ery * 0.1); c.quadraticCurveTo(ex, ey + ery * 1.5, ex - erx * 1.25, ey + ery * 0.1); c.closePath(); } };
       if (E.happy && style === "soft") { ctx.strokeStyle = C.ink; ctx.lineWidth = lw(0.011); ctx.beginPath(); ctx.arc(ex, ey + ery * 0.5, erx * 0.95, Math.PI * 1.12, Math.PI * 1.88); ctx.stroke(); ctx.restore(); return; }
       ctx.beginPath(); shape(ctx); ctx.fillStyle = C.white; ctx.fill(); ctx.clip();
-      const ir = erx * (style === "soft" ? 0.9 : 0.86) * E.ps, ix = ex + E.px * erx * 0.4, iy = ey + E.py * ery * 0.5;
+      const ir = erx * (style === "soft" ? 0.9 : 0.74) * E.ps, ix = ex + E.px * erx * 0.4, iy = ey + E.py * ery * 0.5;
       ctx.fillStyle = "#3a2218"; ctx.beginPath(); ctx.arc(ix, iy, ir, 0, 6.2832); ctx.fill();
       ctx.fillStyle = "#120a08"; ctx.beginPath(); ctx.arc(ix, iy, ir * 0.58, 0, 6.2832); ctx.fill();
       ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(ix - ir * 0.36, iy - ir * 0.4, ir * 0.3, 0, 6.2832); ctx.fill();
       if (E.wet) { ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.beginPath(); ctx.ellipse(ix + ir * 0.3, iy + ir * 0.55, ir * 0.42, ir * 0.2, 0, 0, 6.2832); ctx.fill(); }
       // upper lid shadow
-      ctx.fillStyle = "rgba(60,25,15,.28)"; ctx.fillRect(ex - erx * 1.4, ey - ery * 1.6, erx * 2.8, ery * 0.85);
+      ctx.fillStyle = "rgba(60,25,15,.24)"; ctx.fillRect(ex - erx * 1.4, ey - ery * 1.6, erx * 2.8, ery * (style === "soft" ? 0.85 : 0.5));
       ctx.restore();
       // lash line
-      ctx.strokeStyle = C.ink; ctx.lineWidth = lw(style === "soft" ? 0.0085 : 0.0065);
-      ctx.beginPath(); if (style === "soft") ctx.ellipse(ex, ey, erx, ery, 0, Math.PI * 1.05, Math.PI * 1.95); else { ctx.moveTo(ex - erx * 1.25, ey + ery * 0.15); ctx.quadraticCurveTo(ex, ey - ery * 1.5, ex + erx * 1.25, ey + ery * 0.15); }
+      ctx.strokeStyle = C.ink; ctx.lineWidth = lw(style === "soft" ? 0.0085 : 0.005);
+      ctx.beginPath(); if (style === "soft") ctx.ellipse(ex, ey, erx, ery, 0, Math.PI * 1.05, Math.PI * 1.95); else { ctx.moveTo(ex - erx * 1.25, ey + ery * 0.1); ctx.quadraticCurveTo(ex, ey - ery * 1.9, ex + erx * 1.25, ey + ery * 0.1); }
       ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(ex + s * erx * 0.95, ey - ery * 0.35); ctx.lineTo(ex + s * erx * 1.3, ey - ery * 0.7); ctx.stroke();
+      if (style === "soft") { ctx.beginPath(); ctx.moveTo(ex + s * erx * 0.95, ey - ery * 0.35); ctx.lineTo(ex + s * erx * 1.3, ey - ery * 0.7); ctx.stroke(); }
       if (E.wet) { ctx.strokeStyle = "rgba(200,225,255,.85)"; ctx.lineWidth = lw(0.004); ctx.beginPath(); ctx.arc(ex, ey + ery * 0.25, erx * 0.8, 0.5, 2.6); ctx.stroke(); }
       // brow
       const bw = u(S.browW), by = ey - ery - u(0.02) - u(0.014) * (E.bh + (s < 0 && E.browL ? E.browL : 0));

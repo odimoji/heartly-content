@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Cormorant;src:url(../video3d/public/fonts/cormorant-600.woff2);font-weight:600}
+@font-face{font-family:Cormorant;src:url(../video3d/public/fonts/cormorant-600i.woff2);font-weight:600;font-style:italic}
+@font-face{font-family:Inter;src:url(../video3d/public/fonts/inter-600.woff2);font-weight:600}
+@font-face{font-family:Inter;src:url(../video3d/public/fonts/inter-500.woff2);font-weight:500}
+body{margin:0;background:#120d0a}
+</style>
+<canvas id="c"></canvas>
+<script src="kit/zara.js"></script><script src="kit/flat.js"></script><script src="kit/ui.js"></script><script src="episodes/ep01.js"></script>
+<script>
+// ?from=0&n=6 draws n shots side by side at full size (1080x1920 each), with HUD and caption
+const q=new URLSearchParams(location.search),from=+(q.get('from')||0),n=+(q.get('n')||6);
+const cv=document.getElementById('c');cv.width=1080*n;cv.height=1920;const ctx=cv.getContext('2d');
+function grain(ctx,w,h,a){const t=document.createElement('canvas');t.width=256;t.height=256;const x=t.getContext('2d'),d=x.createImageData(256,256);let s=7;for(let i=0;i<d.data.length;i+=4){s=(s*16807)%2147483647;const v=s%255;d.data[i]=v;d.data[i+1]=v*0.95;d.data[i+2]=v*0.88;d.data[i+3]=255*a;}x.putImageData(d,0,0);ctx.save();ctx.globalCompositeOperation='soft-light';ctx.fillStyle=ctx.createPattern(t,'repeat');ctx.fillRect(0,0,w,h);ctx.restore();}
+(async()=>{
+  for(const f of ['600 40px Cormorant','italic 600 40px Cormorant','600 20px Inter','500 20px Inter'])await document.fonts.load(f);
+  let days=EP01.daysStart,dig=EP01.dignityStart;
+  EP01.shots.forEach((s,i)=>{ if(s.days)days=s.days; if(s.dignity)dig=s.dignity;
+    if(i<from||i>=from+n)return;
+    ctx.save();ctx.translate((i-from)*1080,0);ctx.beginPath();ctx.rect(0,0,1080,1920);ctx.clip();
+    s.draw(ctx,0.6); if(s.hud!==false)drawHUD(ctx,days,dig); if(s.cap)drawCaption(ctx,s.cap.map(([t,h])=>[t,!!h]),s.capY||1470);
+    ctx.fillStyle='rgba(246,236,220,.6)';ctx.font='600 30px Inter';ctx.textAlign='right';ctx.fillText('shot '+(i+1),1040,1870);
+    ctx.restore(); });
+  grain(ctx,cv.width,1920,0.07);document.title='done';
+})();
+</script>

@@ -45,6 +45,12 @@
     ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(378, 522, 6, 0, 6.3); ctx.fill();
     ctx.save(); ctx.translate(462, 566); ctx.rotate(0.06); ctx.fillStyle = "#f3e2b8"; ctx.fillRect(-34, -30, 68, 60); ctx.fillStyle = "#8a6a4a"; for (let i = 0; i < 3; i++) ctx.fillRect(-24, -16 + i * 14, 48 - i * 10, 4); ctx.restore();
     ctx.save(); ctx.translate(470, 632); ctx.rotate(-0.04); ctx.fillStyle = "#e9c3b0"; ctx.fillRect(-30, -18, 60, 36); ctx.restore();
+    // fairy lights over the window
+    ctx.strokeStyle = "rgba(30,18,14,.8)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(560, 430); ctx.quadraticCurveTo(765, 470, 970, 426); ctx.stroke();
+    for (let i = 0; i <= 12; i++) { const t = i / 12, x = 560 + 410 * t, y = 430 + 2 * 40 * t * (1 - t) - 4 * t + 6; ctx.save(); ctx.globalCompositeOperation = "screen"; ctx.filter = "blur(7px)"; ctx.fillStyle = "rgba(255,200,120,.75)"; ctx.beginPath(); ctx.arc(x, y, 11, 0, 6.3); ctx.fill(); ctx.restore(); ctx.fillStyle = "#ffe2b0"; ctx.beginPath(); ctx.arc(x, y, 4, 0, 6.3); ctx.fill(); }
+    // a small framed print and a bunch of flowers hung upside down to dry
+    zform(ctx, box(96, 610, 92, 116, 4), "#d8c3a2", [96, 610, 92, 116], { rimW: 0 }); ctx.fillStyle = "#3a2a3a"; ctx.fillRect(106, 620, 72, 96); ctx.fillStyle = "#d9643a"; ctx.beginPath(); ctx.arc(142, 676, 22, 0, 6.3); ctx.fill(); ctx.fillStyle = "#f0cc72"; ctx.beginPath(); ctx.arc(156, 650, 9, 0, 6.3); ctx.fill();
+    ctx.strokeStyle = "#6a5a3a"; ctx.lineWidth = 4; [[-10, 0], [0, 6], [10, 0]].forEach(([dx, dy], i) => { ctx.beginPath(); ctx.moveTo(552, 690); ctx.lineTo(552 + dx * 2.2, 770 + dy); ctx.stroke(); ctx.fillStyle = ["#c98aa0", "#d9b26a", "#e8a38a"][i]; ctx.beginPath(); ctx.arc(552 + dx * 2.4, 778 + dy, 13, 0, 6.3); ctx.fill(); }); ctx.fillStyle = "#b5654a"; ctx.fillRect(546, 684, 12, 8);
     // shelf of jars: dried petals from bouquets she was proud of
     zform(ctx, box(96, 560, 190, 14, 4), "#6a4630", [96, 560, 190, 14], { rimW: 0 });
     [["#d9643a", 118], ["#e8b8a0", 168], ["#d9b26a", 218], ["#c98aa0", 262]].forEach(([c, x], i) => { const h = 58 - (i % 2) * 12; ctx.fillStyle = "rgba(240,230,215,.22)"; ctx.beginPath(); ctx.roundRect(x - 17, 560 - h, 34, h, 8); ctx.fill(); ctx.fillStyle = c; ctx.beginPath(); ctx.roundRect(x - 14, 560 - h * 0.62, 28, h * 0.6, 6); ctx.fill(); ctx.fillStyle = "#c9a57a"; ctx.fillRect(x - 15, 560 - h - 6, 30, 8); ctx.strokeStyle = "rgba(255,240,220,.5)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 11, 560 - h + 8); ctx.lineTo(x - 11, 552); ctx.stroke(); });
@@ -79,6 +85,11 @@
     zform(ctx, box(290, 1130, 474, 120, 40), "#c96446", [290, 1130, 474, 150], { rimW: 0, lo: 0.42, sx: 0.02, sy: -0.2 });
     zform(ctx, box(280, 1230, 494, 70, 18), "#8f3f2a", [280, 1230, 494, 70], { rimW: 0, lo: 0.5 });
     zform(ctx, box(318, 1010, 130, 130, 34), "#d9b26a", [318, 1010, 130, 130], { rimW: 0, lo: 0.4 }); // cushion
+    // a blanket over the arm, books by the lamp, slippers kicked off
+    zform(ctx, (c) => { c.moveTo(730, 1040); c.quadraticCurveTo(800, 1020, 852, 1050); c.lineTo(858, 1210); c.quadraticCurveTo(800, 1232, 740, 1204); c.closePath(); }, "#e9dcc6", [730, 1030, 128, 200], { rimW: 6, lo: 0.4 });
+    ctx.save(); ctx.globalAlpha = 0.5; ctx.strokeStyle = "#b5654a"; ctx.lineWidth = 7; [1080, 1120, 1160].forEach((y) => { ctx.beginPath(); ctx.moveTo(736, y); ctx.quadraticCurveTo(800, y - 14, 856, y + 6); ctx.stroke(); }); ctx.restore();
+    [["#7f9a78", 0], ["#d9b26a", -18], ["#3d5a7a", -34], ["#c96446", -50]].forEach(([c, dy], i) => zform(ctx, box(180 + (i % 2) * 8, 1272 + dy, 104 - i * 6, 18, 4), c, [180, 1272 + dy, 104, 18], { rimW: 0 }));
+    [[610, 1318, 0.2], [664, 1326, -0.15]].forEach(([x, y, r]) => { ctx.save(); ctx.translate(x, y); ctx.rotate(r); zform(ctx, (c) => c.ellipse(0, 0, 30, 13, 0, 0, 6.3), "#c98aa0", [-30, -13, 60, 26], { rimW: 2 }); ctx.restore(); });
     // the dying houseplant
     shadow(ctx, 866, FLOOR + 6, 60, 12);
     zform(ctx, (c) => { c.moveTo(830, 1200); c.lineTo(902, 1200); c.lineTo(890, 1300); c.lineTo(842, 1300); c.closePath(); }, "#b5654a", [830, 1200, 72, 100], { rimW: 5 });
@@ -88,8 +99,8 @@
 
     // ---------- her
     ctx.save(); ctx.translate(par * 0.85, 0);
-    const ZH = style === "soft" ? 640 : 760;
-    drawZara(ctx, 540, 1300 + zSitLift(style) * ZH, ZH, style, o.expr || "dread", { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 });
+    const ZH = style === "soft" ? 640 : 720;
+    if (o.zara !== false) drawZara(ctx, 540 + (o.zx || 0), 1300 + zSitLift(style) * ZH, ZH, style, o.expr || "dread", o.pose || { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 });
     ctx.restore();
 
     // ---------- front of her: the coffee table and tonight's flowers
@@ -99,7 +110,10 @@
     ctx.fillStyle = "#3a2318"; ctx.fillRect(214, 1408, 16, 64); ctx.fillRect(530, 1408, 16, 64);
     zform(ctx, box(254, 1300, 70, 82, 14), "#e9dcc6", [254, 1300, 70, 82], { rimW: 4 });
     bouquet(ctx, 289, 1304, 0.8, ["#f3d9c8", "#e8a38a", "#fbf4e8"]);
-    zform(ctx, box(430, 1330, 54, 52, 10), "#d9643a", [430, 1330, 54, 52], { rimW: 3 }); // mug
+    zform(ctx, box(430, 1330, 54, 52, 10), "#d9643a", [430, 1330, 54, 52], { rimW: 3 }); // mug, still warm
+    ctx.save(); ctx.strokeStyle = "rgba(255,240,220,.28)"; ctx.lineWidth = 5; ctx.lineCap = "round"; ctx.filter = "blur(3px)"; [0, 16].forEach((d) => { ctx.beginPath(); ctx.moveTo(448 + d, 1322); ctx.bezierCurveTo(438 + d, 1300, 462 + d, 1286, 450 + d, 1262); ctx.stroke(); }); ctx.restore();
+    zform(ctx, box(496, 1362, 62, 20, 4), "#fbf4e8", [496, 1362, 62, 20], { rimW: 0 }); // a ribbon offcut and scissors from work
+    ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(350, 1376); ctx.bezierCurveTo(370, 1356, 390, 1392, 414, 1372); ctx.stroke();
     ctx.restore();
 
     // ---------- foreground, out of focus (moves most)
