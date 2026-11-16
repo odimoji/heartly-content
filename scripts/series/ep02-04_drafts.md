@@ -4,6 +4,8 @@ Written 16 Nov 2026. Not built. Beats and voice lines only; the 25+ shot breakdo
 
 **Path assumed (no real votes exist yet; swap when the comments are in):** episode 1 CALL, episode 2 MUTE, episode 3 FOLD. If a different word wins, the opening third of the next episode is rewritten and the rest holds.
 
+**To be rewritten to the standing rules in CLAUDE.md before any build (Odi, 16 Nov):** voice all the way through with no silent shots, about 45 to 50 s, captions are the spoken words, and the narrator says what Heartly's screen shows. The Heartly beat in each episode becomes, spoken: episode 2 "She writes: I keep checking if he's happy. No advice. It just asks: what are you hoping to find?"; episode 3 "She writes: it doesn't smell like him anymore. It says: it stopped smelling like him, and you noticed. Then one question. What were you keeping it for?"; episode 4 "She writes: forty-one times and nothing changed. It says: forty-one looks, and he was the same every time. Then: what did you want to be different?"
+
 N = narrator. Z = Zara, twice per episode at most. Captions in capitals are the coloured word. No vote counts are shown or spoken. Nothing promises the winner happens. Heartly screens follow the stage-chat pattern in brand/APP_SCREENS.md: her words, one short reflection, one question. At most two screen shots.
 
 ## Episode 2. Day 29 (Attachment). "Before the alarm"

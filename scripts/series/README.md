@@ -20,7 +20,7 @@ Like a cartoon's city: it feels lived-in and is nowhere in particular. No real c
 - **Things that recur:** the invitation propped on her coffee table, a photo-booth strip of her and Miles she hasn't thrown out, Miles's grey hoodie at the back of the wardrobe, the heels by the door, the plant.
 
 ## Voice
-A neutral narrator tells it in the third person, calm and dry (ElevenLabs library voice "Mike", Odi's pick, 16 Nov; Zara's two lines in episode 1 are cut from sample 7, which is the ElevenLabs library voice "Beth"). Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
+A neutral narrator tells it in the third person, calm and dry (ElevenLabs library voice "Mike", Odi's pick, 16 Nov; Zara is the ElevenLabs library voice "Beth", his sample 7, confirmed 16 Nov). Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
 
 ## Votes
 Each episode ends on two choices as a split screen, one word each, one wise and one tempting; the narrator asks "What would you do?" and people comment the word. The episode never promises that the winner happens. Odi reads the comments and gives the winner. Real counts only, shown at the start of the next episode. A tie or no votes: the narrator flips a coin on screen. The vote decides how she gets through a day; the big turns happen either way.

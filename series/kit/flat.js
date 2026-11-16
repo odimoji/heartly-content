@@ -136,12 +136,12 @@
     ctx.fillStyle = "#f6ecdc"; ctx.font = "600 22px Inter"; ctx.fillText(dignity + "%", 310, 99); ctx.restore();
   };
   // captions: chunky, lower third, 2-3 words, one word coloured, kept clear of the right-hand buttons
-  g.drawCaption = function (ctx, parts, y = 1420) {
-    ctx.save(); let size = 92; ctx.font = `600 ${size}px Inter`; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+  g.drawCaption = function (ctx, parts, y = 1420, base) {
+    ctx.save(); let size = 112; ctx.font = `600 ${size}px Inter`; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
     const width = () => parts.reduce((a, [t]) => a + ctx.measureText(t).width, 0);
     while (width() > 800 && size > 54) { size -= 4; ctx.font = `600 ${size}px Inter`; }
     let x = 470 - width() / 2; if (x < 40) x = 40;
-    parts.forEach(([t, hot]) => { ctx.textAlign = "left"; ctx.strokeStyle = "#120d0a"; ctx.lineWidth = size * 0.18; ctx.strokeText(t, x, y); ctx.fillStyle = hot ? "#f0b34a" : "#fbf4e8"; ctx.fillText(t, x, y); x += ctx.measureText(t).width; });
+    parts.forEach(([t, hot]) => { ctx.textAlign = "left"; ctx.strokeStyle = "#120d0a"; ctx.lineWidth = size * 0.2; ctx.strokeText(t, x, y); ctx.fillStyle = hot ? "#f0b34a" : (base || "#fbf4e8"); ctx.fillText(t, x, y); x += ctx.measureText(t).width; });
     ctx.restore();
   };
 })(globalThis);

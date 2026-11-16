@@ -7,7 +7,7 @@
   const hex = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
   const mix = (a, b, k) => { const A = hex(a), B = hex(b); return "#" + A.map((v, i) => Math.round(v + (B[i] - v) * k).toString(16).padStart(2, "0")).join(""); };
   const lite = (c, k) => mix(c, "#fff1d6", k), dark = (c, k) => mix(c, "#1a0f0c", k);
-  const C = { skin: "#b0714f", hair: "#1d1210", blazer: "#efe2cc", top: "#1f1614", trousers: "#2a1f1d", heel: "#c0452f", tee: "#8f8a96", pj: "#3d4a63", dress: "#c0392b", gold: "#f0cc72", lip: "#a43a40", rim: "#ffb27a", white: "#fbf4e8", ink: "#1c1210" };
+  const C = { skin: "#b0714f", hair: "#1d1210", blazer: "#efe2cc", top: "#1f1614", trousers: "#2a1f1d", heel: "#c0452f", tee: "#d8ccbc", pj: "#cdbfad", dress: "#c0392b", gold: "#f0cc72", lip: "#a43a40", rim: "#ffb27a", white: "#fbf4e8", ink: "#1c1210" };
   g.ZC = C; g.zmix = mix; g.zlite = lite; g.zdark = dark;
 
   function form(ctx, path, base, box, o = {}) {
@@ -102,10 +102,10 @@
     if (dress) {
       form(ctx, (c) => { c.moveTo(-shW * 0.78, shY + u(0.02)); c.quadraticCurveTo(0, shY + u(0.06), shW * 0.78, shY + u(0.02)); c.bezierCurveTo(u(S.waistW), shY + u(0.14), u(S.waistW) * 0.9, hipY - u(0.1), hipW * 1.9, hipY + u(0.2)); c.quadraticCurveTo(0, hipY + u(0.25), -hipW * 1.9, hipY + u(0.2)); c.bezierCurveTo(-u(S.waistW) * 0.9, hipY - u(0.1), -u(S.waistW), shY + u(0.14), -shW * 0.78, shY + u(0.02)); c.closePath(); }, C.dress, [-hipW * 1.9, shY, hipW * 3.8, u(0.5)], { rimW: u(0.01), lo: 0.38 });
     } else if (night) {
-      form(ctx, torso(shW * 1.04, u(S.waistW) + u(0.04), hipW + u(0.034), shY, hipY + u(0.06)), C.tee, tb, { lo: 0.36, rimW: u(0.01) });
+      const loungeT = torso(shW * 0.98, u(S.waistW) + u(0.014), hipW + u(0.02), shY, hipY + u(0.06)); form(ctx, loungeT, C.tee, tb, { lo: 0.36, rimW: u(0.01) });
       form(ctx, ell(0, shY + u(0.004), u(0.05), u(0.03)), C.skin, [-u(0.05), shY - u(0.026), u(0.1), u(0.06)], { rimW: 0, sx: 0.02, sy: -0.3 }); // collarbones in the wide neck
       ctx.strokeStyle = dark(C.tee, 0.35); ctx.lineWidth = lw(0.006); ctx.beginPath(); ctx.ellipse(0, shY + u(0.004), u(0.052), u(0.032), 0, 0.15, Math.PI - 0.15); ctx.stroke();
-      ctx.save(); ctx.globalAlpha = 0.34; ctx.fillStyle = "#f6ecdc"; ctx.textAlign = "center"; ctx.font = `600 ${u(0.03)}px Inter`; ctx.fillText("CITY 10K", 0, shY + u(0.11)); ctx.font = `600 ${u(0.016)}px Inter`; ctx.fillText("FINISHER", 0, shY + u(0.135)); ctx.fillRect(-u(0.05), shY + u(0.145), u(0.1), u(0.004)); ctx.restore(); // a faded print from a race she ran once
+      ctx.save(); ctx.beginPath(); loungeT(ctx); ctx.clip(); ctx.strokeStyle = dark(C.tee, 0.5); ctx.globalAlpha = 0.16; ctx.lineWidth = lw(0.0022); for (let rx2 = -shW * 1.1; rx2 < shW * 1.1; rx2 += u(0.0085)) { ctx.beginPath(); ctx.moveTo(rx2, shY); ctx.lineTo(rx2 * 0.92, hipY + u(0.07)); ctx.stroke(); } ctx.restore(); // a ribbed lounge set, bone-coloured: what she actually sleeps in
     } else {
       form(ctx, torso(shW * 0.9, u(S.waistW), hipW), C.top, tb, { lo: 0.2, rimW: 0 });
       // gold necklace on the black top
@@ -148,7 +148,7 @@
       if (pose.glow) { ctx.save(); ctx.beginPath(); face(ctx); ctx.clip(); const gg = ctx.createRadialGradient(hx, hy + ry * 1.5, 0, hx, hy + ry * 1.5, ry * 2.3); gg.addColorStop(0, `rgba(190,215,255,${0.6 * pose.glow})`); gg.addColorStop(1, "rgba(190,215,255,0)"); ctx.fillStyle = gg; ctx.globalCompositeOperation = "screen"; ctx.fillRect(hx - rx, hy - ry, rx * 2, ry * 2.1); ctx.restore(); }
       [-1, 1].forEach((s) => { ctx.save(); ctx.globalAlpha = 0.26 * (E.blush || 1); ctx.filter = `blur(${rx * 0.07}px)`; ctx.fillStyle = "#e2674c"; ctx.beginPath(); ctx.ellipse(hx + s * rx * 0.58, hy + ry * 0.42, rx * 0.2, ry * 0.11, 0, 0, 6.2832); ctx.fill(); ctx.restore(); });
       // eyes: almond, with lashes
-      const ey = hy + u(S.eyeY), erx = u(S.eyeR[0]), ery = u(S.eyeR[1]) * Math.min(1.25, E.open);
+      const ey = hy + u(S.eyeY), erx = u(S.eyeR[0]), ery = u(S.eyeR[1]) * Math.min(1.25, E.open) * (1 - 0.92 * (pose.blink || 0));
       [-1, 1].forEach((s) => {
         const ex = hx + s * u(S.eyeDx);
         const shape = (c) => { c.moveTo(ex - erx, ey + ery * 0.12); c.quadraticCurveTo(ex - s * erx * 0.1, ey - ery * 1.55, ex + erx, ey + ery * 0.02 - s * ery * 0.1); c.quadraticCurveTo(ex, ey + ery * 1.25, ex - erx, ey + ery * 0.12); c.closePath(); };
