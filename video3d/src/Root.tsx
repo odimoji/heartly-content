@@ -12,6 +12,8 @@ import { WorryMeetingVideo } from "./WorryMeetingVideo";
 import { DraftsVideo } from "./DraftsVideo";
 import tOne from "./timing/one_question.json";
 import { OneQuestionVideo } from "./OneQuestionVideo";
+import tProfile from "./timing/profile_check.json";
+import { ProfileCheckVideo } from "./ProfileCheckVideo";
 import { NoContactVideo } from "./NoContactVideo";
 import { WorseAtNightVideo } from "./WorseAtNightVideo";
 import { AudienceOfOneVideo } from "./AudienceOfOneVideo";
@@ -27,6 +29,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="WorryMeeting" component={WorryMeetingVideo} durationInFrames={tMeeting.total} fps={30} width={1080} height={1920} />
       <Composition id="Drafts" component={DraftsVideo} durationInFrames={tDrafts.total} fps={30} width={1080} height={1920} />
       <Composition id="OneQuestion" component={OneQuestionVideo} durationInFrames={tOne.total} fps={30} width={1080} height={1920} />
+      <Composition id="ProfileCheck" component={ProfileCheckVideo} durationInFrames={tProfile.total} fps={30} width={1080} height={1920} />
     </>
   );
 };

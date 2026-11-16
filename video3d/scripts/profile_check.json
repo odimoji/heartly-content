@@ -1,0 +1,127 @@
+{
+ "cast": {
+  "n": {
+   "voice": "bm_george",
+   "lang": "en-gb",
+   "speed": 1.1,
+   "pitch": 0,
+   "gain": 0.78
+  },
+  "w": {
+   "voice": "am_puck",
+   "lang": "en-us",
+   "speed": 1.0,
+   "pitch": 6,
+   "gain": 0.9
+  },
+  "h": {
+   "voice": "af_heart",
+   "lang": "en-us",
+   "speed": 0.8,
+   "pitch": 0,
+   "gain": 0.66
+  },
+  "m": {
+   "voice": "am_michael",
+   "lang": "en-us",
+   "speed": 1.05,
+   "pitch": 0,
+   "gain": 0.82
+  }
+ },
+ "lead": 0.15,
+ "gap": 0.18,
+ "tail": 0.3,
+ "scenes": [
+  {
+   "id": "hook",
+   "min": 4.3,
+   "lines": [
+    [
+     {
+      "t": "Stop checking their profile.",
+      "speed": 1.1,
+      "pause": 0.05
+     },
+     {
+      "t": "Every look restarts the clock.",
+      "pause": 0.22,
+      "speed": 0.94,
+      "pitch": -1.2,
+      "cue": "reset"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "snooze",
+   "min": 5.2,
+   "lines": [
+    [
+     {
+      "t": "Nine times today.",
+      "speed": 1.12,
+      "cue": "t1"
+     },
+     {
+      "t": "It feels like checking.",
+      "pause": 0.16,
+      "speed": 1.12,
+      "pitch": 0.4,
+      "cue": "t2"
+     },
+     {
+      "t": "It works like snooze.",
+      "pause": 0.2,
+      "speed": 0.95,
+      "pitch": -1,
+      "cue": "t3"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "phone",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "So he opened Heartly, and wrote what he was hoping to find.",
+      "speed": 1.14,
+      "gain": 0.72
+     }
+    ],
+    [
+     {
+      "t": "Is the real question, do I still matter?",
+      "who": "h",
+      "pause": 0.2,
+      "speed": 0.8,
+      "cue": "say"
+     }
+    ]
+   ]
+  },
+  {
+   "id": "rest",
+   "min": 5.0,
+   "lines": [
+    [
+     {
+      "t": "In a UCLA brain-scan study, putting a feeling into words",
+      "pause": 0.1,
+      "speed": 1.12,
+      "pitch": 0.3
+     },
+     {
+      "t": "turned down the brain's alarm response.",
+      "pause": 0.06,
+      "speed": 1.0,
+      "pitch": 0.3,
+      "cue": "result"
+     }
+    ]
+   ]
+  }
+ ]
+}

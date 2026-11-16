@@ -99,7 +99,7 @@ const Tally: React.FC<{ pos: V3; days: number; glow: number }> = ({ pos, days, g
 };
 
 // ---------- the flat (dawn: 0 night .. 1 sunrise; phone: 0 face-down and dark .. 1 face-up and glowing) ----------
-export const Flat: React.FC<{ f: number; dawn?: number; phone?: number; days?: number }> = ({ f, dawn = 0, phone = 0, days = 60 }) => (
+export const Flat: React.FC<{ f: number; dawn?: number; phone?: number; days?: number; noPhone?: boolean }> = ({ f, dawn = 0, phone = 0, days = 60, noPhone = false }) => (
   <group>
     <Room floor="#5e4232" wall="#52362c" wall2="#472f27" />
     <Window pos={[-0.86, 1.74, -1.0]} sky={mix("#1f1a38", "#f6b58c", dawn)} glow={0.8 + dawn * 0.7} moon={1 - dawn} w={0.78} h={0.7} />
@@ -119,6 +119,7 @@ export const Flat: React.FC<{ f: number; dawn?: number; phone?: number; days?: n
     <Cyl pos={[-0.22, 0.012, 0.34]} r={0.74} h={0.024} c="#d8c3a2" />
     <RBox size={[0.84, 0.05, 0.42]} pos={[TABLE[0], TABLE_TOP - 0.025, TABLE[2]]} c={WOOD} r={0.02} />
     {[-0.36, 0.36].map((x) => [-0.16, 0.16].map((z) => <RBox key={`${x}${z}`} size={[0.045, 0.28, 0.045]} pos={[TABLE[0] + x, 0.14, TABLE[2] + z]} c={DARKWOOD} r={0.012} />))}
+    {!noPhone && (
     <group position={PHONE} rotation={[0, 0.25, 0]}>
       <RBox size={[0.125, 0.016, 0.24]} pos={[0, 0.008, 0]} c="#17120e" r={0.006} />
       {phone > 0.02 ? (
@@ -130,6 +131,7 @@ export const Flat: React.FC<{ f: number; dawn?: number; phone?: number; days?: n
         <Cyl pos={[-0.035, 0.018, -0.085]} r={0.014} h={0.006} c="#3a302a" />
       )}
     </group>
+    )}
     <Cyl pos={[TABLE[0] - 0.3, TABLE_TOP + 0.05, TABLE[2] - 0.08]} r={0.045} h={0.1} c={EMBER} />
     {/* floor lamp at the head end of the sofa */}
     <Cyl pos={[1.22, 0.02, -0.78]} r={0.11} h={0.04} c="#2a211b" />
