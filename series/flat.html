@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Cormorant;src:url(../video3d/public/fonts/cormorant-600.woff2);font-weight:600}
+@font-face{font-family:Cormorant;src:url(../video3d/public/fonts/cormorant-600i.woff2);font-weight:600;font-style:italic}
+@font-face{font-family:Inter;src:url(../video3d/public/fonts/inter-600.woff2);font-weight:600}
+body{margin:0;background:#120d0a}
+</style>
+<canvas id="c" width="2160" height="1920"></canvas>
+<script src="kit/zara.js"></script><script src="kit/flat.js"></script>
+<script>
+const ctx=document.getElementById('c').getContext('2d');
+function grain(ctx,w,h,a){const n=document.createElement('canvas');n.width=256;n.height=256;const x=n.getContext('2d'),d=x.createImageData(256,256);let s=7;for(let i=0;i<d.data.length;i+=4){s=(s*16807)%2147483647;const v=s%255;d.data[i]=v;d.data[i+1]=v*0.95;d.data[i+2]=v*0.88;d.data[i+3]=255*a;}x.putImageData(d,0,0);ctx.save();ctx.globalCompositeOperation='soft-light';ctx.fillStyle=ctx.createPattern(n,'repeat');ctx.fillRect(0,0,w,h);ctx.restore();}
+(async()=>{
+  await document.fonts.load('600 40px Cormorant');await document.fonts.load('600 20px Inter');await document.fonts.load('italic 600 22px Cormorant');
+  ['soft','graphic'].forEach((st,i)=>{ctx.save();ctx.translate(i*1080,0);ctx.beginPath();ctx.rect(0,0,1080,1920);ctx.clip();drawFlat(ctx,{style:st,expr:'dread'});drawHUD(ctx,30,61);drawCaption(ctx,[['30',true],[' DAYS',false]]);ctx.restore();});
+  grain(ctx,2160,1920,0.07);document.title='done';
+})();
+</script>

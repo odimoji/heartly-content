@@ -16,6 +16,9 @@
 - **Order, stop for Odi's yes at each step:** 1 outline + three episode 1 scripts; 2 character sheet (two style options, 8 expressions, the flat); 3 three 15 s voice samples; 4 episode 1 stills, every shot; 5 render once, send file and caption.
 - **Skills (Social Media Skills plugin), read before the step they serve and list which were used:** storytelling-and-narrative, short-form-video-script, tiktok-script, scripting-and-storyboarding, hook-writer, viral-reverse-engineering; ai-voiceover; ai-music-and-sound; caption-writer, tiktok-video-publishing, instagram-reels-publishing, profile-optimization; Humanizer and the brand/MESSAGE.md honesty check on everything. (story-writer is about Instagram Stories frames, not narrative.)
 - **Working rules:** one video at a time, no parallel agents, render once.
+- **Where the series lives:** scripts in `scripts/series/` (`ep01.md` is the approved episode 1 script). Drawing kit in `series/kit/` (`zara.js`: the character, two styles, 8 expressions; `flat.js`: her flat, the HUD and captions). Check pages: `cd series && node shot.mjs sheet.html out/sheet.png` and `node shot.mjs flat.html out/flat.png`. The app's real screens are described in `brand/APP_SCREENS.md`.
+- **Voice (Odi, 16 Nov):** a neutral narrator tells it; Zara speaks once or twice an episode in a real moment. The world is made up, not tied to any real place; no surnames.
+- **Votes:** one wise option, one tempting; the narrator asks "What would you do?"; Odi reads the comments and gives the winner; the episode never promises the winner happens.
 
 Everything below is the earlier direction, kept for reference.
 

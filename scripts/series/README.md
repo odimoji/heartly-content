@@ -22,7 +22,7 @@ Like a cartoon's town: it feels lived-in and is nowhere in particular. No real c
 A neutral narrator tells it in the third person, calm and dry. Zara speaks once or twice an episode, only in a real moment (a call, a line to her boss, something said to herself), and the narrator may contradict her.
 
 ## Votes
-Each episode ends on two choices as a split screen, one word each; people comment the word. Odi reads the comments and gives the winner. Real counts only, shown at the start of the next episode. A tie or no votes: the narrator flips a coin on screen. The vote decides how she gets through a day; the big turns happen either way.
+Each episode ends on two choices as a split screen, one word each, one wise and one tempting; the narrator asks "What would you do?" and people comment the word. The episode never promises that the winner happens. Odi reads the comments and gives the winner. Real counts only, shown at the start of the next episode. A tie or no votes: the narrator flips a coin on screen. The vote decides how she gets through a day; the big turns happen either way.
 
 ## On-screen furniture
 - **HUD, top-left, always there:** DAYS LEFT (counts down) and one funny meter, DIGNITY, as a percentage. The vote moves it and it never resets.
