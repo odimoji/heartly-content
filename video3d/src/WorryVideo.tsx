@@ -3,6 +3,7 @@
 import timing from "./timing.json";
 import { useFontsReady } from "./fonts";
 import { Cam, Cap, Bubble, Fact, GOLD, glow, Lights, PhoneUI, Rim, serif, sp, Stage, useScene } from "./kit";
+import { SoftBlurIn } from "./remocn/soft-blur-in";
 import { Ball, ease, easeOut, lerp, seg, Stick, V3 } from "./three/parts";
 import { Bedroom, Cafe, Office, Slide, Street } from "./three/sets";
 import { Woman } from "./three/Woman";
@@ -10,7 +11,7 @@ import { Worry } from "./three/Worry";
 
 const BG: Record<string, string> = {
   hook: glow("rgba(126,98,214,.30)"), huge: glow("rgba(126,98,214,.30)"), phone: glow("rgba(217,100,58,.26)", 52),
-  none: glow("rgba(240,150,100,.42)", 50), street: glow("rgba(232,170,90,.40)"), pocket: glow("rgba(244,160,100,.46)", 50), fact: glow("rgba(244,160,100,.46)", 50), dawn: glow("rgba(240,150,100,.42)", 50),
+  none: glow("rgba(240,150,100,.42)", 50), street: glow("rgba(232,170,90,.40)"), pocket: glow("rgba(244,160,100,.46)", 50), fact: glow("rgba(244,160,100,.46)", 50),
   office: glow("rgba(232,170,90,.36)"), dinner: glow("rgba(217,100,58,.34)"),
 };
 
@@ -41,7 +42,7 @@ export const WorryVideo: React.FC = () => {
       </>
     );
     // open tight on his face, pull back to the flipchart, then out to the whole room
-    const k1 = easeOut(seg(lf, 2, 30)), k2 = ease(seg(lf, line(1) + 16, sc.dur - 6));
+    const k1 = easeOut(seg(lf, 2, 30)), k2 = ease(seg(lf, line(1) + 30, sc.dur - 6));
     const t1: V3 = [lerp(0.98, 0.66, k1), lerp(0.84, 1.08, k1), lerp(0.25, -0.1, k1)];
     cam = <Cam target={[lerp(t1[0], 0.1, k2), lerp(t1[1], 1.05, k2), lerp(t1[2], 0, k2)]} d={zd(lerp(lerp(3.3, 7.6, k1), 12.2, k2))} yaw={lerp(lerp(0.1, 0.2, k1), 0.26, k2)} />;
     overlay = (
@@ -149,7 +150,7 @@ export const WorryVideo: React.FC = () => {
     );
     cam = <Cam target={[0, 0, 0]} d={zd(6)} yaw={0} el={0} />;
     overlay = <PhoneUI lf={lf} replyAt={replyAt} entry="slide one: i’m getting fired. slide two: that mole. slide three: everyone’s annoyed with me." reply={["Which of these is", "happening right now?"]} />;
-  } else if (id === "dawn") {
+  } else if (id === "none") {
     const m = ease(seg(lf, 4, 62));
     const cross: [number, number, number] = [easeOut(seg(lf, 8, 16)), easeOut(seg(lf, 19, 27)), easeOut(seg(lf, 30, 38))];
     const k = ease(seg(lf, 10, 52));
@@ -175,14 +176,8 @@ export const WorryVideo: React.FC = () => {
         })}
       </>
     );
-    cam = <Cam target={[0.2, 0.78, 0]} d={zd(lerp(11.2, 10.0, ease(p)))} />;
-    overlay = (
-      <>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(12,9,7,0) 55%, rgba(12,9,7,.7) 70%, rgba(12,9,7,.9) 100%)" }} />
-        <Cap eyebrow="6:41 AM" />
-        <Fact eyebrow="BAYLOR SLEEP LAB · 2018" lines={["wrote tomorrow’s list before bed", "asleep 9 minutes faster"]} at1={line(0)} at2={cue("result", 150)} source="Scullin et al. · 57 adults, vs. writing about finished tasks" />
-      </>
-    );
+    cam = <Cam target={[0.2, 1.2, 0]} d={zd(lerp(11.2, 10.0, ease(p)))} />;
+    overlay = <Cap eyebrow="6:41 AM" text="none of it was happening" from={10} />;
   } else {
     // pocket + fact: sunrise street. He hops after her, jumps into her pocket, and stays there.
     const ask = id === "fact";
@@ -210,12 +205,19 @@ export const WorryVideo: React.FC = () => {
       overlay = <Cap eyebrow="8:15 AM" text="he still tags along" />;
     } else {
       cam = <Cam target={[0.1, lerp(0.8, 0.76, ease(p)), 0.3]} d={zd(lerp(7.0, 4.5, easeOut(seg(lf, 0, 40))))} yaw={lerp(0.26, 0.12, ease(p))} el={0.12} />;
-      overlay = <Fact eyebrow="SLEEP-LAB STUDY · 57 ADULTS" lines={["wrote tomorrow’s list before bed", "asleep 9 minutes faster"]} at2={cue("result", 110)} source="Scullin et al., 2018 · vs. writing about finished tasks" />;
+      overlay = (
+        <>
+          <div style={{ position: "absolute", top: 1150, left: 50, right: 50, textAlign: "center", opacity: 1 - seg(lf, cue("fact", 80) - 12, cue("fact", 80) - 3), ...serif, fontStyle: "italic", fontSize: 78, lineHeight: 1.08, whiteSpace: "nowrap" }}>
+            <SoftBlurIn text="her worry got smaller" from={cue("tie", 6)} /><br /><span style={{ color: GOLD }}><SoftBlurIn text="once it was on the page." from={cue("tie", 6) + 28} /></span>
+          </div>
+          <Fact eyebrow="UNIVERSITY OF CHICAGO · 2011" lines={["anxious students wrote their worries out", "nearly a grade higher"]} size1={56} at1={cue("fact", 80)} at2={cue("result", 250)} source="Ramirez & Beilock, Science · 10 minutes before an exam" />
+        </>
+      );
     }
   }
 
   return (
-    <Stage bg={BG[id]} scene={scene} scrim={id === "hook" || id === "phone" ? "none" : id === "dawn" ? "none" : id === "fact" ? "bottom" : "top"} overlay={overlay}>
+    <Stage bg={BG[id]} scene={scene} scrim={id === "hook" || id === "phone" ? "none" : id === "fact" ? "bottom" : "top"} overlay={overlay}>
       {cam}
       {lights}
       {content}

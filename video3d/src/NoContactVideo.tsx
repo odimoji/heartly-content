@@ -3,7 +3,7 @@
 // questions, shown as three glowing violet question marks that circle his head.
 // Scene lengths come from src/timing/no_contact.json, written by vo.py from scripts/no_contact.json.
 import timing from "./timing/no_contact.json";
-import { Cam, Cap, Eyebrow, GOLD, glow, Lights, PhoneUI, serif, sp, Stage, useScene } from "./kit";
+import { Cam, Cap, Eyebrow, GOLD, glow, Lights, PhoneUI, serif, sp, Stage, useScene, Tie } from "./kit";
 import { SoftBlurIn } from "./remocn/soft-blur-in";
 import { ease, easeOut, lerp, seg, V3 } from "./three/parts";
 import { Flat, FlatNight, LIE, PHONE, QMark, SEAT, TABLE_TOP } from "./three/sets_no_contact";
@@ -169,7 +169,7 @@ export const NoContactVideo: React.FC = () => {
     overlay = <PhoneUI lf={lf} replyAt={replyAt} entry="why did she leave?" reply={["Underneath “why”:", "was it me?"]} />;
   } else {
     // rest: dawn. The one he wrote down drops onto the table by his phone and goes still and dim; the other two circle slowly.
-    const resultAt = cue("result", 133);
+    const resultAt = cue("result", 133), F = cue("fact", line(0));
     const m = ease(seg(lf, 4, 80));
     const breathIn = ease(seg(lf, 16, 30)) - ease(seg(lf, 32, 58)), out = ease(seg(lf, 32, 64));
     const looks = ease(seg(lf, 70, 90));
@@ -201,10 +201,11 @@ export const NoContactVideo: React.FC = () => {
     overlay = (
       <>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(12,9,7,0) 50.5%, rgba(12,9,7,.92) 57%, rgba(12,9,7,.985) 63%, rgba(12,9,7,.985) 100%)" }} />
+        <Tie a="the one he wrote down" b="went quiet." from={cue("tie", 8)} until={F} style={{ left: 60, right: 230 }} />
         <div style={{ position: "absolute", top: 1106, left: 60, right: 230, textAlign: "center" }}>
-          <Eyebrow text="146 STUDIES · 2006" from={line(0) + 2} />
+          <Eyebrow text="146 STUDIES · 2006" from={F + 2} />
           <div style={{ ...serif, marginTop: 14, fontSize: 62, lineHeight: 1.06 }}>
-            <SoftBlurIn text="writing about what’s" from={line(0) + 50} /><br /><SoftBlurIn text="weighing on you" from={line(0) + 62} />
+            <SoftBlurIn text="writing about what’s" from={F + 50} /><br /><SoftBlurIn text="weighing on you" from={F + 62} />
           </div>
           <div style={{ ...serif, marginTop: 6, fontSize: 80, lineHeight: 1.06, fontStyle: "italic", color: GOLD }}><SoftBlurIn text="a small but real benefit" from={resultAt} /></div>
           <div style={{ marginTop: 18, fontFamily: "Inter", fontWeight: 500, fontSize: 24, color: "rgba(246,236,220,.7)", opacity: seg(lf, resultAt + 14, resultAt + 26) }}>Frattaroli, Psychological Bulletin</div>

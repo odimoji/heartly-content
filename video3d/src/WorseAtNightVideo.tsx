@@ -3,7 +3,7 @@
 // Scene lengths come from src/timing/worse_at_night.json (vo.py).
 import { useCurrentFrame } from "remotion";
 import timing from "./timing/worse_at_night.json";
-import { Cam, Eyebrow, GOLD, glow, Lights, PhoneUI, serif, sp, Stage, useScene } from "./kit";
+import { Cam, Eyebrow, GOLD, glow, Lights, PhoneUI, serif, sp, Stage, useScene, Tie } from "./kit";
 import { SoftBlurIn } from "./remocn/soft-blur-in";
 import { ease, easeOut, lerp, seg, V3 } from "./three/parts";
 import { DayThings, FRIEND, HER, NightRoom, Orb, Pop, popOut, SunPatch, Thing } from "./three/sets_worse_at_night";
@@ -160,7 +160,7 @@ export const WorseAtNightVideo: React.FC = () => {
   } else {
     // rest: night into dawn. She sleeps; the thought has burned down to an ember at the foot of the bed.
     const m = ease(seg(lf, 6, 130));
-    const rAt = cue("result", 178);
+    const rAt = cue("result", 178), F = cue("fact", 8);
     const down = ease(seg(lf, 0, 70));
     bg = glow(rgba(NIGHT, DAWN, m), lerp(44, 50, m));
     lights = (
@@ -181,7 +181,10 @@ export const WorseAtNightVideo: React.FC = () => {
     overlay = (
       <>
         <div style={{ position: "absolute", left: 0, right: 0, top: 940, height: 980, background: "linear-gradient(rgba(12,9,7,0) 0%, rgba(12,9,7,.8) 16%, rgba(12,9,7,.9) 100%)" }} />
-        <Finding eyebrow="UNIVERSITY OF CHICAGO · 2011" a={["anxious students wrote", "their worries out"]} b="nearly a grade higher" source="Ramirez & Beilock, Science · 10 minutes before an exam" atA={22} atB={rAt} />
+        <Tie a="now it’s on the page," b="not in the room." from={cue("tie", 8)} until={F} style={{ top: 1100 }} />
+        <div style={{ opacity: seg(lf, F - 4, F + 4) }}>
+          <Finding eyebrow="BAYLOR SLEEP LAB · 2018" a={["wrote tomorrow’s list", "before bed"]} b="asleep 9 minutes faster" source="Scullin et al. · 57 adults, vs. writing about finished tasks" atA={F + 14} atB={rAt} />
+        </div>
       </>
     );
   }

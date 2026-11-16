@@ -92,6 +92,29 @@ export const Cap: React.FC<{ eyebrow?: string; text?: string; from?: number }> =
   </div>
 );
 
+// the short line that ties the story to the closing fact: sits where the fact will appear, and clears just before it
+export const Tie: React.FC<{ a: string; b: string; from: number; until: number; style?: React.CSSProperties }> = ({ a, b, from, until, style }) => {
+  const f = useCurrentFrame();
+  return (
+    <div style={{ position: "absolute", top: 1150, left: 50, right: 50, textAlign: "center", ...serif, fontStyle: "italic", fontSize: 72, lineHeight: 1.08, whiteSpace: "nowrap", opacity: 1 - seg(f, until - 12, until - 3), ...style }}>
+      <SoftBlurIn text={a} from={from} /><br /><span style={{ color: GOLD }}><SoftBlurIn text={b} from={from + 22} /></span>
+    </div>
+  );
+};
+
+// a two-line narrator caption (second line gold) on a soft top shade: the line that ties the story to the closing fact
+export const Cap2: React.FC<{ a: string; b: string; from?: number; eyebrow?: string }> = ({ a, b, from = 6, eyebrow }) => (
+  <>
+    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 560, background: "linear-gradient(rgba(12,9,7,.92) 0%, rgba(12,9,7,.8) 62%, rgba(12,9,7,0) 100%)" }} />
+    <div style={{ position: "absolute", left: 0, right: 0, top: 244, textAlign: "center" }}>
+      {eyebrow && <Eyebrow text={eyebrow} />}
+      <div style={{ ...serif, marginTop: 12, fontStyle: "italic", fontSize: 76, lineHeight: 1.08, whiteSpace: "nowrap" }}>
+        <SoftBlurIn text={a} from={from} /><br /><span style={{ color: GOLD }}><SoftBlurIn text={b} from={from + 12} /></span>
+      </div>
+    </div>
+  </>
+);
+
 export const Bubble: React.FC<{ text: string; from: number; x: number; y: number; tail?: "left" | "right" }> = ({ text, from, x, y, tail = "right" }) => {
   const f = useCurrentFrame();
   if (f < from) return null;
@@ -133,12 +156,12 @@ export const PhoneUI: React.FC<{ lf: number; replyAt: number; entry: string; rep
 };
 
 // a closing fact with its source: small gold label, the claim in two lines, and a footnote
-export const Fact: React.FC<{ eyebrow: string; lines: [string, string]; source: string; at1?: number; at2?: number }> = ({ eyebrow, lines, source, at1 = 8, at2 = 40 }) => {
+export const Fact: React.FC<{ eyebrow: string; lines: [string, string]; source: string; at1?: number; at2?: number; size1?: number }> = ({ eyebrow, lines, source, at1 = 8, at2 = 40, size1 = 70 }) => {
   const f = useCurrentFrame();
   return (
     <div style={{ position: "absolute", top: 1128, left: 50, right: 50, textAlign: "center" }}>
       <Eyebrow text={eyebrow} from={Math.max(0, at1 - 4)} />
-      <div style={{ ...serif, marginTop: 14, fontSize: 70, lineHeight: 1.06 }}><SoftBlurIn text={lines[0]} from={at1} /></div>
+      <div style={{ ...serif, marginTop: 14, fontSize: size1, lineHeight: 1.06 }}><SoftBlurIn text={lines[0]} from={at1} /></div>
       <div style={{ ...serif, marginTop: 4, fontSize: 84, lineHeight: 1.06, fontStyle: "italic", color: GOLD }}><SoftBlurIn text={lines[1]} from={at2} /></div>
       <div style={{ marginTop: 18, fontFamily: "Inter", fontWeight: 500, fontSize: 24, color: "rgba(246,236,220,.7)", opacity: seg(f, at2 + 14, at2 + 26) }}>{source}</div>
     </div>

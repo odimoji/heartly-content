@@ -116,15 +116,22 @@
    "lines": [
     [
      {
-      "t": "Chicago researchers had anxious students write out their worries for ten minutes before an exam.",
-      "pause": 0.04,
-      "speed": 1.206,
-      "pitch": 0.3
+      "t": "Now it's on the page, not in the room.",
+      "speed": 1.0,
+      "pitch": 0.2,
+      "cue": "tie"
      },
      {
-      "t": "They scored nearly a grade higher.",
-      "pause": 0.08,
-      "speed": 1.019,
+      "t": "In a sleep lab, people who wrote down tomorrow's to-do list before bed",
+      "pause": 0.3,
+      "speed": 1.1,
+      "pitch": 0.3,
+      "cue": "fact"
+     },
+     {
+      "t": "fell asleep nine minutes faster.",
+      "pause": 0.1,
+      "speed": 0.98,
       "pitch": 0.3,
       "cue": "result"
      }

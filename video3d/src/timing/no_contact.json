@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "total": 779,
+ "total": 858,
  "scenes": [
   {
    "id": "hook",
@@ -84,17 +84,19 @@
   {
    "id": "rest",
    "start": 572,
-   "dur": 207,
+   "dur": 286,
    "lines": [
     {
      "A": [
       0.15,
-      6.458
+      9.072
      ]
     }
    ],
    "cues": {
-    "result": 133
+    "tie": 4,
+    "fact": 83,
+    "result": 211
    }
   }
  ]

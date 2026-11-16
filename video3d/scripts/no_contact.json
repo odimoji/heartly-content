@@ -123,10 +123,17 @@
    "lines": [
     [
      {
+      "t": "The one he wrote down went quiet.",
+      "speed": 1.0,
+      "pitch": 0.2,
+      "cue": "tie"
+     },
+     {
       "t": "Across 146 studies, writing about what's weighing on you",
-      "pause": 0.0,
+      "pause": 0.3,
       "speed": 1.177,
-      "pitch": 0.3
+      "pitch": 0.3,
+      "cue": "fact"
      },
      {
       "t": "had a small but real benefit.",

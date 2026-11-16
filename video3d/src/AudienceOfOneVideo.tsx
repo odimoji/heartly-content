@@ -2,7 +2,7 @@
 // Scene lengths, line windows and cues come from src/timing/audience_of_one.json, written by vo.py from scripts/audience_of_one.json.
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import timing from "./timing/audience_of_one.json";
-import { Bubble, Cam, Cap, CREAM, Eyebrow, GOLD, glow, Lights, PhoneUI, Rim, serif, sp, Stage, useScene } from "./kit";
+import { Bubble, Cam, Cap, CREAM, Eyebrow, GOLD, glow, Lights, PhoneUI, Rim, serif, sp, Stage, useScene, Tie } from "./kit";
 import { SoftBlurIn } from "./remocn/soft-blur-in";
 import { Ball, clamp01, ease, easeOut, lerp, seg, V3 } from "./three/parts";
 import { Street } from "./three/sets";
@@ -255,7 +255,7 @@ export const AudienceOfOneVideo: React.FC = () => {
     overlay = <PhoneUI lf={lf} replyAt={replyAt} entry="everything i post is for one person." reply={["What do you want", "her to see?"]} />;
   } else {
     // run: dawn street. He jogs with empty hands and Worry rides in his pocket; the research line closes it.
-    const resAt = cue("result", 131);
+    const resAt = cue("result", 131), F = cue("fact", 8);
     const stopAt = resAt + 6;
     const jog = lf < stopAt;
     const xk = seg(lf, -12, stopAt);
@@ -290,7 +290,8 @@ export const AudienceOfOneVideo: React.FC = () => {
           <Cap eyebrow="6:40 AM" />
           <Chip x={540} y={352} from={14} size={40}>stories posted: <span style={{ color: GOLD, marginLeft: -4 }}>0</span></Chip>
         </div>
-        <Study at1={76} at2={resAt} />
+        <Tie a="once the feeling had words," b="the checking went quiet." from={cue("tie", 8)} until={F} style={{ top: 1180, left: 60, right: 230, fontSize: 66 }} />
+        <div style={{ opacity: seg(lf, F - 4, F + 4) }}><Study at1={F + 68} at2={resAt} /></div>
       </>
     );
   }
