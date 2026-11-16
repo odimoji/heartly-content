@@ -64,7 +64,7 @@
     shadow(ctx, 580, 1400, 360, 30, 0.6);
     zform(ctx, box(250, 1010, 680, 300, 50), "#d8c8ae", [250, 1010, 680, 400], { lo: 0.5, rimW: 10, sx: 0.05, sy: 0.02 });
     zform(ctx, box(226, 1120, 110, 270, 44), "#e2d3ba", [226, 1120, 110, 270], { rimW: 0, lo: 0.4 }); zform(ctx, box(844, 1120, 110, 270, 44), "#cdbb9f", [844, 1120, 110, 270], { rimW: 9, lo: 0.5 });
-    zform(ctx, box(310, 1200, 560, 130, 40), "#e6d8c0", [310, 1200, 560, 160], { rimW: 0, lo: 0.42, sx: 0.02, sy: -0.2 }); zform(ctx, box(300, 1310, 580, 80, 16), "#b8a688", [300, 1310, 580, 80], { rimW: 0, lo: 0.5 });
+    zform(ctx, box(310, 1200, 560, 130, 40), "#e6d8c0", [310, 1200, 560, 160], { rimW: 0, lo: 0.42, sx: 0.02, sy: -0.2 });
     zform(ctx, box(336, 1080, 140, 140, 36), "#d9643a", [336, 1080, 140, 140], { rimW: 0, lo: 0.4 });
     // her blazer's twin: the work bag dropped by the sofa
     zform(ctx, box(900, 1290, 120, 110, 16), "#1f1614", [900, 1290, 120, 110], { rimW: 6 }); ctx.strokeStyle = "#d9b26a"; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(960, 1290, 34, Math.PI, 0); ctx.stroke();
@@ -72,7 +72,9 @@
     ctx.restore();
 
     if (o.zara !== false) { ctx.save(); ctx.translate(par * 0.85, 0); const ZH = 780;
-      drawZara(ctx, 590 + (o.zx || 0), 1392 + zSitLift() * ZH, ZH, o.expr || "dread", o.pose || { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 }); ctx.restore(); }
+      drawZara(ctx, 590 + (o.zx || 0), 1400 + zSitLift() * ZH + 44, ZH, o.expr || "dread", o.pose || { sit: true, armL: [0.3, -1.5], armR: [0.3, -1.5], phone: "R", glow: 1, tilt: -0.04 }); ctx.restore(); }
+    if (o.after) o.after(ctx);
+    ctx.save(); ctx.translate(par * 0.7, 0); zform(ctx, box(300, 1322, 580, 76, 16), "#b8a688", [300, 1322, 580, 76], { rimW: 0, lo: 0.5 }); ctx.restore(); // the seat's front edge, in front of her
 
     // in front of her: the table, laptop still open, wine, the invitation
     ctx.save(); ctx.translate(par * 1.1, 0);
