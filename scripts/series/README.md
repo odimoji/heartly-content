@@ -1,13 +1,15 @@
 # 30 days to the wedding: series bible and season outline
 
 <!-- STATUS:START -->
-## Where we are (updated by Claude during the overnight run, 17 Nov)
-- **Built and sent (mp4 + caption in Downloads > Zara episodes):** episodes 2, 3, 4, 5, 6, 7, 8. Episode 1 (v2) was sent earlier.
-- **Voice recorded, not yet built:** episodes 9, 10, 11 (`series/audio/ep09.wav` etc; Zara's lines in `series/audio/zara3.wav`). Narration texts: `series/narr/narr.json`.
-- **Next to build:** episode 9, then 10, then 11. Build one: write `series/episodes/epNN.js` (copy the shape of ep08.js), then `cd series && python3 build.py epNN && node render.mjs epNN --sheet` (check the sheets), `node render.mjs epNN`, `./finish.sh epNN "message"`, send the mp4 and `scripts/series/captions/epNN_caption.txt`, and copy both to Downloads > Zara episodes.
-- **Path chosen (no real votes yet):** ep1 CALL, ep2 MUTE, ep3 FOLD, ep4 ONCE, ep5 STAY, ep6 OWN, ep7 DINNER, ep8 SORRY, ep9 EMPTY, ep10 KEEP.
-- **ElevenLabs credits:** 829 left after the episode 11 take. Not enough for another episode (about 780 each). The site showed an upgrade pop-up once; it was closed, nothing was bought or changed.
-- **After episode 11:** episodes 12 onward need a voice take first (credits reset monthly on the free plan).
+## Where we are (updated by Claude at the end of the overnight run, 17 Nov)
+- **Built, rendered once and sent (mp4 + caption in Downloads > Zara episodes; also `series/out/epNN.mp4` here, not in git):** episodes 2, 3, 4, 5, 6, 7, 8, 9, 10, 11. Episode 1 (v2) was sent earlier. Nothing is posted or scheduled.
+- **Scripted:** episodes 2 to 11 as built, in `scripts/series/ep02-11.md`; captions in `scripts/series/captions/`. Odi approved the episode 2 script only; 3 to 11 were written and checked by Claude and are waiting for his view.
+- **Left:** episodes 12 to 30. Nothing is scripted or voiced for them. The older `ep02-04_drafts.md` is superseded by `ep02-11.md`.
+- **Why it stopped at 11:** ElevenLabs shows 829 credits and an episode's narration costs about 750 to 800. One more was possible with nothing left over, so the last 829 are kept in case Odi wants one take redone. The site showed an upgrade pop-up once; it was closed, nothing was bought or changed.
+- **Path chosen (no real votes yet; change the opening lines of the next episode if a different word wins):** ep1 CALL, ep2 MUTE, ep3 FOLD, ep4 ONCE, ep5 STAY, ep6 OWN, ep7 DINNER, ep8 SORRY, ep9 EMPTY, ep10 KEEP. Episode 11's vote is DRIVE or SEND.
+- **New in the world:** people on screen: Remy (from episode 4), Mrs Finch (from episode 2). Places: the office and the bar. Seen only on her phone: Miles, Ivy, Sam (the date). Her mum is a voice on the phone, never shown or heard.
+- **Not checked:** Claude cannot hear audio or watch motion. Every shot was checked as a still, word timings come from a speech aligner, levels were measured, and every file was scanned for blank or frozen stretches.
+- **To build the next one:** get a narration take (Mike, one take, paragraphs as in `series/narr/narr.json`) into `series/audio/epNN.wav`, run `python3 align.py audio/epNN.wav audio/epNN.words.json`, write `series/episodes/epNN.js` (copy the shape of ep11.js; helpers are in `series/kit/shots.js`), then `cd series && python3 build.py epNN && node render.mjs epNN --sheet` (check the sheets), `node render.mjs epNN`, `./finish.sh epNN "message"`.
 <!-- STATUS:END -->
 
 Direction from Odi, 16 Nov 2026. This replaces the sprint. Status: episode 1 rendered once on 16 Nov (series/out/ep01.mp4, 63.7 s) and sent to Odi with its caption; not posted. Episodes 2 to 4 are paper drafts in ep02-04_drafts.md.
