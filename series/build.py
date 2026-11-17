@@ -12,7 +12,7 @@ narr, _ = sf.read(f"audio/{EP}.wav"); ZF = "zara3" if EP in ("ep09", "ep10", "ep
 AW = json.load(open(f"audio/{EP}.words.json")); ZWORDS = json.load(open(f"audio/{ZF}.words.json"))
 ZSTART = {"ep02": 0, "ep03": 10, "ep04": 16, "ep05": 20, "ep06": 26, "ep07": 33, "ep08": 35, "ep09": 0, "ep10": 5, "ep11": 12}[EP]
 tok = lambda s: re.findall(r"[A-Za-z0-9']+[.,?:]?", s)
-FIX = {"TSARA": "ZARA", "X": "EX", "AP": "APP", "EMILE": "EMAIL"}
+FIX = {"TSARA": "ZARA", "CZARA": "ZARA", "X": "EX", "AP": "APP", "EMILE": "EMAIL"}
 norm = lambda w: (lambda x: FIX.get(x, x))(re.sub(r"[^A-Z0-9]", "", w.upper().replace("'S", "").replace("'", "")))
 # the script's narrator words, matched to the measured words (the aligner mishears a few; those take a time between their neighbours)
 script = [w for s in shots if s["who"] == "N" for w in tok(s["say"])]
