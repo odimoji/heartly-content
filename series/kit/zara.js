@@ -46,8 +46,10 @@
   const S = { head: [0, -0.89], hr: [0.09, 0.106], neckW: 0.03, shY: -0.752, shW: 0.108, waistW: 0.074, hipY: -0.5, hipW: 0.092, armL: 0.3, armR: 0.027, legR: 0.036, legGap: 0.044, eyeDx: 0.04, eyeY: 0.01, eyeR: [0.027, 0.025], browW: 0.042, mouthY: 0.062, shin: 0.2 };
   g.zSitLift = () => -(S.hipY + 0.09 + S.shin);
 
-  g.drawZara = function (ctx, x, yFeet, H, expr = "neutral", pose = {}) {
-    const E = EX[expr] || EX.neutral, look = pose.look || "day", night = look === "night", dress = look === "dress";
+  // pose.pal swaps colours for the length of one drawing (other people are built on the same figure); pose.hair: "long" | "low" | "buns"
+  g.drawZara = function (ctx, x, yFeet, H, expr = "neutral", pose = {}) { const keep = Object.assign({}, C); if (pose.pal) Object.assign(C, pose.pal); try { draw0(ctx, x, yFeet, H, expr, pose); } finally { Object.assign(C, keep); } };
+  function draw0(ctx, x, yFeet, H, expr, pose) {
+    const E = EX[expr] || EX.neutral, look = pose.look || "day", night = look === "night", dress = look === "dress", hair = pose.hair || (night ? "low" : "long"), up = hair !== "long";
     const u = (v) => v * H, lw = (v) => Math.max(1, u(v));
     ctx.save(); ctx.translate(x, yFeet); ctx.lineCap = "round"; ctx.lineJoin = "round";
     if (pose.lean) ctx.rotate(pose.lean);
@@ -58,14 +60,20 @@
 
     // ---- hair behind her: long and bone-straight by day, tied up at night
     headRot(() => {
-      if (!night) {
+      if (!up) {
         const hl = (c) => { c.moveTo(-rx * 1.16, hy - ry * 0.3); c.bezierCurveTo(-rx * 1.2, hy - ry * 1.3, rx * 1.2, hy - ry * 1.3, rx * 1.16, hy - ry * 0.3); c.lineTo(rx * 1.5, shY + u(0.2)); c.quadraticCurveTo(0, shY + u(0.235), -rx * 1.5, shY + u(0.2)); c.closePath(); };
         form(ctx, hl, C.hair, [-rx * 1.5, hy - ry * 1.2, rx * 3, u(0.42)], { hi: 0.16, lo: 0.1, rimW: rx * 0.07, sx: 0.05, sy: 0 });
       } else {
         form(ctx, ell(hx, hy - ry * 0.12, rx * 1.12, ry * 1.1), C.hair, [-rx * 1.12, hy - ry * 1.2, rx * 2.24, ry * 2.2], { hi: 0.14, lo: 0.1, rimW: rx * 0.07 });
+        if (hair === "low") { // one loose bun low at the nape, a few strands out
+          form(ctx, ell(hx + rx * 0.82, hy + ry * 0.98, rx * 0.56, ry * 0.44), C.hair, [hx + rx * 0.26, hy + ry * 0.54, rx * 1.12, ry * 0.88], { hi: 0.2, lo: 0.1, rimW: rx * 0.04 });
+          form(ctx, ell(hx + rx * 1.06, hy + ry * 0.78, rx * 0.3, ry * 0.26), C.hair, [hx + rx * 0.76, hy + ry * 0.52, rx * 0.6, ry * 0.52], { hi: 0.2, lo: 0.1, rimW: rx * 0.03 });
+          ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.005); [[1.25, 0.72, 1.46, 0.6], [1.28, 1.12, 1.44, 1.3]].forEach(([a, b2, c, d]) => { ctx.beginPath(); ctx.moveTo(hx + a * rx, hy + b2 * ry); ctx.quadraticCurveTo(hx + (a + c) / 2 * rx + rx * 0.1, hy + (b2 + d) / 2 * ry - ry * 0.06, hx + c * rx, hy + d * ry); ctx.stroke(); });
+        } else {
         [[0.05, -1.42, 0.62, 0.46], [-0.4, -1.3, 0.4, 0.34], [0.5, -1.28, 0.4, 0.32]].forEach(([dx, dy, a, b2]) => form(ctx, ell(hx + dx * rx, hy + dy * ry, rx * a, ry * b2), C.hair, [hx + (dx - a) * rx, hy + (dy - b2) * ry, rx * a * 2, ry * b2 * 2], { hi: 0.18, lo: 0.1, rimW: rx * 0.05 }));
         ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.006); [[-0.5, -1.6, -0.9, -1.9], [0.6, -1.6, 1.0, -1.8], [0.15, -1.8, 0.3, -2.1]].forEach(([a, b2, c, d]) => { ctx.beginPath(); ctx.moveTo(hx + a * rx, hy + b2 * ry); ctx.quadraticCurveTo(hx + (a + c) / 2 * rx + rx * 0.2, hy + (b2 + d) / 2 * ry, hx + c * rx, hy + d * ry); ctx.stroke(); });
         form(ctx, (c) => c.roundRect(hx - rx * 0.34, hy - ry * 1.22, rx * 0.68, ry * 0.2, ry * 0.06), "#8a5a34", [hx - rx * 0.34, hy - ry * 1.22, rx * 0.68, ry * 0.2], { rimW: 0 }); // the claw clip
+        }
       }
     });
 
@@ -126,7 +134,7 @@
       const sx = s * (shW - u(0.006)), sy = shY + u(0.03), L = u(S.armL) / 2, r = u(S.armR) * (night ? 0.95 : dress ? 0.85 : 1.12);
       const a1 = Math.PI / 2 - s * ang, ex = sx + Math.cos(a1) * L, ey = sy + Math.sin(a1) * L, a2 = a1 - s * bend, wx = ex + Math.cos(a2) * L, wy = ey + Math.sin(a2) * L;
       const bb = [Math.min(sx, wx) - r * 2, Math.min(sy, wy) - r * 2, Math.abs(wx - sx) + r * 4, Math.abs(wy - sy) + r * 4], rim = s > 0 ? r * 0.3 : 0;
-      const upper = dress ? C.skin : jacket, lower = night || dress ? C.skin : jacket;
+      const upper = dress ? C.skin : jacket, lower = (night && !pose.sleeves) || dress ? C.skin : jacket;
       form(ctx, capsule(sx, sy, ex, ey, r * 1.1), upper, bb, { lo: 0.34, rimW: rim });
       form(ctx, capsule(ex, ey, wx, wy, r * (night || dress ? 0.86 : 1)), lower, bb, { lo: 0.34, rimW: rim });
       const hxp = wx + Math.cos(a2) * r, hyp = wy + Math.sin(a2) * r;
@@ -182,16 +190,18 @@
       if (E.sweat) { const sx = hx + rx * 0.74, sy = hy - ry * 0.55; ctx.fillStyle = "rgba(190,225,255,.92)"; ctx.beginPath(); ctx.moveTo(sx, sy - u(0.02)); ctx.quadraticCurveTo(sx + u(0.012), sy + u(0.004), sx, sy + u(0.01)); ctx.quadraticCurveTo(sx - u(0.012), sy + u(0.004), sx, sy - u(0.02)); ctx.fill(); }
       // hair in front: a centre part and two sleek curtains; by day they fall past her shoulders
       [-1, 1].forEach((s) => {
-        const bottom = night ? hy + ry * 0.55 : shY + u(0.1);
+        const bottom = up ? hy + ry * 0.55 : shY + u(0.1);
         const cur = (c) => { c.moveTo(hx, hy - ry * 1.14); c.bezierCurveTo(hx + s * rx * 0.95, hy - ry * 1.2, hx + s * rx * 1.22, hy - ry * 0.6, hx + s * rx * 1.2, hy);
-          if (night) { c.quadraticCurveTo(hx + s * rx * 1.16, hy + ry * 0.4, hx + s * rx * 1.02, bottom); c.quadraticCurveTo(hx + s * rx * 0.9, hy - ry * 0.4, hx + s * rx * 0.06, hy - ry * 0.98); }
+          if (up) { c.quadraticCurveTo(hx + s * rx * 1.16, hy + ry * 0.4, hx + s * rx * 1.02, bottom); c.quadraticCurveTo(hx + s * rx * 0.9, hy - ry * 0.4, hx + s * rx * 0.06, hy - ry * 0.98); }
           else { c.lineTo(hx + s * rx * 1.42, bottom); c.quadraticCurveTo(hx + s * rx * 1.2, bottom + u(0.014), hx + s * rx * 1.04, bottom - u(0.004)); c.bezierCurveTo(hx + s * rx * 1.02, shY, hx + s * rx * 1.0, hy + ry * 0.5, hx + s * rx * 0.9, hy - ry * 0.1); c.quadraticCurveTo(hx + s * rx * 0.74, hy - ry * 0.72, hx + s * rx * 0.06, hy - ry * 0.98); }
           c.closePath(); };
         form(ctx, cur, C.hair, [hx - rx * 1.3, hy - ry * 1.2, rx * 2.6, bottom - hy + ry * 1.3], { hi: 0.2, lo: 0.06, rimW: s > 0 ? rx * 0.06 : 0, shadow: false });
-        if (!night) { ctx.save(); ctx.globalAlpha = 0.16; ctx.strokeStyle = "#ffe9c8"; ctx.lineWidth = lw(0.006); ctx.beginPath(); ctx.moveTo(hx + s * rx * 0.62, hy - ry * 0.9); ctx.quadraticCurveTo(hx + s * rx * 1.12, hy - ry * 0.2, hx + s * rx * 1.08, shY + u(0.1)); ctx.stroke(); ctx.restore(); } // the sheen
+        if (!up) { ctx.save(); ctx.globalAlpha = 0.16; ctx.strokeStyle = "#ffe9c8"; ctx.lineWidth = lw(0.006); ctx.beginPath(); ctx.moveTo(hx + s * rx * 0.62, hy - ry * 0.9); ctx.quadraticCurveTo(hx + s * rx * 1.12, hy - ry * 0.2, hx + s * rx * 1.08, shY + u(0.1)); ctx.stroke(); ctx.restore(); } // the sheen
       });
-      if (night) form(ctx, (c) => { c.moveTo(hx + rx * 0.86, hy + ry * 0.2); c.bezierCurveTo(hx + rx * 1.5, hy + ry * 0.7, hx + rx * 1.5, shY + u(0.06), hx + rx * 1.28, shY + u(0.19)); c.quadraticCurveTo(hx + rx * 1.0, shY + u(0.205), hx + rx * 0.82, shY + u(0.17)); c.bezierCurveTo(hx + rx * 1.06, shY + u(0.04), hx + rx * 1.05, hy + ry * 0.9, hx + rx * 0.78, hy + ry * 0.45); c.closePath(); }, C.hair, [hx + rx * 0.7, hy, rx * 0.9, u(0.34)], { hi: 0.2, lo: 0.06, rimW: rx * 0.05, shadow: false }); // the length, pulled over one shoulder
+      if (hair === "side") form(ctx, (c) => { c.moveTo(hx + rx * 0.86, hy + ry * 0.2); c.bezierCurveTo(hx + rx * 1.5, hy + ry * 0.7, hx + rx * 1.5, shY + u(0.06), hx + rx * 1.28, shY + u(0.19)); c.quadraticCurveTo(hx + rx * 1.0, shY + u(0.205), hx + rx * 0.82, shY + u(0.17)); c.bezierCurveTo(hx + rx * 1.06, shY + u(0.04), hx + rx * 1.05, hy + ry * 0.9, hx + rx * 0.78, hy + ry * 0.45); c.closePath(); }, C.hair, [hx + rx * 0.7, hy, rx * 0.9, u(0.34)], { hi: 0.2, lo: 0.06, rimW: rx * 0.05, shadow: false }); // the length, pulled over one shoulder
     });
+
+    if (hair === "low") headRot(() => { ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.0045); [-1, 1].forEach((s) => { ctx.beginPath(); ctx.moveTo(hx + s * rx * 0.98, hy + ry * 0.5); ctx.quadraticCurveTo(hx + s * rx * 1.12, hy + ry * 0.85, hx + s * rx * 0.94, hy + ry * 1.12); ctx.stroke(); }); });
 
     // ---- things in front of her
     if ((E.cushion && !pose.noCushion) || pose.cushion) {

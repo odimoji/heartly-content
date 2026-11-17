@@ -4,9 +4,14 @@ const require = createRequire(import.meta.url); const { chromium } = require("pl
 const ep = process.argv[2], si = process.argv.indexOf("--stills"), timing = JSON.parse(fs.readFileSync(`episodes/${ep}.timing.json`));
 const b = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell", args: ["--allow-file-access-from-files"] });
 const p = await b.newPage(); p.on("pageerror", (e) => console.log("ERR", e.message));
-await p.goto("file://" + process.cwd() + "/ep.html?render=1"); await p.waitForFunction(() => document.title === "ready"); await p.evaluate((t) => window.setup(t), timing);
+await p.goto("file://" + process.cwd() + "/ep.html?render=1&ep=" + ep); await p.waitForFunction(() => document.title === "ready"); await p.evaluate((t) => window.setup(t), timing);
 const grab = async (t) => Buffer.from((await p.evaluate((x) => window.frame(x), t)).split(",")[1], "base64");
-if (si > 0) { for (const t of process.argv.slice(si + 1)) fs.writeFileSync(`out/still_${t}.jpg`, await grab(+t)); }
+if (process.argv.includes("--sheet")) { // one still per shot, 60% of the way through it, as contact sheets of 9
+  const n = timing.starts.length, per = 9; fs.mkdirSync("out/sh", { recursive: true });
+  for (let i = 0; i < n; i++) fs.writeFileSync(`out/sh/${String(i).padStart(2, "0")}.jpg`, await grab(timing.starts[i] + timing.durs[i] * 0.6));
+  const { execSync } = await import("child_process");
+  for (let k = 0; k * per < n; k++) { const ins = []; for (let i = k * per; i < Math.min(n, (k + 1) * per); i++) ins.push(`-i out/sh/${String(i).padStart(2, "0")}.jpg`); execSync(`ffmpeg -v error -y ${ins.join(" ")} -filter_complex "hstack=inputs=${ins.length},scale=${220 * ins.length}:-1" out/${ep}_sheet${k + 1}.jpg`); }
+} else if (si > 0) { for (const t of process.argv.slice(si + 1)) fs.writeFileSync(`out/still_${t}.jpg`, await grab(+t)); }
 else {
   const ff = spawn("ffmpeg", ["-v", "error", "-y", "-f", "image2pipe", "-framerate", "30", "-c:v", "mjpeg", "-i", "-", "-i", `out/${ep}_audio.wav`, "-c:v", "libx264", "-crf", "20", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", `out/${ep}.mp4`], { stdio: ["pipe", "inherit", "inherit"] });
   const n = Math.round(timing.total * 30);

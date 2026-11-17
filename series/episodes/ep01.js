@@ -39,7 +39,7 @@
     ctx.fillStyle = "rgba(14,10,9,.72)"; if (dimL) { ctx.beginPath(); ctx.roundRect(28, 428, 504, 904, 40); ctx.fill(); } if (dimR) { ctx.beginPath(); ctx.roundRect(548, 428, 504, 904, 40); ctx.fill(); } };
   const HP = { night: true, y: 790, x: 680, w: 540 };
 
-  g.EP01 = {
+  g.EP = g.EP01 = {
     title: "She said yes", daysStart: 30, dignityStart: 61,
     shots: [
       // ---- the premise, in the first three seconds
