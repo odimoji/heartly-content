@@ -1,5 +1,14 @@
 # 30 days to the wedding: series bible and season outline
 
+<!-- STATUS:START -->
+## Where we are (updated by Claude during the overnight run, 17 Nov)
+- **Built and sent:** episode 1 (v2), episode 2.
+- **Voice recorded for:** episodes 2 to 8 (Mike narration one take each in `series/audio/epNN.wav`, Zara's lines in `series/audio/zara2.wav`). Scripts for 2 to 8 are the narration texts in `series/narr/narr.json`.
+- **Next to build:** episode 3, then 4, 5, 6, 7, 8 in order. Build one: write `series/episodes/epNN.js`, then `cd series && python3 build.py epNN && node render.mjs epNN --sheet` (check the sheets), `node render.mjs epNN`, `./finish.sh epNN "message"`, send the mp4 and `scripts/series/captions/epNN_caption.txt`, and copy both to Downloads > Zara episodes.
+- **Path chosen (no real votes yet):** ep1 CALL, ep2 MUTE, ep3 FOLD, ep4 ONCE, ep5 STAY, ep6 OWN, ep7 DINNER.
+- **ElevenLabs credits:** 3,178 showed after the last take.
+<!-- STATUS:END -->
+
 Direction from Odi, 16 Nov 2026. This replaces the sprint. Status: episode 1 rendered once on 16 Nov (series/out/ep01.mp4, 63.7 s) and sent to Odi with its caption; not posted. Episodes 2 to 4 are paper drafts in ep02-04_drafts.md.
 
 ## The idea in one line

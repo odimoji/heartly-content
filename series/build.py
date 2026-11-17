@@ -7,7 +7,7 @@
 # Writes out/epNN_audio.wav and episodes/epNN.timing.json. Music and effects are synthesised here (original, nothing licensed).
 import sys, json, re, difflib, subprocess, numpy as np, soundfile as sf
 EP = sys.argv[1]; SR = 44100; MAXGAP = 0.16; TARGET = float(sys.argv[2]) if len(sys.argv) > 2 else 48.5
-shots = json.loads(subprocess.check_output(["node", "-e", "globalThis.document={};require('./episodes/%s.js');console.log(JSON.stringify(EP.shots.map(s=>({say:s.say,who:s.who||'N',key:s.key||'',hold:s.hold||0,sfx:[].concat(s.sfx||[])}))))" % EP]))
+shots = json.loads(subprocess.check_output(["node", "-e", "globalThis.document={};require('./kit/zara.js');require('./kit/shots.js');require('./episodes/%s.js');console.log(JSON.stringify(EP.shots.map(s=>({say:s.say,who:s.who||'N',key:s.key||'',hold:s.hold||0,sfx:[].concat(s.sfx||[])}))))" % EP]))
 narr, _ = sf.read(f"audio/{EP}.wav"); zara, _ = sf.read("audio/zara2.wav")
 AW = json.load(open(f"audio/{EP}.words.json")); ZWORDS = json.load(open("audio/zara2.words.json"))
 ZSTART = {"ep02": 0, "ep03": 10, "ep04": 16, "ep05": 20, "ep06": 26, "ep07": 33, "ep08": 35}[EP]

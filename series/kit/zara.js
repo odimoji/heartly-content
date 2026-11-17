@@ -68,7 +68,7 @@
         if (hair === "low") { // one loose bun low at the nape, a few strands out
           form(ctx, ell(hx + rx * 0.82, hy + ry * 0.98, rx * 0.56, ry * 0.44), C.hair, [hx + rx * 0.26, hy + ry * 0.54, rx * 1.12, ry * 0.88], { hi: 0.2, lo: 0.1, rimW: rx * 0.04 });
           form(ctx, ell(hx + rx * 1.06, hy + ry * 0.78, rx * 0.3, ry * 0.26), C.hair, [hx + rx * 0.76, hy + ry * 0.52, rx * 0.6, ry * 0.52], { hi: 0.2, lo: 0.1, rimW: rx * 0.03 });
-          ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.005); [[1.25, 0.72, 1.46, 0.6], [1.28, 1.12, 1.44, 1.3]].forEach(([a, b2, c, d]) => { ctx.beginPath(); ctx.moveTo(hx + a * rx, hy + b2 * ry); ctx.quadraticCurveTo(hx + (a + c) / 2 * rx + rx * 0.1, hy + (b2 + d) / 2 * ry - ry * 0.06, hx + c * rx, hy + d * ry); ctx.stroke(); });
+          ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.005); [].forEach(([a, b2, c, d]) => { ctx.beginPath(); ctx.moveTo(hx + a * rx, hy + b2 * ry); ctx.quadraticCurveTo(hx + (a + c) / 2 * rx + rx * 0.1, hy + (b2 + d) / 2 * ry - ry * 0.06, hx + c * rx, hy + d * ry); ctx.stroke(); });
         } else {
         [[0.05, -1.42, 0.62, 0.46], [-0.4, -1.3, 0.4, 0.34], [0.5, -1.28, 0.4, 0.32]].forEach(([dx, dy, a, b2]) => form(ctx, ell(hx + dx * rx, hy + dy * ry, rx * a, ry * b2), C.hair, [hx + (dx - a) * rx, hy + (dy - b2) * ry, rx * a * 2, ry * b2 * 2], { hi: 0.18, lo: 0.1, rimW: rx * 0.05 }));
         ctx.strokeStyle = C.hair; ctx.lineWidth = lw(0.006); [[-0.5, -1.6, -0.9, -1.9], [0.6, -1.6, 1.0, -1.8], [0.15, -1.8, 0.3, -2.1]].forEach(([a, b2, c, d]) => { ctx.beginPath(); ctx.moveTo(hx + a * rx, hy + b2 * ry); ctx.quadraticCurveTo(hx + (a + c) / 2 * rx + rx * 0.2, hy + (b2 + d) / 2 * ry, hx + c * rx, hy + d * ry); ctx.stroke(); });
