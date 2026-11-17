@@ -2,14 +2,15 @@
 
 <!-- STATUS:START -->
 ## Where we are (updated by Claude at the end of the overnight run, 17 Nov)
-- **Built, rendered once and sent (mp4 + caption in Downloads > Zara episodes; also `series/out/epNN.mp4` here, not in git):** episodes 2, 3, 4, 5, 6, 7, 8, 9, 10, 11. Episode 1 (v2) was sent earlier. Nothing is posted or scheduled.
-- **Scripted:** episodes 2 to 11 as built, in `scripts/series/ep02-11.md`; captions in `scripts/series/captions/`. Odi approved the episode 2 script only; 3 to 11 were written and checked by Claude and are waiting for his view.
-- **Left:** episodes 12 to 30. Nothing is scripted or voiced for them. The older `ep02-04_drafts.md` is superseded by `ep02-11.md`.
-- **Why it stopped at 11:** ElevenLabs shows 829 credits and an episode's narration costs about 750 to 800. One more was possible with nothing left over, so the last 829 are kept in case Odi wants one take redone. The site showed an upgrade pop-up once; it was closed, nothing was bought or changed.
-- **Path chosen (no real votes yet; change the opening lines of the next episode if a different word wins):** ep1 CALL, ep2 MUTE, ep3 FOLD, ep4 ONCE, ep5 STAY, ep6 OWN, ep7 DINNER, ep8 SORRY, ep9 EMPTY, ep10 KEEP. Episode 11's vote is DRIVE or SEND.
-- **New in the world:** people on screen: Remy (from episode 4), Mrs Finch (from episode 2). Places: the office and the bar. Seen only on her phone: Miles, Ivy, Sam (the date). Her mum is a voice on the phone, never shown or heard.
-- **Not checked:** Claude cannot hear audio or watch motion. Every shot was checked as a still, word timings come from a speech aligner, levels were measured, and every file was scanned for blank or frozen stretches.
-- **To build the next one:** get a narration take (Mike, one take, paragraphs as in `series/narr/narr.json`) into `series/audio/epNN.wav`, run `python3 align.py audio/epNN.wav audio/epNN.words.json`, write `series/episodes/epNN.js` (copy the shape of ep11.js; helpers are in `series/kit/shots.js`), then `cd series && python3 build.py epNN && node render.mjs epNN --sheet` (check the sheets), `node render.mjs epNN`, `./finish.sh epNN "message"`.
+- **Built, rendered once and sent (mp4 + caption in Downloads > Zara episodes; also `series/out/epNN.mp4` here, not in git):** episodes 2 to 12. Episode 1 (v2) was sent earlier. Nothing is posted or scheduled.
+- **Built up to the voice (only the narration is missing):** episodes 13 and 14. Script, every shot and the stills exist (`series/episodes/ep13.js`, `ep14.js`; contact sheets `series/out/ep13_sheet*.jpg`, `ep14_sheet*.jpg`). The text to record is in `series/narr/ep13_narration.txt`, `ep13_zara.txt`, `ep14_narration.txt`, `ep14_zara.txt`.
+- **To finish 13 or 14 once there are credits:** generate the narration (Mike, one take, the paragraphs as in the txt file) and Zara's lines (Beth), save as `series/audio/ep13.wav` (mono 44.1 kHz) and add her lines as a new zara file in `build.py` (see how `zara4` is wired for ep12), run `python3 align.py audio/ep13.wav audio/ep13.words.json`, then `cd series && python3 build.py ep13 && node render.mjs ep13 --sheet`, check, `node render.mjs ep13`, `./finish.sh ep13 "message"`.
+- **Scripted:** episodes 2 to 14, in `scripts/series/ep02-14.md`; captions for 2 to 12 in `scripts/series/captions/`. Odi approved the episode 2 script only; the rest were written and checked by Claude and are waiting for his view.
+- **Left:** episodes 15 to 30: nothing scripted or built.
+- **ElevenLabs:** 75 credits left (free plan). One narration costs about 750. The site showed an upgrade pop-up once; it was closed, nothing was bought or changed.
+- **Path chosen (no real votes yet; change the opening lines of the next episode if a different word wins):** ep1 CALL, ep2 MUTE, ep3 FOLD, ep4 ONCE, ep5 STAY, ep6 OWN, ep7 DINNER, ep8 SORRY, ep9 EMPTY, ep10 KEEP, ep11 DRIVE, ep12 STAY, ep13 SILENT. Episode 14's vote is FIX or LEAVE.
+- **New in the world:** people on screen: Remy (from episode 4), Mrs Finch (from episode 2). Places: the office and the bar. Seen only on her phone: Miles, Ivy, Sam (the date). Her mum is a call, never shown or heard.
+- **Not checked:** Claude cannot hear audio or watch motion. Every shot was checked as a still, word timings come from a speech aligner, levels were measured, and episodes 2 to 11 were scanned for blank or frozen stretches.
 <!-- STATUS:END -->
 
 Direction from Odi, 16 Nov 2026. This replaces the sprint. Status: episode 1 rendered once on 16 Nov (series/out/ep01.mp4, 63.7 s) and sent to Odi with its caption; not posted. Episodes 2 to 4 are paper drafts in ep02-04_drafts.md.
